@@ -1,0 +1,53 @@
+---
+title: PMC Scientific Papers — Keyword Prediction Pipeline
+---
+flowchart TD
+
+  %% ── Artefacts ──────────────────────────────────────────────
+  RAW[("raw_articles.pkl\nbig_data/baseline/pickle/")]
+  CLEAN[("clean_articles.pkl\nbig_data/baseline/pickle/")]
+  MODEL[("baseline_v1_clf.pkl\nmodels/")]
+  ENRICHED[("clean_articles_enriched.pkl\nbig_data/baseline/pickle/")]
+  FAISS_I[("specter.index\nbig_data/faiss/")]
+  FAISS_M[("specter_meta.pkl\nbig_data/faiss/")]
+  OUT[/"Ranked keyword predictions\nconsole · JSON"/]
+
+  %% ── Step 1 ─────────────────────────────────────────────────
+  subgraph S1["① EXTRACTION — python/01_data_extraction.py"]
+    E1["Parse PMC XML archives or load 10K sample pickle\nUSE_10K_SAMPLE flag bypasses tar.gz extraction\n─\npandas · pathlib · xml.etree\nOut: pmcid · title · abstract · keywords · sections"]
+  end
+
+  %% ── Step 2 ─────────────────────────────────────────────────
+  subgraph S2["② CLEANING & EDA — notebooks/02_cleaning_eda.ipynb"]
+    C1["Keyword cleaning pipeline + exploratory analysis\nSemicolon/comma split · expand_paren_abbrev()\nis_iupac_or_junk() · is_standalone_alnum_junk()\nBigram enrichment from corpus\n─\npandas · re · unicodedata · matplotlib\nOut: kwd_lst · kwd_lst_cl · n_keywords"]
+  end
+
+  %% ── Step 3 ─────────────────────────────────────────────────
+  subgraph S3["③ BASELINE MODEL — notebooks/03_baseline_keyword_prediction.ipynb  ⚠️ train once"]
+    B1["Multi-label keyword classifier\ntitle + abstract + introduction → keywords\nTfidfVectorizer → TruncatedSVD → CalibratedClassifierCV(LinearSVC)\n─\nsklearn: TfidfVectorizer · TruncatedSVD · LinearSVC\nMultiLabelBinarizer · CalibratedClassifierCV\nOut: tfidf · svd · clf · mlb  bundle pkl"]
+  end
+
+  %% ── Step 4 ─────────────────────────────────────────────────
+  subgraph S4["④ CLUSTERING — python/02_enrich_cluster_labels.py"]
+    CL1["Semantic domain clustering via keyword co-occurrence\n1. Impute keywords for sparse articles with baseline model\n2. Sparse co-occurrence matrix with log1p damping\n3. Spectral Clustering on adjacency matrix\n4. Auto-name clusters from top-N keywords\n─\nscipy.sparse · sklearn: SpectralClustering\nOut: cluster_label · cluster_name · cluster_confidence · kwd_imputed"]
+  end
+
+  %% ── Step 5 ─────────────────────────────────────────────────
+  subgraph S5["⑤ EMBEDDING & INDEX — python/03_enrich_tfidf_candidates.py"]
+    F1["TF-IDF candidates per article + FAISS semantic index\nPart A: baseline model predicts top-k keywords per article\nPart B: allenai-specter embeds title SEP abstract\nL2-normalised vectors → IndexFlatIP\n─\nsentence-transformers: allenai-specter · faiss-cpu · tqdm\nOut: tfidf_candidates · specter.index · specter_meta.pkl"]
+  end
+
+  %% ── Step 6 ─────────────────────────────────────────────────
+  subgraph S6["⑥ RAG PIPELINE — python/04_rag_pipeline.py"]
+    R1["Retrieval-augmented keyword prediction for new papers\n1. Embed query with allenai-specter\n2. FAISS retrieval top-k filtered by MIN_SCORE\n3. Score-weighted aggregation\n   kwd_lst_cl x2xscore · tfidf_candidates x1xscore · direct TF-IDF x1.5\n4. Keyword normalisation: apostrophe artefacts · trailing-s merge\n5. Optional LLM refinement via OpenAI API\n─\nfaiss-cpu · sentence-transformers · openai · python-dotenv\nOut: retrieval_keywords · direct_tfidf · llm_keywords"]
+  end
+
+  %% ── Edges ───────────────────────────────────────────────────
+  S1 --> RAW --> S2 --> CLEAN
+  CLEAN --> S3 --> MODEL
+  CLEAN --> S4
+  MODEL --> S4
+  S4 --> ENRICHED --> S5
+  MODEL --> S5
+  S5 --> FAISS_I & FAISS_M --> S6
+  S6 --> OUT

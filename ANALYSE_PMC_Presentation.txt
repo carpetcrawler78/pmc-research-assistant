@@ -1,0 +1,380 @@
+================================================================================
+ANALYSE: PMC RESEARCH ASSISTANT CAPSTONE PRESENTATION
+================================================================================
+
+DATEINAME: PMC Research Assistent Capstone Presentation.pptx
+GESAMTZAHL FOLIEN: 17
+ANALYSEDATUM: 25. März 2026
+
+================================================================================
+1. DESIGN-INKONSISTENZEN (DESIGN INCONSISTENCIES)
+================================================================================
+
+1.1 HINTERGRUND-FARBINKONSISTENZ
+   • Folie 1: WEISS (FFFFFF)
+   • Folien 2-15: SCHWARZ (000000)
+   • Folie 16: WEISS (FFFFFF)
+   • Folie 17: BEIGE/CREME (F7F4EF) ← INKONSISTENT
+
+   PROBLEM: Folie 17 nutzt völlig andere Hintergrundfarbe als die anderen
+   dunklen Folien. Keine klare Übergangsstrategie zwischen Light- und
+   Dark-Mode Folien.
+
+1.2 SCHRIFTFAMILIEN-INKONSISTENZ
+   • Haupttitel: Georgia (44pt oder 22pt)
+   • Untertitel/Label: Courier New (9-11pt)
+   • Bullet-Points: Calibri (14pt)
+   • Endnote auf Slide 17: Arial (9pt) ← INKONSISTENT
+
+   PROBLEM: Folie 17 führt Arial ein, während alle anderen Folien nur
+   Georgia und Courier New verwenden. Unerwartete Schriftfamilien-Mischung.
+
+1.3 SCHRIFTGRÖSSEN-INKONSISTENZ
+   Folien 3, 4, 10, 13: Ungleichmäßige Schriftgrößen bei Aufzählungspunkten
+   • "Proof of concept for many business applications" (Slide 10)
+     - 14pt durchgehend, aber ungleichmäßig formatiert
+   • "National Library of Medicine (NIH), USA..." (Slide 11-12)
+     - Textblöcke werden vollständig zusammengefasst ohne klare Struktur
+
+1.4 FARBINKONSISTENZ BEI TEXTAUSZEICHNUNG
+   Folie 3: "You get:" TEXT
+   • Haupttext: Sehr dunkles Grau (1A1A2E) auf schwarzem Hintergrund
+   • Label: Teal/Türkis (0A7C6E)
+
+   Folie 17: Verschiedene Farbnutzungen im Pipeline-Diagramm
+   • Beschriftungen: Schwarz (0D2137) und Teal (0A7C6E) gemischt
+   • Keine konsistente Logik erkennbar
+
+1.5 ALIGNMENT-PROBLEME
+   Folie 13 (OUR DATA):
+   • "40 million PubMed paper"
+   • "10 million open access paper"
+   • "2.3 million paper for non-commercial use"
+   • "10K paper in our data set (incl. 69 golden paper)"
+
+   PROBLEM: Diese Listen nutzen unterschiedliche Absatzverhältnisse und
+   Einzüge - nicht einheitlich ausgerichtet.
+
+1.6 TITLE-UNTERNEHMENS-KONSISTENZ
+   Folie 1: "NEUE FISCHE · CAPSTONE I · 2025/26"
+   • Schriftgröße: 9pt Courier New (sehr klein)
+   • Farbe: Teal (12B39A)
+
+   Folie 16: "From A Clinical Question To an Reliable Answer - The Pipeline -"
+   • Strukturell ganz anders, nicht konsistent mit anderen Slide-Titeln
+
+
+================================================================================
+2. VERBESSERTES DESIGN (DESIGN IMPROVEMENTS)
+================================================================================
+
+2.1 EMPFEHLUNG: KONSISTENTE HINTERGRUND-STRATEGIE
+   Aktuell: Zufällig verteilte Light/Dark-Folien
+   Besser:
+   • Dark Sandwich-Struktur: Title (dark), Content (light), Conclusion (dark)
+   ODER
+   • Konsistent dark für Premium-Feel (Folie 17 sollte dann schwarz sein)
+
+2.2 EMPFEHLUNG: UNIFIED COLOR PALETTE
+   Erkannte Farben:
+   • Teal/Türkis: 12B39A, 0A7C6E (Akzent)
+   • Navy/Dunkelblau: 0D2137 (Text)
+   • Grau: 1A1A2E, DDDDDD (Sekundär)
+
+   Besser: Klare Logik
+   • Primär: Navy (0D2137) 60-70% für Hintergrund oder Text
+   • Sekundär: Teal (0A7C6E) 20-30% für Hervorhebungen
+   • Akzent: Weiß oder Creme für Kontrast
+
+   Folie 17 sollte gleiche Farbpalette verwenden wie Folien 2-15.
+
+2.3 EMPFEHLUNG: SCHRIFT-PAIRING STANDARDISIEREN
+   Aktuell: Georgia + Courier New + Calibri + Arial (4 Schriften!)
+   Besser:
+   • Header: Georgia (kein Arial auf Folie 17!)
+   • Body: Calibri oder Courier New (wählen Sie eine!)
+   • Labels: Courier New (behalten, sehr gut)
+
+   Folie 17: Arial muss in Georgia/Courier New konvertiert werden.
+
+2.4 EMPFEHLUNG: VERBESSERTE VISUELE HIERARCHIE
+   Folie 10 (OUR GOAL): Bullet-Points sind aktuell zu klein
+   • "Building a Locally Running RAG from Scratch": 22pt ✓ gut
+   • Sub-Punkte sollten 16pt sein, nicht 14pt
+
+   Folie 13 (OUR DATA): Zu viele gleichwertige Zeilen
+   • Sollte als Progression dargestellt werden:
+     - 40 Millionen → 10 Millionen → 2.3 Millionen → 10K
+     - Mit visuellen Arrows oder Prozentsätzen zur besseren Lesbarkeit
+
+2.5 EMPFEHLUNG: LAYOUT-VARIATION ERHÖHEN
+   Folie 3-4, 11-12: Sehr ähnliche Layouts
+   • Folie 4 sollte visuell anders sein (z.B. zentraler Call-out statt Liste)
+   • Folie 12 sollte Datenvisualisierung nutzen statt Text-Block
+
+2.6 EMPFEHLUNG: VISUELLE ELEMENTE STÄRKEN
+   Folie 17 (THE PIPELINE):
+   • Das Diagramm ist Text-basiert und chaotisch
+   • Sollte reduziert, nummeriert und mit Icons versehen werden
+   • Vertikale Flow statt horizontaler Mischung für bessere Lesbarkeit
+
+2.7 EMPFEHLUNG: SPACING STANDARDISIEREN
+   Aktuell:
+   • Unterschiedliche Margins (tIns="45000", lIns="90000")
+   • Abstände zwischen Elementen variabel
+
+   Besser:
+   • Konsistent 0.5" Margins auf allen Seiten
+   • 0.3-0.4" zwischen Content-Blöcken
+
+================================================================================
+3. TECHNISCHE FEHLER (TECHNICAL ERRORS)
+================================================================================
+
+3.1 KRITISCHE FEHLER - SPELLING/GRAMMAR
+
+   ❌ FEHLER 1: Dateiname - "Assistent" statt "Assistant"
+      Datei: PMC Research Assistent Capstone Presentation.pptx
+      Korrektur: PMC Research Assistant Capstone Presentation.pptx
+      Severity: HOCH (sichtbar in Systemdateiname und möglicherweise in Title Slide)
+
+   ❌ FEHLER 2: "emmbedding" statt "embedding"
+      Ort: Folie 17 (HOW IT WORKS - THE PIPELINE)
+      Kontext: "Chunking emmbedding" (sollte "Chunking embedding" sein)
+      Severity: HOCH (in sichtbarem Text)
+
+   ❌ FEHLER 3: "Unreliable" vs. "No Reliability"
+      Ort: Folie 6 (WHY IS RELIABILITY A PROBLEM FOR AI?)
+      Text: "No Traceability, No Reliability"
+      Problem: Grammatikalisch ungangbar auf Deutsch/Englisch
+      Besser: "No Traceability, Unreliable Results" oder
+              "Lack of Traceability Undermines Reliability"
+      Severity: MITTEL (inhaltlich verwirrend)
+
+3.2 FORMATIERUNGS-FEHLER
+
+   ⚠️ FEHLER 4: Leere Text-Elemente
+      Folien: 3, 4, 11, 12
+      Problem: XML enthält leere <a:t> Tags
+      Ursache: Wahrscheinlich beschädigte oder unvollständig bearbeitete Placeholder
+      Severity: NIEDRIG (visuell nicht sichtbar, aber im Code vorhanden)
+
+   ⚠️ FEHLER 5: Text-Overflow in Listenansicht
+      Ort: Folie 11-12 (THE PUBMED SCIENTIFIC DATABASE)
+      Problem: Mehrzeilige Text-Blöcke werden als eine Zeile zusammengefasst
+      "National Library of Medicine (NIH), USA Over 40 million citations..."
+      Text fließt horizontal statt vertikal
+      Severity: MITTEL (Lesbarkeit beeinträchtigt)
+
+   ⚠️ FEHLER 6: Inconsistente Whitespace/Tabs
+      Ort: Slide 3, 4 Body Text
+      Problem: Mehrere Leerzeichen und Tabs innerhalb von Bullet-Points
+      "Proof of concept for many business applications Make sensitive data..."
+      Severity: NIEDRIG (visuell nicht sichtbar, aber im Markup)
+
+   ⚠️ FEHLER 7: Gemischte Sprach-Tags
+      Ort: Folie 17 (endParaRPr)
+      Problem: lang="de-DE" auf englischer Folie, sollte lang="en-US" sein
+      Severity: NIEDRIG (sprachliche Kodierung, funktional nicht kritisch)
+
+3.3 VISUELLE RENDERING-PROBLEME
+
+   ⚠️ FEHLER 8: Zu kleine Schrift für Title Slide
+      Ort: Folie 1 (NEUE FISCHE Label)
+      Größe: 9pt Courier New (sehr klein, kaum lesbar)
+      Besser: Mindestens 11pt
+      Severity: MITTEL (Lesbarkeit)
+
+   ⚠️ FEHLER 9: Schlechter Kontrast möglich
+      Ort: Folie 3, "You get:" Label
+      Text: 1A1A2E (sehr dunkles Grau-Blau) auf schwarzem Hintergrund (000000)
+      Kontrast-Ratio: Zu niedrig für WCAG Richtlinien
+      Severity: HOCH (Accessibility)
+
+3.4 STRUKTURELLE PROBLEME
+
+   ⚠️ FEHLER 10: Keine konsistente Slide Master/Template
+      Problem: Folie 1 und 16 sind weiß, aber Design ist vollständig anders
+      Folie 17 ist beige - deutet auf manuell bearbeitete Slides hin
+      Severity: MITTEL (Wartbarkeit, Konsistenz)
+
+   ⚠️ FEHLER 11: Lange Pipeline-Beschreibung (Folie 17)
+      Problem: Zu viel Text für die verfügbare Fläche
+      Layout: "1 2a 2b 3 4 5" mit langen Beschreibungen ist unübersichtlich
+      Severity: HOCH (Verständlichkeit)
+
+================================================================================
+4. ZUSAMMENFASSUNG DER KRITISCHEN PROBLEME
+================================================================================
+
+PRIORITÄT 1 (BEHEBEN ZUERST):
+  1. Spelling-Fehler "emmbedding" → "embedding" (Folie 17)
+  2. Kontrast-Problem "You get:" Text auf Folie 3
+  3. Folie 17 Hintergrund standardisieren (schwarz statt beige)
+  4. Folie 17 Arial → Georgia konvertieren
+  5. Text-Overflow auf Folien 11-12 beheben
+
+PRIORITÄT 2 (DESIGN VERBESSERUNGEN):
+  6. Bullet-Point Größen auf Folie 10 erhöhen (14pt → 16pt)
+  7. Pipeline-Diagramm auf Folie 17 vereinfachen und umgestalten
+  8. Konsistente Color Palette durchsetzen
+  9. Leere Text-Elemente entfernen (Folien 3, 4, 11, 12)
+
+PRIORITÄT 3 (MINOR FIXES):
+  10. Dateiname korrigieren: "Assistent" → "Assistant"
+  11. Sprach-Tag auf Folie 17 von de-DE zu en-US
+  12. Spacing standardisieren
+
+================================================================================
+DETAILLIERTE BEFUNDE NACH FOLIE
+================================================================================
+
+FOLIE 1 (Titelfolie - NEUE FISCHE CAPSTONE I 2025/26)
+  Hintergrund: Weiß (FFFFFF)
+  Schriften: Georgia (44pt Titel), Courier New (9pt Label)
+  Probleme:
+    - Label "NEUE FISCHE · CAPSTONE I · 2025/26" ist zu klein (9pt)
+    - Farbe (Teal 12B39A) ist schwach auf weißem Hintergrund
+    - Inkonsistenz mit dunklen Folien 2-15
+
+FOLIE 2 (BRAVE NEW AI)
+  Hintergrund: Schwarz (000000)
+  Schriften: Courier New
+  Probleme:
+    - Minimalistische Gestaltung, keine sichtbaren Design-Probleme
+
+FOLIE 3 (WHEN YOU ASK AN LLM)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia (Titel), Courier New (Label), Calibri (Body)
+  Farben: Teal Label, Dunkles Grau Body (1A1A2E)
+  Probleme:
+    - Text "You get:" in sehr dunklem Grau (1A1A2E) auf Schwarz: Kontrast zu niedrig
+    - Leere Text-Elemente im XML vorhanden
+    - Bullet-Point Text nicht als Listenelement formatiert
+
+FOLIE 4 (WHEN YOU ASK AN LLM - END OF STORY?)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New, Calibri
+  Probleme:
+    - Identisches Layout wie Folie 3, nur zusätzlicher Text "End of Story?"
+    - Leere Text-Elemente vorhanden
+    - Keine visuellen Unterscheidungsmerkmale
+
+FOLIE 5 (PROBLEM 1 - Reliability)
+  Hintergrund: Schwarz (000000)
+  Schriften: Courier New (Label), Georgia (Titel)
+  Probleme:
+    - Minimales Design, aber keine Struktur-Fehler
+
+FOLIE 6 (WHY IS RELIABILITY A PROBLEM FOR AI?)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New
+  Probleme:
+    - Text "No Traceability, No Reliability" ist grammatikalisch fragwürdig
+    - Sollte "No Traceability, Unreliable Results" sein
+
+FOLIE 7 (PROBLEM 2 - Data Availability / Security)
+  Hintergrund: Schwarz (000000)
+  Schriften: Courier New, Georgia
+  Probleme:
+    - Konsistentes Minimales Design mit Folie 5
+
+FOLIE 8 (THE BEST OF ALL WORLDS - RAG)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New
+  Probleme:
+    - Kein visueller Inhalt außer Text
+
+FOLIE 9 (THE BEST OF ALL WORLDS - RAG mit Grafiken)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New
+  Probleme:
+    - Grafiken vorhanden (Grafik46.jpg, Grafik47.jpg, Grafik48.jpg), aber kein Layout-Fehler erkannt
+
+FOLIE 10 (OUR GOAL)
+  Hintergrund: Schwarz (000000)
+  Schriften: Courier New (Label 11pt), Georgia (Titel 22pt), Calibri (Body 14pt)
+  Probleme:
+    - Bullet-Points sind zu klein (14pt statt empfohlen 16pt)
+    - Text ist eng zusammengepresst
+    - Visuelle Hierarchie könnte besser sein
+
+FOLIE 11 (OUR USE CASE - The PubMed Scientific Database)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New, Calibri
+  Probleme:
+    - Text-Overflow: "National Library of Medicine (NIH), USA Over 40 million citations..."
+      wird als eine Zeile zusammengefasst statt mehrzeilig
+    - Leere Text-Elemente vorhanden
+    - Lesbarkeit beeinträchtigt durch Textblock-Format
+
+FOLIE 12 (OUR USE CASE - mit Q&A Dataset)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New, Calibri
+  Probleme:
+    - Identisch mit Folie 11, plus zusätzliche Informationen
+    - Text-Overflow-Problem bleibt bestehen
+    - Leere Text-Elemente vorhanden
+    - Zu viel Text für eine Folie
+
+FOLIE 13 (OUR DATA)
+  Hintergrund: Schwarz (000000)
+  Schriften: Courier New (Label), Georgia (Textzeilen 14pt)
+  Probleme:
+    - Aufzählungszeilen nicht einheitlich formatiert
+    - Alignment-Probleme bei den Datenpunkten
+    - Sollte als visuelles Progression-Diagramm dargestellt werden
+    - "40 million", "10 million", "2.3 million", "10K" = exponentieller Rückgang,
+      aber nicht visuell dargestellt
+
+FOLIE 14 (SCIENTIFIC PAPER - The Structure of Knowledge)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New
+  Probleme:
+    - Minimales Design, keine erkennbaren Fehler
+
+FOLIE 15 (SCIENTIFIC PAPER - The Structure of the Data)
+  Hintergrund: Schwarz (000000)
+  Schriften: Georgia, Courier New
+  Probleme:
+    - Minimales Design mit Grafiken (Grafik80.jpg, Grafik81.jpg)
+    - Keine erkennbaren Fehler
+
+FOLIE 16 (From A Clinical Question To an Reliable Answer - The Pipeline)
+  Hintergrund: Weiß (FFFFFF)
+  Schriften: Georgia, Courier New
+  Text: "From A Clinical Question To an Reliable Answer - The Pipeline -", "Viktor"
+  Probleme:
+    - Grammatikalischer Fehler: "an Reliable" sollte "a Reliable" sein
+    - Komplett anders gestaltet als andere Folien
+    - Keine konsistente Template-Nutzung
+    - Übergangsfolie ohne klare Funktion
+
+FOLIE 17 (HOW IT WORKS - The Pipeline - Clinical Question to Answer)
+  Hintergrund: Beige/Creme (F7F4EF) ← KRITISCHE INKONSISTENZ
+  Schriften: Courier New (Labels 11pt), Georgia (Titel 22pt), Calibri (Body 10pt), Arial (9pt) ← FEHLER
+  Probleme:
+    - KRITISCH: Beige-Hintergrund statt Schwarz wie Folien 2-15
+    - KRITISCH: Arial Schrift eingeführt, alle anderen Folien nur Georgia/Courier New
+    - KRITISCH: Spelling-Fehler "Chunking emmbedding" (sollte "embedding" sein)
+    - KRITISCH: lang="de-DE" Tag auf englischer Folie
+    - Layout ist chaotisch: "1 2a 2b 3 4 5" mit vielen Beschreibungen
+    - Text-Overflow: Beschreibungstexte sind zu lang und unübersichtlich
+    - Pipeline-Diagramm ist schwer zu folgen
+    - Kontrast-Probleme möglich bei dunkler Text auf Beige
+
+================================================================================
+QUELLCODE-FUNDORTE (FILE PATHS)
+================================================================================
+
+Präsentation:
+  /sessions/fervent-inspiring-mayer/mnt/Capstone1-text-prediction-for-scientific-papers/presentations/final/PMC Research Assistent Capstone Presentation.pptx
+
+XML Unpacked Files (nach Analyse):
+  /tmp/pptx_unpacked/ppt/slides/slide1.xml - Slide 1 (Titelfolie)
+  /tmp/pptx_unpacked/ppt/slides/slide3.xml - Slide 3 (Kontrast-Problem)
+  /tmp/pptx_unpacked/ppt/slides/slide10.xml - Slide 10 (Schriftgröße)
+  /tmp/pptx_unpacked/ppt/slides/slide11.xml - Slide 11 (Text-Overflow)
+  /tmp/pptx_unpacked/ppt/slides/slide17.xml - Slide 17 (Kritische Fehler)
+
+================================================================================

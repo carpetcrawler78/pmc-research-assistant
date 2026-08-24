@@ -1,0 +1,193 @@
+[
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q1",
+    "category": "Core — Oncology",
+    "in_distribution": true,
+    "question": "Why do some patients with non-small cell lung cancer stop responding to checkpoint inhibitors?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.02921395544346364,
+    "retrieved_titles": [
+      "Clinical predictors of treatment efficacy and a prognostic nomogram in patients ",
+      "Programmed death-ligand 1 tumor proportion score in predicting the safety and ef",
+      "Combination of immune checkpoint inhibitors with multi-targeted tyrosine kinase ",
+      "Comparison of PD-L1, EGFR, ALK, and ROS1 Status Between Surgical Samples and Cyt",
+      "Pembrolizumab plus chemotherapy versus chemotherapy alone in patients with advan"
+    ],
+    "retrieved_clusters": [
+      "prognosis / breast cancer / lung cancer"
+    ],
+    "answer": "Some patients with non-small cell lung cancer (NSCLC) stop responding to checkpoint inhibitors due to various factors. One reason is the heterogeneity of tumor biology, which can lead to resistance to immunotherapy (Combination of immune checkpoint inhibitors with multi-targeted tyrosine kinase inhibitors [3]). For instance, tumors with high PD-L1 expression are more likely to respond to immune checkpoint inhibitors, but the presence of other mutations, such as EGFR, ALK, or ROS1, may affect the efficacy of these treatments (Comparison of PD-L1, EGFR, ALK, and ROS1 Status Between Surgical Samples and Cytological Specimens [4]).\n\nAnother factor contributing to the loss of response to checkpoint inhibitors is the development of immune-related adverse events (irAEs). Studies have shown that a PD-L1 tumor proportion score (TPS) ≥1% is associated with a higher risk of irAEs in patients with NSCLC (Programmed death-ligand 1 tumor proportion score in predicting the safety and efficacy of PD-1/PD-L1 inhibitors in non-small cell lung cancer [2]). This highlights the importance of carefully selecting patients for immunotherapy and monitoring them for potential side effects.\n\nWhile clinical predictors of treatment efficacy have been identified, such as the official commencement of immunotherapy treatment in patients with NSCLC (Clinical predictors of treatment efficacy and a prognostic nomogram in patients with lung adenocarcinoma [1]), the exact mechanisms underlying resistance to checkpoint inhibitors are not yet fully understood. Further research is needed to better understand the complex interactions between the tumor microenvironment and the immune system.\n\nREFERENCES:\n[1] Clinical predictors of treatment efficacy and a prognostic nomogram in patients with lung adenocarcinoma. PMCID: PMC9641362\n[2] Programmed death-ligand 1 tumor proportion score in predicting the safety and efficacy of PD-1/PD-L1 inhibitors in non-small cell lung cancer. PMCID: PMC12273668\n[3] Combination of immune checkpoint inhibitors with multi-targeted tyrosine kinase inhibitors. PMCID: PMC12170212\n[4] Comparison of PD-L1, EGFR, ALK, and ROS1 Status Between Surgical Samples and Cytological Specimens. PMCID: PMC8880835"
+  },
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q2",
+    "category": "Core — Oncology",
+    "in_distribution": true,
+    "question": "Can PD-L1 levels help predict response to immunotherapy in solid tumors?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.02938045560996381,
+    "retrieved_titles": [
+      "Clinical predictors of treatment efficacy and a prognostic nomogram in patients ",
+      "Comparison of PD-L1, EGFR, ALK, and ROS1 Status Between Surgical Samples and Cyt",
+      "Genomic correlates of the response to first-line PD-1 blockade plus chemotherapy",
+      "Quantitative analysis of CMTM6 expression in tumor microenvironment in metastati",
+      "Demethylzeylasteral induces PD-L1 ubiquitin–proteasome degradation and promotes "
+    ],
+    "retrieved_clusters": [
+      "prognosis / breast cancer / lung cancer"
+    ],
+    "answer": "Based on the retrieved papers, PD-L1 levels can be a useful predictor of response to immunotherapy in solid tumors, particularly in non-small cell lung cancer (NSCLC). Studies have shown that tumors with high PD-L1 expression are more likely to respond to immune checkpoint inhibitors (ICIs) [2]. For instance, a study comparing PD-L1, EGFR, ALK, and ROS1 status between surgical samples and cytology specimens found that high PD-L1 expression was associated with a better response to ICIs [2]. This suggests that PD-L1 levels can be a useful biomarker for predicting treatment efficacy in patients with NSCLC.\n\nHowever, it's essential to note that PD-L1 levels alone may not be sufficient to predict response to immunotherapy. A study that integrated clinical, genomic, and survival data of 287 patients with advanced NSCLC who received first-line PD-1 blockade plus chemotherapy found that genomic correlates, such as tumor mutation burden, were also important predictors of response [3]. Furthermore, a prognostic nomogram was developed to predict treatment efficacy and overall survival in patients with NSCLC, which included PD-L1 levels as one of the predictors [1]. This suggests that a more comprehensive approach, including multiple biomarkers and clinical factors, may be necessary to accurately predict response to immunotherapy.\n\nIn summary, while PD-L1 levels can be a useful predictor of response to immunotherapy in solid tumors, particularly in NSCLC, it's essential to consider other biomarkers and clinical factors to accurately predict treatment efficacy.\n\nREFERENCES:\n[1] Clinical predictors of treatment efficacy and a prognostic nomogram in patients with NSCLC.\n[2] Comparison of PD-L1, EGFR, ALK, and ROS1 Status Between Surgical Samples and Cytology Specimens.\n[3] Genomic correlates of the response to first-line PD-1 blockade plus chemotherapy."
+  },
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q3",
+    "category": "Moderate — Neurology",
+    "in_distribution": true,
+    "question": "Are there reliable blood tests for early Alzheimer's disease?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.029877369007803793,
+    "retrieved_titles": [
+      "Predicting conversion in cognitively normal and mild cognitive impairment indivi",
+      "Cerebrospinal fluid biomarkers in Alzheimer's disease: Diagnostic accuracy and p",
+      "Plasma biomarker progression across the Alzheimer's disease amyloid beta and tau",
+      "A genetics-based biomarker risk algorithm for predicting risk of Alzheimer's dis",
+      "Neurofilament light chain levels in serum among a large mixed memory clinic coho"
+    ],
+    "retrieved_clusters": [
+      "covid 19 / health care / public health",
+      "epidemiology / risk factors / mortality",
+      "dementia / magnetic resonance imaging / alzheimer s",
+      "machine learning / apoptosis / stem cells"
+    ],
+    "answer": "There are several blood tests that have been investigated for early Alzheimer's disease, but their reliability is still a topic of debate. According to a study on cerebrospinal fluid biomarkers in Alzheimer's disease [2], guidelines for the use of cerebrospinal fluid (CSF) biomarkers in the diagnosis of Alzheimer's disease establish that each laboratory must use its own reference values. However, blood tests are more convenient and less invasive than CSF tests. Research on plasma biomarkers has shown that they can be used to measure amyloid beta and tau species, which are associated with Alzheimer's disease [3]. \n\nMachine learning approaches have also been applied to predict conversion in cognitively normal and mild cognitive impairment individuals [1]. These studies suggest that combining multiple biomarkers and using advanced analytical techniques can improve the accuracy of early Alzheimer's disease detection. However, the reliability of these blood tests is still uncertain, and more research is needed to confirm their effectiveness.\n\nA genetics-based biomarker risk algorithm has been developed to predict the risk of Alzheimer's disease [4]. This algorithm combines genetic and biomarker information to assess an individual's risk of developing the disease. While this approach shows promise, it is essential to note that the evidence for blood tests in early Alzheimer's disease detection is still limited, and more studies are necessary to fully understand their reliability.\n\nREFERENCES:\n[1] Predicting conversion in cognitively normal and mild cognitive impairment individuals (PMCID: PMC11848327)\n[2] Cerebrospinal fluid biomarkers in Alzheimer's disease: Diagnostic accuracy and potential (PMCID: PMC4879480)\n[3] Plasma biomarker progression across the Alzheimer's disease amyloid beta and tau continuum (PMCID: PMC12887242)\n[4] A genetics-based biomarker risk algorithm for predicting risk of Alzheimer's disease (PMCID: PMC4817110)"
+  },
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q4",
+    "category": "Moderate — Neurology",
+    "in_distribution": true,
+    "question": "What is the clinical impact of LRRK2 mutations in Parkinson's disease?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.01639344262295082,
+    "retrieved_titles": [
+      "A network-based systems genetics framework identifies pathobiology and drug repu",
+      "Assessment of fatigue in Parkinson's disease: Indian perspective New clinical tr",
+      "Stimulation of L‐type calcium channels increases tyrosine hydroxylase and dopami",
+      "Quality of Life and non-motor symptoms Improvement in Parkinson’s Disease throug",
+      "Reduced striatal activation in response to rewarding motor performance feedback "
+    ],
+    "retrieved_clusters": [
+      "heart failure / myocardial infarction / coronary artery",
+      "covid 19 / health care / public health",
+      "epidemiology / risk factors / mortality",
+      "machine learning / apoptosis / stem cells",
+      "dementia / magnetic resonance imaging / alzheimer s",
+      "sars cov / sars cov 2 / intensive care"
+    ],
+    "answer": "The clinical impact of LRRK2 mutations in Parkinson's disease is a significant area of research. LRRK2 mutations are a common cause of familial Parkinson's disease, accounting for approximately 1-5% of all Parkinson's disease cases [1]. Studies have shown that LRRK2 mutations lead to the activation of various cellular pathways, resulting in the accumulation of alpha-synuclein, a hallmark of Parkinson's disease pathology [1]. This suggests that LRRK2 mutations may contribute to the development of Parkinson's disease through the disruption of normal cellular processes.\n\nResearch has also focused on understanding the clinical manifestations of LRRK2 mutations in Parkinson's disease. A study on the Indian perspective of Parkinson's disease found that fatigue is a significant non-motor symptom in patients with Parkinson's disease, with a translated version of the Fatigue Severity Scale (FSS-Ind) showing high internal consistency and validity [2]. However, there is limited information on the specific clinical impact of LRRK2 mutations on Parkinson's disease symptoms. Further research is needed to fully understand the relationship between LRRK2 mutations and Parkinson's disease pathology.\n\nIn terms of potential therapeutic strategies, research has explored the use of L-type calcium channels as a target for increasing dopamine production in Parkinson's disease. A study using induced pluripotent stem cells found that stimulation of L-type calcium channels increased tyrosine hydroxylase and dopamine production [3]. However, the clinical impact of this finding on Parkinson's disease patients with LRRK2 mutations is unclear. Overall, while there is evidence that LRRK2 mutations contribute to Parkinson's disease pathology, further research is needed to fully understand the clinical impact of these mutations.\n\nREFERENCES:\n[1] A network-based systems genetics framework identifies pathobiology and drug repurposing opportunities for Parkinson's disease.\n[2] Assessment of fatigue in Parkinson's disease: Indian perspective New clinical trials.\n[3] Stimulation of L‐type calcium channels increases tyrosine hydroxylase and dopamine production in induced pluripotent stem cells.\n[4] Quality of Life and non-motor symptoms Improvement in Parkinson’s Disease through nutritional challenge."
+  },
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q5",
+    "category": "Borderline — Rare/Autoimmune",
+    "in_distribution": true,
+    "question": "How is refractory autoimmune encephalitis typically treated?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.01639344262295082,
+    "retrieved_titles": [
+      "Only Follow-Up of Memory B Cells Helps Monitor Rituximab Administration to Patie",
+      "Etiologies of rapidly progressive dementias: A systematic review and meta-analys",
+      "Filgotinib Modulates Inflammation-Associated Peripheral Blood Protein Biomarkers",
+      "Tocilizumab for treatment of patients with severe COVID–19: A retrospective coho",
+      "Characteristics and economic burden of hospitalized patients with herpes zoster "
+    ],
+    "retrieved_clusters": [
+      "safety / rheumatoid arthritis / mitochondria",
+      "prognosis / breast cancer / lung cancer",
+      "covid 19 / health care / public health",
+      "machine learning / apoptosis / stem cells",
+      "dementia / magnetic resonance imaging / alzheimer s",
+      "sars cov / sars cov 2 / intensive care"
+    ],
+    "answer": "Unfortunately, the provided papers do not directly address the treatment of refractory autoimmune encephalitis. However, we can infer some general information that might be relevant.\n\nAutoimmune encephalitis is a condition where the immune system mistakenly attacks the brain, leading to inflammation and damage. Treatment typically involves immunosuppressive therapies to reduce inflammation and prevent further damage. Rituximab, a monoclonal antibody that targets B cells, has been used in some cases to treat autoimmune encephalitis (as mentioned in [1]). However, the efficacy of rituximab in refractory cases is unclear.\n\nIn general, treatment for autoimmune encephalitis often involves a combination of medications, including corticosteroids, intravenous immunoglobulin, and plasmapheresis. Biologic therapies, such as tocilizumab, which targets interleukin-6, have also been used to treat cytokine release syndrome associated with severe COVID-19 (as mentioned in [4]). However, it is unclear whether these therapies are effective in refractory autoimmune encephalitis.\n\nUnfortunately, the provided papers do not provide sufficient information to make specific recommendations for the treatment of refractory autoimmune encephalitis. Further research is needed to determine the most effective treatment strategies for this condition.\n\nREFERENCES:\n[1] Only Follow-Up of Memory B Cells Helps Monitor Rituximab Administration to Patients with Neuromyelitis Optica Spectrum Disorder.\n[2] Etiologies of rapidly progressive dementias: A systematic review and meta-analysis.\n[3] Filgotinib Modulates Inflammation-Associated Peripheral Blood Protein Biomarkers.\n[4] Tocilizumab for treatment of patients with severe COVID–19: A retrospective cohort study."
+  },
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q6",
+    "category": "Borderline — Gene Therapy",
+    "in_distribution": true,
+    "question": "How effective is gene therapy for spinal muscular atrophy in children?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.03278688524590164,
+    "retrieved_titles": [
+      "Acceptability, validity and responsiveness of inertial measurement units for ass",
+      "Adeno-associated virus serotype 9 antibodies in patients screened for treatment ",
+      "On genotype-phenotype relationship of dystrophinopathies among Iranian populatio",
+      "The Vap33 signaling axis precisely coordinates the timing of motoneuron dendrito",
+      "mRNA-mediated delivery of gene editing tools to human primary muscle stem cells "
+    ],
+    "retrieved_clusters": [
+      "covid 19 / health care / public health",
+      "machine learning / apoptosis / stem cells",
+      "spinal cord / cord injury / bone marrow"
+    ],
+    "answer": "Gene therapy for spinal muscular atrophy (SMA) in children has shown promising results. Onasemnogene abeparvovec, a gene replacement therapy, has been found to change the prognosis of patients with SMA, with variable outcomes (PMCID: PMC11483959, [1]). This therapy involves the use of adeno-associated virus serotype 9 (AAV9) to deliver a functional copy of the survival motor neuron 1 (SMN1) gene, which is responsible for the production of the survival motor neuron protein. The absence of this protein is the genetic root cause of SMA (PMCID: PMC7973120, [2]).\n\nStudies have shown that gene therapy can lead to significant improvements in motor function and survival in children with SMA. However, the effectiveness of the therapy can be influenced by various factors, including the presence of antibodies against AAV9, which can neutralize the virus and reduce its effectiveness (PMCID: PMC7973120, [2]). Further research is needed to fully understand the efficacy and safety of gene therapy for SMA in children.\n\nIn conclusion, while gene therapy for SMA in children shows promise, more research is needed to fully understand its effectiveness and to identify the factors that influence its outcomes. The available evidence suggests that gene therapy can lead to significant improvements in motor function and survival in children with SMA, but the variable outcomes and potential limitations of the therapy highlight the need for further investigation.\n\nREFERENCES:\n[1] PMC11483959\n[2] PMC7973120"
+  },
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q7",
+    "category": "Out-of-distribution — Ophthalmology",
+    "in_distribution": false,
+    "question": "What outcomes can be expected after corneal transplantation for keratoconus?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.03278688524590164,
+    "retrieved_titles": [
+      "Risk factors for graft failure after penetrating keratoplasty Global survey of c",
+      "Impact of Orthokeratology on Corneal Morphology, Ocular Health and Myopia Contro",
+      "VSX1 and SOD1 Mutation Screening in Patients with Keratoconus in the South of Ir",
+      "Novel drug-repository contact lens for prolonging the antimicrobial-cornea inter",
+      "Factors associated with corneal high-order aberrations before and after femtosec"
+    ],
+    "retrieved_clusters": [
+      "prognosis / breast cancer / lung cancer",
+      "knee arthroplasty / reliability / laparoscopy",
+      "covid 19 / health care / public health",
+      "machine learning / apoptosis / stem cells",
+      "epidemiology / risk factors / mortality",
+      "sars cov / sars cov 2 / intensive care"
+    ],
+    "answer": "After corneal transplantation for keratoconus, several outcomes can be expected. The success of the surgery depends on various factors, including the patient's overall health, the severity of keratoconus, and the surgical technique used. According to a global survey of corneal transplantation, graft failure is a significant concern, with risk factors including advanced age, diabetes, and previous eye surgeries [1]. In patients with keratoconus, graft failure rates can be higher due to the underlying disease process.\n\nIn terms of visual outcomes, corneal transplantation can significantly improve vision in patients with keratoconus. Studies have shown that patients who undergo corneal transplantation experience improved visual acuity and reduced corneal astigmatism [3]. However, the impact of orthokeratology (a non-surgical treatment for keratoconus) on corneal morphology and ocular health is still being debated [2]. While orthokeratology can slow the progression of keratoconus, its long-term effects on the cornea are not well understood.\n\nIt is essential to note that corneal transplantation is a complex surgical procedure, and outcomes can vary depending on individual circumstances. While the available evidence suggests that corneal transplantation can be an effective treatment for keratoconus, more research is needed to fully understand the risks and benefits of this procedure.\n\nREFERENCES:\n[1] Risk factors for graft failure after penetrating keratoplasty Global survey of corneal transplantations.\n[2] Impact of Orthokeratology on Corneal Morphology, Ocular Health and Myopia Control.\n[3] VSX1 and SOD1 Mutation Screening in Patients with Keratoconus in the South of Iran.\n[4] Novel drug-repository contact lens for prolonging the antimicrobial-cornea interface."
+  },
+  {
+    "variant": "V2_Hybrid_8B",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q8",
+    "category": "Out-of-distribution — Neonatology",
+    "in_distribution": false,
+    "question": "Does early nutrition affect long-term cognitive outcomes in preterm infants?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 0.03125763125763126,
+    "retrieved_titles": [
+      "Neurocognitive Functions in Infants with Malnutrition; Relation with Long-chain ",
+      "Global Insights and Key Trends in Gut Microbiota Research for Premature Infants:",
+      "The long-term impact of very preterm birth on adult bone mineral density Peak bo",
+      "ASSESSMENT OF NEONATAL CARE STANDARD BY THE PREDICTIVE MODEL FOR RETINOPATHY OF ",
+      "White matter microstructure and cognitive outcomes in relation to neonatal infla"
+    ],
+    "retrieved_clusters": [
+      "covid 19 / health care / public health",
+      "epidemiology / risk factors / mortality",
+      "dementia / magnetic resonance imaging / alzheimer s",
+      "sars cov / sars cov 2 / intensive care"
+    ],
+    "answer": "Early nutrition plays a crucial role in the development and long-term cognitive outcomes of preterm infants. Research has shown that malnutrition in infancy can have a negative impact on neurocognitive development (1). Specifically, a study found that serum calcium levels were positively correlated with neurocognitive development in infants, suggesting that calcium supplementation may improve cognitive outcomes (1). However, the relationship between early nutrition and long-term cognitive outcomes in preterm infants is complex and influenced by various factors, including gut microbiota.\n\nThe gut microbiota of premature infants is underdeveloped and can be affected by early nutrition (2). A study on gut microbiota research for premature infants highlighted the importance of establishing a healthy gut microbiome in early life, which can have long-term implications for cognitive and overall health (2). While the relationship between early nutrition and gut microbiota is not fully understood, it is clear that preterm infants require specialized nutrition to support their development.\n\nUnfortunately, the available evidence does not provide a clear answer to the question of whether early nutrition affects long-term cognitive outcomes in preterm infants. While some studies suggest a positive correlation between certain nutrients (such as calcium) and cognitive development, others highlight the complexity of the issue and the need for further research. Therefore, more studies are needed to fully understand the relationship between early nutrition and long-term cognitive outcomes in preterm infants.\n\nREFERENCES:\n[1] Neurocognitive Functions in Infants with Malnutrition; Relation with Long-chain PMCID: PMC6416383\n[2] Global Insights and Key Trends in Gut Microbiota Research for Premature Infants: PMCID: PMC11460277\n[3] The long-term impact of very preterm birth on adult bone mineral density Peak bo: PMCID: PMC6319299\n[4] ASSESSMENT OF NEONATAL CARE STANDARD BY THE PREDICTIVE MODEL FOR RETINOPATHY OF : PMCID: PMC10829965"
+  }
+]

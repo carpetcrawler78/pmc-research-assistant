@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  PIPELINE EVOLUTION SLIDE — drop-in <section> for pmc_presentation.html
+  =========================================================================
+  Shows 3 pipeline phases left→right, stacked vertically.
+  Components grayed-out when not yet present in that phase.
+  No names, no acronyms — stakeholder language.
+  Technical terms appear only in small brackets.
+
+  TO INSERT: copy the <section id="pipeline-evolution"> block into
+  your Reveal.js <div class="slides"> before the closing </div>.
+-->
+<head>
+<meta charset="UTF-8">
+<title>Pipeline Evolution — Preview</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0f1117;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 24px 16px;
+}
+.slide-wrap { width: 960px; }
+
+/* ─────────────────────────────────────────────
+   SECTION STYLES — scoped to #pipeline-evolution
+   ───────────────────────────────────────────── */
+#pipeline-evolution {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  padding: 32px 48px 24px;
+  text-align: left;
+}
+
+.ev-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: #a78bfa; margin-bottom: 5px;
+}
+.ev-h2 {
+  font-size: 24px; font-weight: 800; color: #f1f5f9;
+  margin-bottom: 2px; line-height: 1.2;
+}
+.ev-sub {
+  font-size: 12px; color: #475569; margin-bottom: 22px;
+}
+
+/* ── Phase row ── */
+.phase-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 28px 90px;
+  align-items: center;
+  gap: 0 8px;
+  margin-bottom: 10px;
+}
+
+.phase-tag {
+  text-align: right; padding-right: 6px;
+}
+.phase-tag .phase-num {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 2px;
+}
+.phase-tag .phase-name {
+  font-size: 12px; font-weight: 800; line-height: 1.2;
+}
+.pt1 .phase-num { color: #ef4444; }
+.pt1 .phase-name { color: #fca5a5; }
+.pt2 .phase-num { color: #f59e0b; }
+.pt2 .phase-name { color: #fcd34d; }
+.pt3 .phase-num { color: #34d399; }
+.pt3 .phase-name { color: #6ee7b7; }
+
+/* ── Pipeline strip ── */
+.pipeline-strip {
+  display: flex; align-items: center; gap: 4px;
+  background: #111827;
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid #1e293b;
+}
+
+/* active/inactive phases */
+.phase-row.ph1 .pipeline-strip { border-color: #3f1515; }
+.phase-row.ph2 .pipeline-strip { border-color: #3f2d0a; }
+.phase-row.ph3 .pipeline-strip { border-color: #0f3b28; }
+
+/* ── Component box ── */
+.comp {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border-radius: 7px; padding: 7px 10px;
+  text-align: center; min-width: 0; flex: 1;
+  border: 1px solid transparent;
+  transition: opacity .2s;
+}
+
+.comp .comp-icon { font-size: 16px; margin-bottom: 3px; line-height: 1; }
+.comp .comp-name {
+  font-size: 11px; font-weight: 700; color: #e2e8f0;
+  line-height: 1.2; margin-bottom: 2px;
+}
+.comp .comp-tech {
+  font-size: 9px; color: #475569; font-style: italic;
+  line-height: 1.2;
+}
+
+/* active states */
+.comp.active-q  { background: #1e1b4b; border-color: #4338ca; }
+.comp.active-r  { background: #172554; border-color: #1d4ed8; }
+.comp.active-h  { background: #0c4a6e; border-color: #0284c7; }
+.comp.active-f  { background: #14432a; border-color: #15803d; }
+.comp.active-l  { background: #3b0764; border-color: #7e22ce; }
+.comp.active-a  { background: #1a1f30; border-color: #334155; }
+
+/* inactive / missing */
+.comp.inactive {
+  background: #0d0f17;
+  border: 1px dashed #1e293b;
+  opacity: 0.32;
+}
+.comp.inactive .comp-name { color: #475569; }
+
+/* arrow between components */
+.pipe-arr {
+  font-size: 14px; color: #334155; flex-shrink: 0; padding: 0 1px;
+}
+
+/* ── Result badge ── */
+.result-badge {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.res-acc {
+  font-size: 20px; font-weight: 900; line-height: 1;
+  margin-bottom: 2px;
+}
+.res-label { font-size: 9px; color: #475569; line-height: 1.3; }
+
+.ph1 .res-acc { color: #f87171; }
+.ph2 .res-acc { color: #fbbf24; }
+.ph3 .res-acc { color: #34d399; }
+
+/* ── Separator ── */
+.phase-sep {
+  height: 1px; background: #1e293b;
+  margin: 4px 0 4px 98px;
+}
+
+/* ── Legend + note ── */
+.legend-row {
+  display: flex; gap: 20px; align-items: center;
+  margin-top: 16px; padding-top: 12px;
+  border-top: 1px solid #1e293b;
+}
+.leg-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; color: #64748b;
+}
+.leg-box {
+  width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0;
+}
+.leg-box.active  { background: #1d4ed8; border: 1px solid #3b82f6; }
+.leg-box.missing { background: #0d0f17; border: 1px dashed #1e293b; opacity: .5; }
+
+.legend-note {
+  margin-left: auto; font-size: 10px; color: #374151;
+  font-style: italic; text-align: right;
+}
+
+</style>
+</head>
+<body>
+<div class="slide-wrap">
+
+<!-- ═══════════════════════════════════════════════════
+     COPY THIS <section> INTO pmc_presentation.html
+     ═══════════════════════════════════════════════════ -->
+<section id="pipeline-evolution">
+
+  <div class="ev-label">How We Got Here</div>
+  <div class="ev-h2">Three Stages of the Research Assistant</div>
+  <p class="ev-sub">Each stage adds one capability — the final version combines all of them</p>
+
+  <!-- ══════════════════════════════════════════
+       PHASE 1 — Basic Keyword Search
+       ══════════════════════════════════════════ -->
+  <div class="phase-row ph1">
+
+    <div class="phase-tag pt1">
+      <div class="phase-num">Stage 1</div>
+      <div class="phase-name">First<br>Prototype</div>
+    </div>
+
+    <div class="pipeline-strip">
+
+      <!-- Query -->
+      <div class="comp active-q">
+        <div class="comp-icon">🔍</div>
+        <div class="comp-name">Question</div>
+        <div class="comp-tech">(query)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- No medical context -->
+      <div class="comp inactive">
+        <div class="comp-icon">🧬</div>
+        <div class="comp-name">Medical<br>Context</div>
+        <div class="comp-tech">(PubMedBERT)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Simple keyword index only -->
+      <div class="comp active-r">
+        <div class="comp-icon">📋</div>
+        <div class="comp-name">Keyword<br>Index</div>
+        <div class="comp-tech">(BM25)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- No semantic search -->
+      <div class="comp inactive">
+        <div class="comp-icon">🧠</div>
+        <div class="comp-name">Meaning<br>Search</div>
+        <div class="comp-tech">(FAISS)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- No relevance filter -->
+      <div class="comp inactive">
+        <div class="comp-icon">🎯</div>
+        <div class="comp-name">Relevance<br>Filter</div>
+        <div class="comp-tech">(Reranker)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Small AI model -->
+      <div class="comp active-l" style="opacity:.7">
+        <div class="comp-icon">🤖</div>
+        <div class="comp-name">Basic AI<br>Model</div>
+        <div class="comp-tech">(flan-t5-small)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Answer -->
+      <div class="comp active-a">
+        <div class="comp-icon">💬</div>
+        <div class="comp-name">Answer</div>
+        <div class="comp-tech">(text output)</div>
+      </div>
+
+    </div><!-- /pipeline-strip -->
+
+    <div class="result-badge">
+      <div class="res-acc">~0%</div>
+      <div class="res-label">Answer<br>accuracy</div>
+    </div>
+
+  </div><!-- /phase-row ph1 -->
+
+  <div class="phase-sep"></div>
+
+  <!-- ══════════════════════════════════════════
+       PHASE 2 — Semantic Search Added
+       ══════════════════════════════════════════ -->
+  <div class="phase-row ph2">
+
+    <div class="phase-tag pt2">
+      <div class="phase-num">Stage 2</div>
+      <div class="phase-name">Semantic<br>Search</div>
+    </div>
+
+    <div class="pipeline-strip">
+
+      <div class="comp active-q">
+        <div class="comp-icon">🔍</div>
+        <div class="comp-name">Question</div>
+        <div class="comp-tech">(query)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Still no medical context -->
+      <div class="comp inactive">
+        <div class="comp-icon">🧬</div>
+        <div class="comp-name">Medical<br>Context</div>
+        <div class="comp-tech">(PubMedBERT)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Keyword index still there -->
+      <div class="comp active-r">
+        <div class="comp-icon">📋</div>
+        <div class="comp-name">Keyword<br>Index</div>
+        <div class="comp-tech">(BM25)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Semantic search now added -->
+      <div class="comp active-h">
+        <div class="comp-icon">🧠</div>
+        <div class="comp-name">Meaning<br>Search</div>
+        <div class="comp-tech">(FAISS)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- No relevance filter yet -->
+      <div class="comp inactive">
+        <div class="comp-icon">🎯</div>
+        <div class="comp-name">Relevance<br>Filter</div>
+        <div class="comp-tech">(Reranker)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Better AI model -->
+      <div class="comp active-l">
+        <div class="comp-icon">🤖</div>
+        <div class="comp-name">AI Answer<br>Engine</div>
+        <div class="comp-tech">(Llama 8B)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <div class="comp active-a">
+        <div class="comp-icon">💬</div>
+        <div class="comp-name">Answer</div>
+        <div class="comp-tech">(text output)</div>
+      </div>
+
+    </div>
+
+    <div class="result-badge">
+      <div class="res-acc">33%</div>
+      <div class="res-label">Answer<br>accuracy</div>
+    </div>
+
+  </div><!-- /phase-row ph2 -->
+
+  <div class="phase-sep"></div>
+
+  <!-- ══════════════════════════════════════════
+       PHASE 3 — Full Pipeline
+       ══════════════════════════════════════════ -->
+  <div class="phase-row ph3">
+
+    <div class="phase-tag pt3">
+      <div class="phase-num">Stage 3</div>
+      <div class="phase-name">Full<br>Pipeline</div>
+    </div>
+
+    <div class="pipeline-strip">
+
+      <div class="comp active-q">
+        <div class="comp-icon">🔍</div>
+        <div class="comp-name">Question</div>
+        <div class="comp-tech">(query)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Medical context now active -->
+      <div class="comp active-f">
+        <div class="comp-icon">🧬</div>
+        <div class="comp-name">Medical<br>Context</div>
+        <div class="comp-tech">(PubMedBERT)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <div class="comp active-r">
+        <div class="comp-icon">📋</div>
+        <div class="comp-name">Keyword<br>Index</div>
+        <div class="comp-tech">(BM25)</div>
+      </div>
+      <div class="pipe-arr">+</div>
+
+      <div class="comp active-h">
+        <div class="comp-icon">🧠</div>
+        <div class="comp-name">Meaning<br>Search</div>
+        <div class="comp-tech">(FAISS)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- Relevance filter now active -->
+      <div class="comp active-f">
+        <div class="comp-icon">🎯</div>
+        <div class="comp-name">Relevance<br>Filter</div>
+        <div class="comp-tech">(Reranker)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <div class="comp active-l">
+        <div class="comp-icon">🤖</div>
+        <div class="comp-name">AI Answer<br>Engine</div>
+        <div class="comp-tech">(Llama 8B)</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <div class="comp active-a">
+        <div class="comp-icon">💬</div>
+        <div class="comp-name">Answer +<br>Sources</div>
+        <div class="comp-tech">(cited output)</div>
+      </div>
+
+    </div>
+
+    <div class="result-badge">
+      <div class="res-acc">68%</div>
+      <div class="res-label">Answer<br>accuracy</div>
+    </div>
+
+  </div><!-- /phase-row ph3 -->
+
+  <!-- ── Legend ── -->
+  <div class="legend-row">
+    <div class="leg-item">
+      <div class="leg-box active"></div>
+      Active in this stage
+    </div>
+    <div class="leg-item">
+      <div class="leg-box missing"></div>
+      Not yet present
+    </div>
+    <div class="legend-note">
+      Accuracy measured on 69 standardised biomedical questions (PubMedQA) ·
+      Stage 3 with direct paper access: 68% · target with improvements: ~78%
+    </div>
+  </div>
+
+</section>
+<!-- ═══════════════════════════ END SECTION ═══════════════════════════ -->
+
+</div>
+</body>
+</html>

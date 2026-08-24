@@ -1,0 +1,193 @@
+[
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q1",
+    "category": "Core — Oncology",
+    "in_distribution": true,
+    "question": "Why do some patients with non-small cell lung cancer stop responding to checkpoint inhibitors?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 35.72960101551944,
+    "retrieved_titles": [
+      "Clinical predictors of treatment efficacy and a prognostic nomogram in patients ",
+      "Thyroid dysfunction as a predictor of PD- 1/PD-L1 inhibitor efficacy in advanced",
+      "Corticosteroid premedication on anti-tumor effect of immune checkpoint blockade ",
+      "A non-interventional biomarker study in patients with adenocarcinoma of the lung",
+      "Tumor-specific CXCR6 positive precursor CD8 + T cells mediate tumor control in m"
+    ],
+    "retrieved_clusters": [
+      "prognosis / breast cancer / lung cancer"
+    ],
+    "answer": "Some patients with non-small cell lung cancer (NSCLC) may stop responding to checkpoint inhibitors due to various factors. According to a study on clinical predictors of treatment efficacy in patients with NSCLC [1], the effectiveness of checkpoint inhibitors can be influenced by several factors, including the type of NSCLC, such as lung adenocarcinoma. However, the study does not provide specific information on why patients stop responding to these treatments.\n\nAnother study has identified thyroid dysfunction as a predictor of PD-1/PD-L1 inhibitor efficacy in advanced lung cancer [2]. The study found that baseline TSH levels were positively associated with the occurrence of thyroid dysfunction, which in turn was associated with a favorable response to PD-1/PD-L1 inhibitors. However, this study does not directly address why patients stop responding to these treatments.\n\nUnfortunately, the available literature does not provide a clear answer to this question. A study on corticosteroid premedication and its effects on immune checkpoint blockade [3] suggests that corticosteroids can reduce the expansion of effector memory CD8+ T cells, which may be a contributing factor to treatment resistance. However, this study was conducted in patients with hepatocellular carcinoma, not NSCLC. Another study on biomarkers in patients with adenocarcinoma of the lung [4] discusses subsequent treatment options, but does not address the issue of treatment resistance to checkpoint inhibitors.\n\nIn conclusion, while there are some studies that suggest potential factors that may contribute to treatment resistance to checkpoint inhibitors in NSCLC, the available evidence is insufficient to provide a clear answer to this question.\n\nREFERENCES:\n[1] Clinical predictors of treatment efficacy and a prognostic nomogram in patients with NSCLC (PMCID: PMC9641362)\n[2] Thyroid dysfunction as a predictor of PD-1/PD-L1 inhibitor efficacy in advanced lung cancer (PMCID: PMC12036238)\n[3] Corticosteroid premedication on anti-tumor effect of immune checkpoint blockade (PMCID: PMC11843013)\n[4] A non-interventional biomarker study in patients with adenocarcinoma of the lung (PMCID: PMC11736584)"
+  },
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q2",
+    "category": "Core — Oncology",
+    "in_distribution": true,
+    "question": "Can PD-L1 levels help predict response to immunotherapy in solid tumors?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 32.925135021219845,
+    "retrieved_titles": [
+      "Clinical predictors of treatment efficacy and a prognostic nomogram in patients ",
+      "Genomic correlates of the response to first-line PD-1 blockade plus chemotherapy",
+      "Quantitative analysis of CMTM6 expression in tumor microenvironment in metastati",
+      "Demethylzeylasteral induces PD-L1 ubiquitin–proteasome degradation and promotes ",
+      "The interplay of cell cycle and DNA repair gene alterations in upper tract uroth"
+    ],
+    "retrieved_clusters": [
+      "prognosis / breast cancer / lung cancer",
+      "safety / rheumatoid arthritis / mitochondria"
+    ],
+    "answer": "Based on the provided papers, PD-L1 levels can be a potential biomarker to predict response to immunotherapy in solid tumors. Research has shown that PD-L1 expression is associated with the efficacy of immune checkpoint inhibitors (ICIs) in non-small cell lung cancer (NSCLC) patients [1]. A study using a prognostic nomogram found that PD-L1 levels were a significant predictor of treatment efficacy in patients with NSCLC [1]. However, it is essential to note that PD-L1 expression alone may not be sufficient to predict response to immunotherapy, as other factors such as genomic variation in cancer cells can also shape the local and systemic immune phenotype [2].\n\nFurthermore, studies have investigated the relationship between PD-L1 and other biomarkers, such as CMTM6, which modulates the degradation of PD-L1 [3]. This suggests that PD-L1 levels may be influenced by other factors in the tumor microenvironment, which could impact the effectiveness of immunotherapy. While these findings are promising, more research is needed to fully understand the role of PD-L1 in predicting response to immunotherapy.\n\nIn conclusion, while PD-L1 levels may be a useful biomarker for predicting response to immunotherapy in solid tumors, it is essential to consider other factors, such as genomic variation and tumor microenvironment, to gain a more comprehensive understanding of treatment efficacy.\n\nREFERENCES:\n[1] Clinical predictors of treatment efficacy and a prognostic nomogram in patients with NSCLC.\n[2] Genomic correlates of the response to first-line PD-1 blockade plus chemotherapy.\n[3] Quantitative analysis of CMTM6 expression in tumor microenvironment in metastatic melanoma."
+  },
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q3",
+    "category": "Moderate — Neurology",
+    "in_distribution": true,
+    "question": "Are there reliable blood tests for early Alzheimer's disease?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 25.828479946639497,
+    "retrieved_titles": [
+      "Plasma biomarker progression across the Alzheimer's disease amyloid beta and tau",
+      "Cerebrospinal fluid biomarkers in Alzheimer's disease: Diagnostic accuracy and p",
+      "Disease progression and costs at the 3‐year follow‐up of the GERAS‐US study Dise",
+      "FDG-PET and CSF biomarker accuracy in prediction of conversion to different deme",
+      "Predicting conversion in cognitively normal and mild cognitive impairment indivi"
+    ],
+    "retrieved_clusters": [
+      "epidemiology / risk factors / mortality",
+      "dementia / magnetic resonance imaging / alzheimer s"
+    ],
+    "answer": "Based on the retrieved papers, there are some blood tests and cerebrospinal fluid (CSF) biomarkers that have been studied for their potential to detect early Alzheimer's disease. However, the reliability and accuracy of these tests vary. \n\nResearch has shown that plasma biomarkers, such as amyloid beta and tau species, can be measured with increased accuracy to detect Alzheimer's disease (PMCID: PMC12887242). Additionally, cerebrospinal fluid (CSF) biomarkers, including amyloid and tau, have been established as useful in the diagnosis of Alzheimer's disease (PMCID: PMC4879480). These biomarkers have been shown to have high diagnostic accuracy, but the use of CSF biomarkers is limited due to the invasive nature of the procedure.\n\nWhile there is evidence supporting the use of CSF biomarkers, the retrieved papers do not provide conclusive evidence for reliable blood tests for early Alzheimer's disease. However, FDG-PET and CSF biomarkers have been shown to be accurate predictors of conversion to different dementia types, including Alzheimer's disease (PMCID: PMC5790816). Further research is needed to determine the reliability and accuracy of blood tests for early Alzheimer's disease.\n\nREFERENCES:\n[1] Plasma biomarker progression across the Alzheimer's disease amyloid beta and tau (PMCID: PMC12887242)\n[2] Cerebrospinal fluid biomarkers in Alzheimer's disease: Diagnostic accuracy and p (PMCID: PMC4879480)\n[3] Disease progression and costs at the 3‐year follow‐up of the GERAS‐US study Dise (PMCID: PMC10113935)\n[4] FDG-PET and CSF biomarker accuracy in prediction of conversion to different deme (PMCID: PMC5790816)"
+  },
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q4",
+    "category": "Moderate — Neurology",
+    "in_distribution": true,
+    "question": "What is the clinical impact of LRRK2 mutations in Parkinson's disease?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 34.73339289047833,
+    "retrieved_titles": [
+      "Assessment of fatigue in Parkinson's disease: Indian perspective New clinical tr",
+      "Stimulation of L‐type calcium channels increases tyrosine hydroxylase and dopami",
+      "Reduced striatal activation in response to rewarding motor performance feedback ",
+      "The bHLH Protein Nulp1 is Essential for Femur Development Via Acting as a Cofact",
+      "Cyclosporine A Treatment Abrogates Ischemia‐Induced Neuronal Cell Death by Prese"
+    ],
+    "retrieved_clusters": [
+      "epidemiology / risk factors / mortality",
+      "machine learning / apoptosis / stem cells",
+      "dementia / magnetic resonance imaging / alzheimer s",
+      "heart failure / myocardial infarction / coronary artery",
+      "covid 19 / health care / public health",
+      "sars cov / sars cov 2 / intensive care"
+    ],
+    "answer": "The clinical impact of LRRK2 mutations in Parkinson's disease is a significant area of research. LRRK2 mutations are associated with an increased risk of developing Parkinson's disease (PD), a neurodegenerative disorder characterized by motor symptoms such as tremors, rigidity, and bradykinesia. However, the provided papers do not directly address the clinical impact of LRRK2 mutations in PD. \n\nOne study ([3]) investigated reduced striatal activation in response to rewarding motor performance feedback in stroke survivors, which may be relevant to understanding the pathophysiology of PD. However, this study does not specifically examine LRRK2 mutations. Another study ([2]) discusses the importance of making high-quality dopamine-producing cells for basic biological or small molecule screening studies, which is relevant to understanding the underlying biology of PD. However, this study also does not directly address the clinical impact of LRRK2 mutations.\n\nUnfortunately, the provided papers do not provide sufficient information to discuss the clinical impact of LRRK2 mutations in Parkinson's disease. Further research is needed to fully understand the relationship between LRRK2 mutations and PD.\n\nREFERENCES:\n[1] Assessment of fatigue in Parkinson's disease: Indian perspective New clinical trial.\n[2] Stimulation of L‐type calcium channels increases tyrosine hydroxylase and dopamine production in induced pluripotent stem cells.\n[3] Reduced striatal activation in response to rewarding motor performance feedback in stroke survivors.\n[4] The bHLH Protein Nulp1 is Essential for Femur Development Via Acting as a Cofactor for Wnt/Wg Signaling."
+  },
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q5",
+    "category": "Borderline — Rare/Autoimmune",
+    "in_distribution": true,
+    "question": "How is refractory autoimmune encephalitis typically treated?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 19.971216528303497,
+    "retrieved_titles": [
+      "Etiologies of rapidly progressive dementias: A systematic review and meta-analys",
+      "Characteristics and economic burden of hospitalized patients with herpes zoster ",
+      "Occurrence of autoantibodies for gastrointestinal autoimmune diseases in childre",
+      "Pirahy virus: Identification of a new and potential emerging arbovirus in\nSouth ",
+      "Low-fidelity Venezuelan equine encephalitis virus polymerase mutants to improve "
+    ],
+    "retrieved_clusters": [
+      "machine learning / apoptosis / stem cells",
+      "dementia / magnetic resonance imaging / alzheimer s",
+      "covid 19 / health care / public health",
+      "sars cov / sars cov 2 / intensive care",
+      "safety / rheumatoid arthritis / mitochondria"
+    ],
+    "answer": "Unfortunately, the provided papers do not directly address the treatment of refractory autoimmune encephalitis. However, I can provide a general overview of the treatment approach for autoimmune encephalitis based on general knowledge and the fact that refractory cases often require a multidisciplinary approach.\n\nAutoimmune encephalitis is typically treated with immunotherapy, which may include corticosteroids, intravenous immunoglobulin (IVIG), and plasma exchange (PLEX) [1] does not provide specific information on the treatment of autoimmune encephalitis, but it does discuss rapidly progressive dementia, which can be caused by autoimmune encephalitis. The other papers do not provide relevant information on the treatment of autoimmune encephalitis.\n\nIn refractory cases, additional treatments such as rituximab, cyclophosphamide, and mycophenolate mofetil may be considered [not supported by the provided papers]. It's essential to note that the treatment approach should be individualized and determined by a healthcare professional based on the specific characteristics of the patient and the underlying cause of the autoimmune encephalitis.\n\nIn summary, while the provided papers do not directly address the treatment of refractory autoimmune encephalitis, a general approach to treating autoimmune encephalitis involves immunotherapy, which may include corticosteroids, IVIG, and PLEX. However, the specific treatment approach should be determined by a healthcare professional.\n\nREFERENCES:\n[1] Etiologies of rapidly progressive dementias: A systematic review and meta-analys\n[2] Characteristics and economic burden of hospitalized patients with herpes zoster\n[3] Occurrence of autoantibodies for gastrointestinal autoimmune diseases in children\n[4] Pirahy virus: Identification of a new and potential emerging arbovirus in South America"
+  },
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q6",
+    "category": "Borderline — Gene Therapy",
+    "in_distribution": true,
+    "question": "How effective is gene therapy for spinal muscular atrophy in children?",
+    "n_retrieved": 13,
+    "top_retrieval_score": 48.479149355637226,
+    "retrieved_titles": [
+      "Acceptability, validity and responsiveness of inertial measurement units for ass",
+      "Adeno-associated virus serotype 9 antibodies in patients screened for treatment ",
+      "The Vap33 signaling axis precisely coordinates the timing of motoneuron dendrito",
+      "On genotype-phenotype relationship of dystrophinopathies among Iranian populatio",
+      "MicroRNA-34c promotes neuronal recovery in rats with spinal cord injury through "
+    ],
+    "retrieved_clusters": [
+      "prognosis / breast cancer / lung cancer",
+      "machine learning / apoptosis / stem cells",
+      "spinal cord / cord injury / bone marrow",
+      "covid 19 / health care / public health"
+    ],
+    "answer": "Gene therapy for spinal muscular atrophy (SMA) in children has shown promising results. Onasemnogene abeparvovec gene replacement therapy (GT) has been found to change the prognosis of patients with SMA, with variable outcomes ([1]). This therapy involves the use of adeno-associated virus serotype 9 (AAV9) to deliver a functional copy of the survival motor neuron 1 (SMN1) gene, which is deficient in SMA patients. However, the effectiveness of this therapy can be influenced by the presence of pre-existing antibodies against AAV9, as seen in patients screened for treatment ([2]).\n\nDespite these challenges, gene therapy has been shown to be effective in improving motor function and survival in children with SMA. A study on the use of inertial measurement units to assess motor function in infants with SMA found that GT can lead to significant improvements in motor function and quality of life ([1]). However, more research is needed to fully understand the long-term effects of gene therapy on SMA patients.\n\nIn conclusion, while gene therapy for SMA in children has shown promising results, further research is necessary to fully understand its effectiveness and potential limitations. The presence of pre-existing antibodies against AAV9 and the variable outcomes of GT highlight the need for continued investigation into this area.\n\nREFERENCES:\n[1] Acceptability, validity and responsiveness of inertial measurement units for assessing motor function in infants with spinal muscular atrophy. PMCID: PMC11483959\n[2] Adeno-associated virus serotype 9 antibodies in patients screened for treatment with onasemnogene abeparvovec. PMCID: PMC7973120"
+  },
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q7",
+    "category": "Out-of-distribution — Ophthalmology",
+    "in_distribution": false,
+    "question": "What outcomes can be expected after corneal transplantation for keratoconus?",
+    "n_retrieved": 11,
+    "top_retrieval_score": 29.070592254494976,
+    "retrieved_titles": [
+      "Risk factors for graft failure after penetrating keratoplasty Global survey of c",
+      "Factors associated with corneal high-order aberrations before and after femtosec",
+      "Timed up and go test combined with self-rated multifactorial questionnaire on fa",
+      "Preoperative blood neutrophil count predicts survival in hepatocellular carcinom",
+      "Human amniotic epithelial cell-derived extracellular vesicles provide an extrace"
+    ],
+    "retrieved_clusters": [
+      "prognosis / breast cancer / lung cancer",
+      "epidemiology / risk factors / mortality",
+      "machine learning / apoptosis / stem cells",
+      "covid 19 / health care / public health",
+      "sars cov / sars cov 2 / intensive care",
+      "knee arthroplasty / reliability / laparoscopy"
+    ],
+    "answer": "After corneal transplantation for keratoconus, several outcomes can be expected. The success of the surgery largely depends on various factors, including the patient's overall health, the severity of keratoconus, and the surgical technique used. Studies have shown that graft failure is a significant concern in patients undergoing penetrating keratoplasty (PK) for keratoconus (1). The risk factors for graft failure in these patients include advanced age, high preoperative intraocular pressure, and a history of previous ocular surgery.\n\nIn addition to graft survival, corneal high-order aberrations (HOAs) are also an important consideration after corneal transplantation for keratoconus. Research has shown that HOAs can be affected by the surgical technique used, with femtosecond laser-assisted in situ keratomileusis (LASIK) resulting in lower HOAs compared to traditional LASIK (2). However, the impact of HOAs on visual outcomes after corneal transplantation for keratoconus is not well understood and requires further investigation.\n\nUnfortunately, the provided papers do not provide information on the specific outcomes that can be expected after corneal transplantation for keratoconus, such as visual acuity, refractive error, or patient-reported outcomes. Therefore, it is difficult to provide a comprehensive answer to this question based on the available evidence.\n\nREFERENCES:\n[1] Risk factors for graft failure after penetrating keratoplasty Global survey of clinicians.\n[2] Factors associated with corneal high-order aberrations before and after femtosecond laser-assisted in situ keratomileusis."
+  },
+  {
+    "variant": "V1_BM25only",
+    "model": "llama-3.1-8b-instant",
+    "id": "Q8",
+    "category": "Out-of-distribution — Neonatology",
+    "in_distribution": false,
+    "question": "Does early nutrition affect long-term cognitive outcomes in preterm infants?",
+    "n_retrieved": 15,
+    "top_retrieval_score": 44.94308538310022,
+    "retrieved_titles": [
+      "The long-term impact of very preterm birth on adult bone mineral density Peak bo",
+      "Global Insights and Key Trends in Gut Microbiota Research for Premature Infants:",
+      "Neurocognitive Functions in Infants with Malnutrition; Relation with Long-chain ",
+      "Intrauterine inflammation reduces postnatal neurogenesis in the hippocampal subg",
+      "Marriage-based pilot clean household fuel intervention in India for improved pre"
+    ],
+    "retrieved_clusters": [
+      "epidemiology / risk factors / mortality",
+      "machine learning / apoptosis / stem cells",
+      "dementia / magnetic resonance imaging / alzheimer s",
+      "covid 19 / health care / public health",
+      "sars cov / sars cov 2 / intensive care"
+    ],
+    "answer": "Based on the retrieved papers, it appears that early nutrition may have an impact on long-term cognitive outcomes in preterm infants. However, the existing evidence is limited and primarily focuses on other aspects such as bone health and gut microbiota. \n\nPaper [3] suggests that malnutrition in infants is associated with lower neurocognitive development, which is positively correlated with serum calcium levels. This implies that adequate nutrition, particularly calcium, may be essential for optimal neurocognitive development in preterm infants. However, it is essential to note that this paper does not specifically focus on preterm infants but rather on infants with malnutrition in general.\n\nWhile papers [1] and [2] provide valuable information on the health challenges faced by preterm infants, including bone health and gut microbiota, they do not directly address the relationship between early nutrition and long-term cognitive outcomes. Therefore, it is challenging to draw a definitive conclusion based on the available evidence. Further research is needed to fully understand the impact of early nutrition on long-term cognitive outcomes in preterm infants.\n\nREFERENCES:\n[1] The long-term impact of very preterm birth on adult bone mineral density Peak bo (PMCID: PMC6319299)\n[2] Global Insights and Key Trends in Gut Microbiota Research for Premature Infants (PMCID: PMC11460277)\n[3] Neurocognitive Functions in Infants with Malnutrition; Relation with Long-chain (PMCID: PMC6416383)\n[4] Intrauterine inflammation reduces postnatal neurogenesis in the hippocampal subg (PMCID: PMC5880291)"
+  }
+]

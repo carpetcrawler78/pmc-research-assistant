@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#F7F4EF"/>
+
+  <!-- Header -->
+  <text x="78" y="72" font-family="Courier New" font-size="11pt" font-weight="700" fill="#1f5b4f" letter-spacing="1">ANSWER QUALITY</text>
+  <text x="78" y="118" font-family="Georgia" font-size="22pt" font-weight="700" fill="#111111">How model performance changes across questions</text>
+  <text x="78" y="148" font-family="Courier New" font-size="11pt" fill="#1f5b4f">cell: darker = stronger answer · circle: same color as coverage map</text>
+
+  <!-- Column headers -->
+  <g font-family="Courier New" font-size="11pt" font-weight="700" fill="#1f5b4f" text-anchor="middle">
+    <text x="490" y="220">BM25</text>
+    <text x="710" y="220">HYBRID 8B</text>
+    <text x="930" y="220">HYBRID 70B</text>
+  </g>
+
+  <!-- Grid lines (pitch 51px — Q8 clears footer) -->
+  <g stroke="#d7d1c7" stroke-width="1">
+    <line x1="320" y1="240" x2="1040" y2="240"/>
+    <line x1="320" y1="291" x2="1040" y2="291"/>
+    <line x1="320" y1="342" x2="1040" y2="342"/>
+    <line x1="320" y1="393" x2="1040" y2="393"/>
+    <line x1="320" y1="444" x2="1040" y2="444"/>
+    <line x1="320" y1="495" x2="1040" y2="495"/>
+    <line x1="320" y1="546" x2="1040" y2="546"/>
+    <line x1="320" y1="597" x2="1040" y2="597"/>
+    <line x1="320" y1="648" x2="1040" y2="648"/>
+    <line x1="380" y1="240" x2="380" y2="648"/>
+    <line x1="600" y1="240" x2="600" y2="648"/>
+    <line x1="820" y1="240" x2="820" y2="648"/>
+    <line x1="1040" y1="240" x2="1040" y2="648"/>
+  </g>
+
+  <!-- Q labels with coverage-zone color dots (mirrors Coverage Map) -->
+  <g font-family="Courier New" font-size="12pt" font-weight="700" fill="#1f5b4f" text-anchor="middle" dominant-baseline="middle">
+    <circle cx="220" cy="265" r="11" fill="#163f38"/><text x="262" y="265">Q1</text>
+    <circle cx="220" cy="316" r="11" fill="#163f38"/><text x="262" y="316">Q2</text>
+    <circle cx="220" cy="367" r="11" fill="#163f38"/><text x="262" y="367">Q3</text>
+    <circle cx="220" cy="418" r="11" fill="#365b53"/><text x="262" y="418">Q4</text>
+    <circle cx="220" cy="469" r="11" fill="#5f756f"/><text x="262" y="469">Q5</text>
+    <circle cx="220" cy="520" r="11" fill="#5f756f"/><text x="262" y="520">Q6</text>
+    <circle cx="220" cy="571" r="11" fill="#7f8f89"/><text x="262" y="571">Q7</text>
+    <circle cx="220" cy="622" r="11" fill="#7f8f89"/><text x="262" y="622">Q8</text>
+  </g>
+
+  <!-- Data cells -->
+  <g>
+    <!-- Q1 -->
+    <rect x="400" y="247" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <rect x="620" y="247" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <rect x="840" y="247" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <!-- Q2 -->
+    <rect x="400" y="298" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <rect x="620" y="298" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <rect x="840" y="298" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <!-- Q3 -->
+    <rect x="400" y="349" width="180" height="34" rx="8" fill="#d9dfdc"/>
+    <rect x="620" y="349" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <rect x="840" y="349" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <!-- Q4 -->
+    <rect x="400" y="400" width="180" height="34" rx="8" fill="#d9dfdc"/>
+    <rect x="620" y="400" width="180" height="34" rx="8" fill="#d9dfdc"/>
+    <rect x="840" y="400" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <!-- Q5 -->
+    <rect x="400" y="451" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <rect x="620" y="451" width="180" height="34" rx="8" fill="#d9dfdc"/>
+    <rect x="840" y="451" width="180" height="34" rx="8" fill="#d9dfdc"/>
+    <!-- Q6 -->
+    <rect x="400" y="502" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <rect x="620" y="502" width="180" height="34" rx="8" fill="#1f5b4f"/>
+    <rect x="840" y="502" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <!-- Q7 -->
+    <rect x="400" y="553" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <rect x="620" y="553" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <rect x="840" y="553" width="180" height="34" rx="8" fill="#d9dfdc"/>
+    <!-- Q8 -->
+    <rect x="400" y="604" width="180" height="34" rx="8" fill="#d9dfdc"/>
+    <rect x="620" y="604" width="180" height="34" rx="8" fill="#8fa89f"/>
+    <rect x="840" y="604" width="180" height="34" rx="8" fill="#d9dfdc"/>
+  </g>
+
+  <!-- Footer (moved down — no overlap with Q8 row) -->
+  <rect x="72" y="660" width="1136" height="36" fill="#1f5b4f"/>
+  <text x="640" y="683" font-family="Courier New" font-size="11pt" fill="#ffffff" text-anchor="middle">Answer quality varies more by question placement than by model size alone.</text>
+</svg>

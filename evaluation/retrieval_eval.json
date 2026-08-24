@@ -1,0 +1,1383 @@
+{
+  "summaries": {
+    "hybrid": {
+      "mrr@15": 0.5671984126984126,
+      "precision@5": 0.44000000000000006,
+      "precision@10": 0.47400000000000003,
+      "ndcg@15": 0.411223211295899,
+      "cluster_prec@10": 0.47622222222222227
+    },
+    "faiss_only": {
+      "mrr@15": 0.5824848484848485,
+      "precision@5": 0.468,
+      "precision@10": 0.41800000000000004,
+      "ndcg@15": 0.34709938466735546,
+      "cluster_prec@10": 0.4621111111111111
+    },
+    "bm25_only": {
+      "mrr@15": 0.6045788655788656,
+      "precision@5": 0.468,
+      "precision@10": 0.4,
+      "ndcg@15": 0.3483016746964389,
+      "cluster_prec@10": 0.4396666666666667
+    }
+  },
+  "details": {
+    "hybrid": [
+      {
+        "pmcid": "PMC7985958",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC9006323",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.4,
+        "ndcg@15": 0.3998861296837288,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC8328500",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.2,
+        "precision@5": 0.2,
+        "precision@10": 0.4,
+        "ndcg@15": 0.285054078119731,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC4375947",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.2,
+        "ndcg@15": 0.15375815231259418,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC11462475",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.9,
+        "ndcg@15": 0.7016957159698858,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC12628522",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.3,
+        "ndcg@15": 0.23043694699929632,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC10336706",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.07142857142857142,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.04366879852493834,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC10859048",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.9,
+        "ndcg@15": 0.8913470403991799,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC6524140",
+        "cluster": "spinal cord / cord injury / bone marrow",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.7,
+        "ndcg@15": 0.5368363474158689,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC8298989",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.6,
+        "ndcg@15": 0.5008049665917913,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC7458549",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.5,
+        "ndcg@15": 0.37975628685151247,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC10662383",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.14285714285714285,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.056869739426201577,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC8141377",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.9,
+        "ndcg@15": 0.9004779560041473,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC4048727",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.2,
+        "ndcg@15": 0.1594038776144245,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC11488381",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.5,
+        "ndcg@15": 0.5800461325949718,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC9100718",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.3,
+        "ndcg@15": 0.21587066371038427,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC8863308",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.2,
+        "precision@5": 0.2,
+        "precision@10": 0.3,
+        "ndcg@15": 0.21975880734376307,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC11330459",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.741596260158051,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC5774476",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.7,
+        "ndcg@15": 0.6364167940361645,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC11831297",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.6385100054957614,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC9422863",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.25,
+        "precision@5": 0.4,
+        "precision@10": 0.5,
+        "ndcg@15": 0.4831004805179316,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC11733281",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC5385417",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.3,
+        "ndcg@15": 0.27922574866836297,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC10804247",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.14285714285714285,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.056869739426201577,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC12107973",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.7459980705941055,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC12149618",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.22757865350777848,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC8210282",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.5,
+        "ndcg@15": 0.5099912855133939,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC4419461",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.9,
+        "ndcg@15": 0.8004314882693474,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC11928560",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.4,
+        "ndcg@15": 0.3826867121867964,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC12331384",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.3,
+        "ndcg@15": 0.38661411796373474,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC10236118",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.125,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.05382121602276955,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC10413781",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.3,
+        "ndcg@15": 0.3037376924367847,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC11136680",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.7522416508702682,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC8339567",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.6,
+        "precision@10": 0.7,
+        "ndcg@15": 0.43614922681184326,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC12630872",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.9,
+        "ndcg@15": 0.794096385725691,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC10985270",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.3,
+        "ndcg@15": 0.21833338749451023,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC3991408",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.9,
+        "ndcg@15": 0.8167715349536045,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC11332140",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.8,
+        "ndcg@15": 0.663981344732454,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC8264674",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.1569595560954746,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC11953353",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.6,
+        "ndcg@15": 0.4333835253025206,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC9331403",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.25,
+        "precision@5": 0.2,
+        "precision@10": 0.4,
+        "ndcg@15": 0.32862059510788966,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC6004517",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.6,
+        "ndcg@15": 0.41895577571491693,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC4325905",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.4,
+        "precision@10": 0.4,
+        "ndcg@15": 0.3993603763221492,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC11465293",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.5898967791332803,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC11402426",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 1.0,
+        "ndcg@15": 0.9573476954303488,
+        "cluster_prec@10": 1.0
+      },
+      {
+        "pmcid": "PMC5580050",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.3,
+        "ndcg@15": 0.1639105698104254,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC7650090",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.10558266159165494,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC4935045",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.2,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.0660006550311689,
+        "cluster_prec@10": 0.1111111111111111
+      },
+      {
+        "pmcid": "PMC4439775",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.705960448068501,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC11772013",
+        "cluster": "safety / rheumatoid arthritis / mitochondria",
+        "mrr@15": 0.1111111111111111,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.051358492238643604,
+        "cluster_prec@10": 0.1
+      }
+    ],
+    "faiss_only": [
+      {
+        "pmcid": "PMC7985958",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.09090909090909091,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.04759023790187059,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC9006323",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC8328500",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.4,
+        "ndcg@15": 0.33192428042754973,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC4375947",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.2,
+        "precision@5": 0.2,
+        "precision@10": 0.3,
+        "ndcg@15": 0.16913899510387395,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC11462475",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.5,
+        "ndcg@15": 0.4785019259968548,
+        "cluster_prec@10": 0.7142857142857143
+      },
+      {
+        "pmcid": "PMC12628522",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.2,
+        "ndcg@15": 0.27825165032414384,
+        "cluster_prec@10": 0.2857142857142857
+      },
+      {
+        "pmcid": "PMC10336706",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.125,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.05382121602276955,
+        "cluster_prec@10": 0.1111111111111111
+      },
+      {
+        "pmcid": "PMC10859048",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.9,
+        "ndcg@15": 0.7689421287528084,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC6524140",
+        "cluster": "spinal cord / cord injury / bone marrow",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.5,
+        "ndcg@15": 0.3765896653799323,
+        "cluster_prec@10": 0.625
+      },
+      {
+        "pmcid": "PMC8298989",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.6,
+        "precision@10": 0.5,
+        "ndcg@15": 0.3393761008347829,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC7458549",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.5,
+        "ndcg@15": 0.4756869814398102,
+        "cluster_prec@10": 0.5555555555555556
+      },
+      {
+        "pmcid": "PMC10662383",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC8141377",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 1.0,
+        "ndcg@15": 0.9573476954303488,
+        "cluster_prec@10": 1.0
+      },
+      {
+        "pmcid": "PMC4048727",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.2,
+        "ndcg@15": 0.11213072197636396,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC11488381",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.6,
+        "ndcg@15": 0.5350194446501377,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC9100718",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.2,
+        "ndcg@15": 0.173643087076708,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC8863308",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.7,
+        "ndcg@15": 0.47031426795356057,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC11330459",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.7,
+        "ndcg@15": 0.6800732950665498,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC5774476",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.6,
+        "ndcg@15": 0.40161731029187836,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC11831297",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.6,
+        "ndcg@15": 0.5638065351361572,
+        "cluster_prec@10": 0.75
+      },
+      {
+        "pmcid": "PMC9422863",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.7,
+        "ndcg@15": 0.4699421554058648,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC11733281",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC5385417",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.4,
+        "precision@10": 0.2,
+        "ndcg@15": 0.15130526417047127,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC10804247",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.08530460913930236,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC12107973",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.8,
+        "precision@10": 0.7,
+        "ndcg@15": 0.5038882723065237,
+        "cluster_prec@10": 0.875
+      },
+      {
+        "pmcid": "PMC12149618",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.3,
+        "ndcg@15": 0.2904310893325432,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC8210282",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.3,
+        "ndcg@15": 0.297907825205196,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC4419461",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.9,
+        "ndcg@15": 0.7238146146350638,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC11928560",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.3,
+        "ndcg@15": 0.24712047798052972,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC12331384",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.3,
+        "ndcg@15": 0.3048588389201468,
+        "cluster_prec@10": 0.42857142857142855
+      },
+      {
+        "pmcid": "PMC10236118",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.25,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.1227945149537572,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC10413781",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 1.0,
+        "precision@5": 0.2,
+        "precision@10": 0.4,
+        "ndcg@15": 0.3420724034652962,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC11136680",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.8,
+        "ndcg@15": 0.6247818558690494,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC8339567",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.4,
+        "ndcg@15": 0.3862609577479304,
+        "cluster_prec@10": 0.5714285714285714
+      },
+      {
+        "pmcid": "PMC12630872",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.7,
+        "ndcg@15": 0.5668550585395893,
+        "cluster_prec@10": 0.875
+      },
+      {
+        "pmcid": "PMC10985270",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.16841466178325942,
+        "cluster_prec@10": 0.2222222222222222
+      },
+      {
+        "pmcid": "PMC3991408",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.8,
+        "ndcg@15": 0.7120723893266069,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC11332140",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.7,
+        "ndcg@15": 0.6613154987492786,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC8264674",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.25,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.0734773909038217,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC11953353",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.2,
+        "ndcg@15": 0.19294704118484146,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC9331403",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.25,
+        "precision@5": 0.2,
+        "precision@10": 0.6,
+        "ndcg@15": 0.3456161923790923,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC6004517",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.4,
+        "ndcg@15": 0.39016344805944914,
+        "cluster_prec@10": 0.6666666666666666
+      },
+      {
+        "pmcid": "PMC4325905",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.2,
+        "precision@10": 0.4,
+        "ndcg@15": 0.2873916793525216,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC11465293",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.7,
+        "ndcg@15": 0.46238954002959864,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC11402426",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.9,
+        "ndcg@15": 0.725855982823772,
+        "cluster_prec@10": 1.0
+      },
+      {
+        "pmcid": "PMC5580050",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.4,
+        "precision@10": 0.2,
+        "ndcg@15": 0.15130526417047127,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC7650090",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.125,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.05382121602276955,
+        "cluster_prec@10": 0.125
+      },
+      {
+        "pmcid": "PMC4935045",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC4439775",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.8,
+        "ndcg@15": 0.7990854511449207,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC11772013",
+        "cluster": "safety / rheumatoid arthritis / mitochondria",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      }
+    ],
+    "bm25_only": [
+      {
+        "pmcid": "PMC7985958",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.08333333333333333,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.08977391880083622,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC9006323",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.6,
+        "ndcg@15": 0.5060828288018688,
+        "cluster_prec@10": 0.75
+      },
+      {
+        "pmcid": "PMC8328500",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.4,
+        "ndcg@15": 0.43129031384292366,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC4375947",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.1111111111111111,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.051358492238643604,
+        "cluster_prec@10": 0.1111111111111111
+      },
+      {
+        "pmcid": "PMC11462475",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.6523785919199503,
+        "cluster_prec@10": 0.8888888888888888
+      },
+      {
+        "pmcid": "PMC12628522",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.16451217147174066,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC10336706",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.09090909090909091,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.04759023790187059,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC10859048",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.8,
+        "ndcg@15": 0.6744974905851283,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC6524140",
+        "cluster": "spinal cord / cord injury / bone marrow",
+        "mrr@15": 0.5,
+        "precision@5": 0.8,
+        "precision@10": 0.6,
+        "ndcg@15": 0.45006705628375404,
+        "cluster_prec@10": 0.75
+      },
+      {
+        "pmcid": "PMC8298989",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.5,
+        "ndcg@15": 0.5404457237693098,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC7458549",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.25,
+        "precision@5": 0.4,
+        "precision@10": 0.3,
+        "ndcg@15": 0.19083653817363425,
+        "cluster_prec@10": 0.3333333333333333
+      },
+      {
+        "pmcid": "PMC10662383",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.060772229737720354,
+        "cluster_prec@10": 0.125
+      },
+      {
+        "pmcid": "PMC8141377",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.9,
+        "ndcg@15": 0.7612260330059367,
+        "cluster_prec@10": 0.9
+      },
+      {
+        "pmcid": "PMC4048727",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.08530460913930236,
+        "cluster_prec@10": 0.1111111111111111
+      },
+      {
+        "pmcid": "PMC11488381",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.4,
+        "ndcg@15": 0.39284509608463375,
+        "cluster_prec@10": 0.4
+      },
+      {
+        "pmcid": "PMC9100718",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.16841466178325942,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC8863308",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.07692307692307693,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0448104318539346,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC11330459",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.7,
+        "ndcg@15": 0.7074206190251765,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC5774476",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.6,
+        "ndcg@15": 0.547724605816239,
+        "cluster_prec@10": 0.75
+      },
+      {
+        "pmcid": "PMC11831297",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.4,
+        "ndcg@15": 0.4177296962591345,
+        "cluster_prec@10": 0.6666666666666666
+      },
+      {
+        "pmcid": "PMC9422863",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.25,
+        "precision@5": 0.4,
+        "precision@10": 0.6,
+        "ndcg@15": 0.489350407704244,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC11733281",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC5385417",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.4,
+        "ndcg@15": 0.3036379966338126,
+        "cluster_prec@10": 0.4444444444444444
+      },
+      {
+        "pmcid": "PMC10804247",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC12107973",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.6028370024470378,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC12149618",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.3,
+        "ndcg@15": 0.17146318518669149,
+        "cluster_prec@10": 0.3
+      },
+      {
+        "pmcid": "PMC8210282",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.5,
+        "ndcg@15": 0.4415219402980928,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC4419461",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.8,
+        "ndcg@15": 0.6622773028654226,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC11928560",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.3,
+        "ndcg@15": 0.3635562594634462,
+        "cluster_prec@10": 0.75
+      },
+      {
+        "pmcid": "PMC12331384",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 0.6,
+        "precision@10": 0.3,
+        "ndcg@15": 0.31008726421359534,
+        "cluster_prec@10": 0.375
+      },
+      {
+        "pmcid": "PMC10236118",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.0,
+        "precision@5": 0.0,
+        "precision@10": 0.0,
+        "ndcg@15": 0.0,
+        "cluster_prec@10": 0.0
+      },
+      {
+        "pmcid": "PMC10413781",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.25,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.13034713033002326,
+        "cluster_prec@10": 0.2222222222222222
+      },
+      {
+        "pmcid": "PMC11136680",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.8,
+        "ndcg@15": 0.7067111834222818,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC8339567",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 1.0,
+        "precision@5": 0.4,
+        "precision@10": 0.5,
+        "ndcg@15": 0.40807305849646514,
+        "cluster_prec@10": 0.5555555555555556
+      },
+      {
+        "pmcid": "PMC12630872",
+        "cluster": "sars cov / sars cov 2 / intensive care",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.8,
+        "ndcg@15": 0.6605796611132175,
+        "cluster_prec@10": 0.8
+      },
+      {
+        "pmcid": "PMC10985270",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.1076424320455391,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC3991408",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 0.7,
+        "ndcg@15": 0.6131236591860927,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC11332140",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.5,
+        "precision@5": 0.8,
+        "precision@10": 0.6,
+        "ndcg@15": 0.5437624144615225,
+        "cluster_prec@10": 0.6
+      },
+      {
+        "pmcid": "PMC8264674",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.2,
+        "precision@5": 0.2,
+        "precision@10": 0.2,
+        "ndcg@15": 0.12677288476888926,
+        "cluster_prec@10": 0.25
+      },
+      {
+        "pmcid": "PMC11953353",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.6,
+        "ndcg@15": 0.4130724159796632,
+        "cluster_prec@10": 0.6666666666666666
+      },
+      {
+        "pmcid": "PMC9331403",
+        "cluster": "epidemiology / risk factors / mortality",
+        "mrr@15": 0.5,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.1076424320455391,
+        "cluster_prec@10": 0.16666666666666666
+      },
+      {
+        "pmcid": "PMC6004517",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 0.5,
+        "precision@5": 0.4,
+        "precision@10": 0.4,
+        "ndcg@15": 0.30754048694533137,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC4325905",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 0.5,
+        "precision@5": 0.6,
+        "precision@10": 0.7,
+        "ndcg@15": 0.5273182433545079,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC11465293",
+        "cluster": "covid 19 / health care / public health",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.7,
+        "ndcg@15": 0.6346925081112664,
+        "cluster_prec@10": 0.7
+      },
+      {
+        "pmcid": "PMC11402426",
+        "cluster": "prognosis / breast cancer / lung cancer",
+        "mrr@15": 1.0,
+        "precision@5": 1.0,
+        "precision@10": 1.0,
+        "ndcg@15": 0.8688684650514759,
+        "cluster_prec@10": 1.0
+      },
+      {
+        "pmcid": "PMC5580050",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.16666666666666666,
+        "precision@5": 0.0,
+        "precision@10": 0.1,
+        "ndcg@15": 0.060772229737720354,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC7650090",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 1.0,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.21671433855450262,
+        "cluster_prec@10": 0.1
+      },
+      {
+        "pmcid": "PMC4935045",
+        "cluster": "machine learning / apoptosis / stem cells",
+        "mrr@15": 0.3333333333333333,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.08530460913930236,
+        "cluster_prec@10": 0.2
+      },
+      {
+        "pmcid": "PMC4439775",
+        "cluster": "dementia / magnetic resonance imaging / alzheimer s",
+        "mrr@15": 1.0,
+        "precision@5": 0.8,
+        "precision@10": 0.5,
+        "ndcg@15": 0.4928554858674392,
+        "cluster_prec@10": 0.5
+      },
+      {
+        "pmcid": "PMC11772013",
+        "cluster": "safety / rheumatoid arthritis / mitochondria",
+        "mrr@15": 0.25,
+        "precision@5": 0.2,
+        "precision@10": 0.1,
+        "ndcg@15": 0.0734773909038217,
+        "cluster_prec@10": 0.16666666666666666
+      }
+    ]
+  }
+}

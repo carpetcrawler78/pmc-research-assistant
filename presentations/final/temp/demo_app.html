@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PMC Research Q&amp;A — Demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #F7F4EF;
+    color: #111;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Top bar ── */
+  header {
+    background: #1f5b4f;
+    color: #fff;
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  header .logo {
+    font-family: 'Courier New', monospace;
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    opacity: .85;
+  }
+  header h1 {
+    font-size: 16pt;
+    font-weight: 400;
+  }
+
+  /* ── Question selector ── */
+  .selector {
+    background: #fff;
+    border-bottom: 1px solid #d7d1c7;
+    padding: 20px 48px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .selector span {
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    color: #7f8f89;
+    margin-right: 8px;
+  }
+  .q-btn {
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .q-btn .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .q-btn.good  { background: #163f38; color: #F7F4EF; }
+  .q-btn.hard  { background: #F7F4EF; color: #7f8f89; border-color: #7f8f89; }
+  .q-btn.good.active  { outline: 3px solid #163f38; outline-offset: 2px; }
+  .q-btn.hard.active  { background: #7f8f89; color: #F7F4EF; }
+
+  /* ── Main layout ── */
+  main {
+    flex: 1;
+    padding: 36px 48px;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ── Coverage badge ── */
+  .coverage-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    padding: 5px 14px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+  .coverage-badge .dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .badge-core { background: #e8f0ee; color: #163f38; }
+  .badge-outside { background: #ebebeb; color: #7f8f89; }
+
+  /* ── Question box ── */
+  .question-box {
+    background: #fff;
+    border-left: 5px solid #1f5b4f;
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    font-size: 14pt;
+    margin-bottom: 32px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .question-box.outside-border { border-left-color: #7f8f89; }
+
+  /* ── Two-column layout ── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* ── Retrieval panel ── */
+  .retrieval-panel h3 {
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1f5b4f;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .paper-item {
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 10pt;
+    border: 1px solid #e3dfd9;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .paper-item .rank {
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    color: #7f8f89;
+    min-width: 20px;
+    padding-top: 1px;
+  }
+  .paper-item .title { color: #333; line-height: 1.45; }
+  .match-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+  }
+  .match-bar .bar-bg {
+    flex: 1; height: 5px; background: #e3dfd9; border-radius: 3px;
+  }
+  .match-bar .bar-fill {
+    height: 5px; border-radius: 3px;
+  }
+  .match-bar .bar-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    color: #7f8f89;
+    min-width: 60px;
+  }
+
+  /* ── Answer panel ── */
+  .answer-panel h3 {
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1f5b4f;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .score-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 13pt;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 8px;
+  }
+  .score-good { background: #163f38; color: #F7F4EF; }
+  .score-bad  { background: #d9dfdc; color: #5f756f; }
+  .score-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    color: #7f8f89;
+  }
+
+  .answer-text {
+    background: #fff;
+    border: 1px solid #e3dfd9;
+    border-radius: 8px;
+    padding: 22px 24px;
+    font-size: 11pt;
+    line-height: 1.7;
+    color: #333;
+  }
+  .answer-text.weak-answer {
+    border-color: #c8c4bf;
+    color: #666;
+  }
+  .answer-text .warning {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: #f5f3f0;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 10pt;
+    color: #7f8f89;
+    font-family: 'Courier New', monospace;
+  }
+  .answer-text cite {
+    font-style: normal;
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    color: #1f5b4f;
+  }
+  .answer-text cite.grey { color: #9aa5a2; }
+
+  /* ── Footer ── */
+  footer {
+    background: #1f5b4f;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    opacity: .9;
+  }
+
+  /* ── Hidden panel ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">PMC RESEARCH Q&amp;A</div>
+  <h1>Biomedical Literature Search — Evaluation Demo</h1>
+</header>
+
+<div class="selector">
+  <span>SELECT QUESTION →</span>
+  <button class="q-btn good active" onclick="show('good', this)">
+    <span class="dot" style="background:#163f38"></span> Q2 — Well-covered topic
+  </button>
+  <button class="q-btn hard" onclick="show('hard', this)">
+    <span class="dot" style="background:#7f8f89"></span> Q5 — Outside corpus
+  </button>
+</div>
+
+<main>
+
+  <!-- ═══ GOOD EXAMPLE (Q2) ═══ -->
+  <div id="panel-good" class="panel active">
+    <div class="coverage-badge badge-core">
+      <span class="dot" style="background:#163f38"></span>
+      CORPUS MATCH · well-covered research cluster
+    </div>
+    <div class="question-box">
+      Can PD-L1 levels help predict response to immunotherapy in solid tumors?
+    </div>
+    <div class="columns">
+      <div class="retrieval-panel">
+        <h3>RETRIEVED PAPERS (top 5 of 15)</h3>
+
+        <div class="paper-item">
+          <div class="rank">#1</div>
+          <div>
+            <div class="title">Comparison of PD-L1, EGFR, ALK, and ROS1 Status Between Surgical Samples and Cytological Specimens in Non-Small Cell Lung Carcinoma</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:92%;background:#163f38"></div></div>
+              <div class="bar-label">strong match</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#2</div>
+          <div>
+            <div class="title">Genomic correlates of the response to first-line PD-1 blockade plus chemotherapy in advanced NSCLC</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:85%;background:#1f5b4f"></div></div>
+              <div class="bar-label">strong match</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#3</div>
+          <div>
+            <div class="title">Quantitative analysis of CMTM6 expression in tumor microenvironment in metastatic melanoma</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:74%;background:#547d73"></div></div>
+              <div class="bar-label">good match</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#4</div>
+          <div>
+            <div class="title">Demethylzeylasteral induces PD-L1 ubiquitin–proteasome degradation and promotes anti-tumor immunity</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:66%;background:#8fa89f"></div></div>
+              <div class="bar-label">moderate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#5</div>
+          <div>
+            <div class="title">Clinical predictors of treatment efficacy and a prognostic nomogram in patients with lung adenocarcinoma receiving immune checkpoint inhibitors</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:61%;background:#8fa89f"></div></div>
+              <div class="bar-label">moderate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="answer-panel">
+        <h3>GENERATED ANSWER</h3>
+        <div class="score-row">
+          <div class="score-badge score-good">4.0 / 5.0</div>
+          <div class="score-label">Rated by two independent LLM evaluators · Hybrid retrieval + 8B model</div>
+        </div>
+        <div class="answer-text">
+          <p>Based on the retrieved papers, PD-L1 levels can be a useful predictor of response to immunotherapy in solid tumors, particularly in non-small cell lung cancer (NSCLC). Studies have shown that tumors with high PD-L1 expression are more likely to respond to immune checkpoint inhibitors (ICIs). <cite>[1]</cite></p>
+          <br/>
+          <p>However, PD-L1 levels alone may not be sufficient to predict response. A study integrating clinical, genomic, and survival data of 287 patients with advanced NSCLC found that genomic correlates — such as tumor mutation burden — were also important predictors of response. <cite>[2]</cite> This suggests that a more comprehensive approach, combining multiple biomarkers and clinical factors, may be necessary to accurately predict treatment efficacy.</p>
+          <br/>
+          <p>In summary, while PD-L1 levels are a valuable biomarker for immunotherapy response prediction, they work best as part of a broader diagnostic panel rather than as a standalone marker.</p>
+          <br/>
+          <p style="font-family:'Courier New',monospace;font-size:9pt;color:#7f8f89">REFERENCES · <cite>[1]</cite> PMC8880835 &nbsp;·&nbsp; <cite>[2]</cite> PMC12887242 &nbsp;·&nbsp; <cite>[3]</cite> PMC9641362</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HARD EXAMPLE (Q5) ═══ -->
+  <div id="panel-hard" class="panel">
+    <div class="coverage-badge badge-outside">
+      <span class="dot" style="background:#7f8f89"></span>
+      CORPUS MATCH · no matching research cluster found
+    </div>
+    <div class="question-box outside-border">
+      How is refractory autoimmune encephalitis typically treated?
+    </div>
+    <div class="columns">
+      <div class="retrieval-panel">
+        <h3>RETRIEVED PAPERS (top 5 of 15)</h3>
+
+        <div class="paper-item">
+          <div class="rank">#1</div>
+          <div>
+            <div class="title">Only Follow-Up of Memory B Cells Helps Monitor Rituximab Administration to Patients with Neuromyelitis Optica Spectrum Disorder</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:28%;background:#d9dfdc"></div></div>
+              <div class="bar-label">weak match</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#2</div>
+          <div>
+            <div class="title">Etiologies of rapidly progressive dementias: A systematic review and meta-analysis</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:22%;background:#d9dfdc"></div></div>
+              <div class="bar-label">weak match</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#3</div>
+          <div>
+            <div class="title">Tocilizumab for treatment of patients with severe COVID-19: A retrospective cohort study</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:18%;background:#d9dfdc"></div></div>
+              <div class="bar-label">weak match</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#4</div>
+          <div>
+            <div class="title">Filgotinib Modulates Inflammation-Associated Peripheral Blood Protein Biomarkers in Rheumatoid Arthritis</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:14%;background:#d9dfdc"></div></div>
+              <div class="bar-label">weak match</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-item">
+          <div class="rank">#5</div>
+          <div>
+            <div class="title">Characteristics and economic burden of hospitalized patients with herpes zoster</div>
+            <div class="match-bar">
+              <div class="bar-bg"><div class="bar-fill" style="width:10%;background:#d9dfdc"></div></div>
+              <div class="bar-label">very weak</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="answer-panel">
+        <h3>GENERATED ANSWER</h3>
+        <div class="score-row">
+          <div class="score-badge score-bad">2.0 / 5.0</div>
+          <div class="score-label">Rated by two independent LLM evaluators · Hybrid retrieval + 8B model</div>
+        </div>
+        <div class="answer-text weak-answer">
+          <div class="warning">
+            ⚠ The retrieved papers do not directly address the treatment of refractory autoimmune encephalitis.
+          </div>
+          <p>Autoimmune encephalitis is a condition where the immune system mistakenly attacks the brain, leading to inflammation and damage. Treatment typically involves immunosuppressive therapies to reduce inflammation. Rituximab, a monoclonal antibody targeting B cells, has been used in some related conditions — though its efficacy in refractory cases is unclear. <cite class="grey">[1]</cite></p>
+          <br/>
+          <p>Biologic therapies such as tocilizumab, which targets interleukin-6, have also been explored in cytokine-driven conditions. However, it is unclear whether these therapies are effective in refractory autoimmune encephalitis specifically. <cite class="grey">[3]</cite></p>
+          <br/>
+          <p>Unfortunately, the available retrieved literature does not provide sufficient information to make specific recommendations for this condition. <strong>Further research is needed.</strong></p>
+          <br/>
+          <p style="font-family:'Courier New',monospace;font-size:9pt;color:#aaa">NOTE · The corpus does not contain a dedicated autoimmune encephalitis cluster — answers are inferred from loosely related articles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  PMC Research Q&amp;A · Capstone Demo · All answers hard-coded for offline presentation
+</footer>
+
+<script>
+  function show(which, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + which).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

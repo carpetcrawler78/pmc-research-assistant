@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#F7F4EF"/>
+
+  <!-- Header -->
+  <text x="78" y="72" font-family="Courier New" font-size="11pt" font-weight="700" fill="#1f5b4f" letter-spacing="1">QUESTION COVERAGE</text>
+  <text x="78" y="118" font-family="Georgia" font-size="22pt" font-weight="700" fill="#111111">Where the evaluation questions sit</text>
+  <text x="78" y="148" font-family="Courier New" font-size="11pt" fill="#1f5b4f">bubble = research topic · size = share of corpus · darker circle = closer match</text>
+
+  <!-- Cluster bubbles sized by share of 10k-article corpus — no topic labels -->
+
+  <!-- Three large clusters (~20–21% each) -->
+  <ellipse cx="780" cy="330" rx="90" ry="87" fill="#1f5b4f" fill-opacity="0.12"/>
+  <ellipse cx="592" cy="268" rx="86" ry="83" fill="#1f5b4f" fill-opacity="0.12"/>
+  <ellipse cx="702" cy="476" rx="84" ry="81" fill="#1f5b4f" fill-opacity="0.12"/>
+
+  <!-- Medium cluster (~10%) -->
+  <ellipse cx="456" cy="390" rx="60" ry="57" fill="#547d73" fill-opacity="0.14"/>
+
+  <!-- Two small clusters (~5% and ~3%) -->
+  <ellipse cx="932" cy="307" rx="42" ry="40" fill="#93a79f" fill-opacity="0.16"/>
+  <ellipse cx="872" cy="496" rx="31" ry="29" fill="#93a79f" fill-opacity="0.16"/>
+
+  <!-- Dashed leader lines: OUTSIDE questions point toward nearest cluster -->
+  <line x1="254" y1="518" x2="398" y2="418" stroke="#c2bdb4" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="187" y1="410" x2="396" y2="396" stroke="#c2bdb4" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Evaluation question circles — color encodes corpus match quality -->
+  <g font-family="Courier New" font-size="12pt" font-weight="700" text-anchor="middle" dominant-baseline="middle">
+
+    <!-- Well covered: inside large clusters -->
+    <circle cx="752" cy="318" r="24" fill="#163f38"/><text x="752" y="318" fill="#F7F4EF">Q1</text>
+    <circle cx="800" cy="356" r="24" fill="#163f38"/><text x="800" y="356" fill="#F7F4EF">Q2</text>
+    <circle cx="443" cy="379" r="24" fill="#163f38"/><text x="443" y="379" fill="#F7F4EF">Q3</text>
+
+    <!-- Partial match: between clusters -->
+    <circle cx="626" cy="384" r="24" fill="#365b53"/><text x="626" y="384" fill="#F7F4EF">Q4</text>
+
+    <!-- Sparse: near small clusters only -->
+    <circle cx="921" cy="302" r="24" fill="#5f756f"/><text x="921" y="302" fill="#F7F4EF">Q5</text>
+    <circle cx="866" cy="491" r="24" fill="#5f756f"/><text x="866" y="491" fill="#F7F4EF">Q6</text>
+
+    <!-- Outside: no matching cluster -->
+    <circle cx="230" cy="528" r="24" fill="#7f8f89"/><text x="230" y="528" fill="#F7F4EF">Q7</text>
+    <circle cx="163" cy="416" r="24" fill="#7f8f89"/><text x="163" y="416" fill="#F7F4EF">Q8</text>
+
+  </g>
+
+  <!-- Footer -->
+  <rect x="72" y="654" width="1136" height="36" fill="#1f5b4f"/>
+  <text x="640" y="677" font-family="Courier New" font-size="11pt" fill="#ffffff" text-anchor="middle">Questions without a matching cluster in the corpus are harder to answer well.</text>
+</svg>

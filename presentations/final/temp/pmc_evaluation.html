@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PMC Research Assistant — Evaluation</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/simple.min.css">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --navy: #0D2137;
+    --teal: #0A7C6E;
+    --cream: #F7F4EF;
+  }
+  .reveal { font-family: Calibri, sans-serif; color: var(--navy); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { background: var(--bg); padding: 40px 50px; }
+  .reveal h1, .reveal h2 { font-family: Georgia, serif; color: var(--navy); font-size: 1.6em; margin: 0 0 0.2em 0; }
+  .eyebrow { font-family: 'Courier New', monospace; color: var(--teal); font-weight: bold; font-size: 0.55em; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .subtitle { font-family: 'Courier New', monospace; color: var(--teal); font-size: 0.5em; margin-bottom: 20px; }
+  .conclusion-bar { background: var(--teal); color: #fff; font-family: Calibri, sans-serif; font-size: 0.55em; padding: 12px 30px; position: absolute; bottom: 0; left: 0; right: 0; }
+  .slide-img { max-width: 85%; max-height: 55vh; margin: 10px auto; display: block; }
+  .slide-img-small { max-width: 75%; max-height: 48vh; margin: 10px auto; display: block; }
+
+  /* Fragment animations */
+  .reveal .fragment { transition: all 0.4s ease; }
+  .reveal .fragment.visible { opacity: 1; }
+
+  /* Demo slide */
+  .demo-slide { background: var(--navy) !important; color: #fff !important; text-align: center !important; }
+  .demo-slide h2 { color: #fff !important; }
+  .demo-slide .eyebrow { color: #4ECDC4 !important; }
+  .demo-questions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 20px; }
+  .demo-q { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 10px 18px; font-size: 0.55em; cursor: pointer; transition: all 0.2s; color: #ccc; max-width: 280px; text-align: left; }
+  .demo-q:hover { background: rgba(78,205,196,0.2); border-color: #4ECDC4; color: #fff; }
+  .demo-q.copied { background: rgba(78,205,196,0.3); border-color: #4ECDC4; color: #fff; }
+  .copy-toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #4ECDC4; color: var(--navy); padding: 8px 24px; border-radius: 20px; font-size: 14px; font-weight: bold; opacity: 0; transition: opacity 0.3s; z-index: 999; pointer-events: none; }
+  .copy-toast.show { opacity: 1; }
+
+  /* Outlook items */
+  .outlook-item { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid #ddd; }
+  .outlook-item:last-child { border-bottom: none; }
+  .outlook-num { font-family: 'Courier New', monospace; color: var(--teal); font-weight: bold; font-size: 0.8em; display: inline-block; width: 40px; }
+  .outlook-title { font-family: Georgia, serif; font-weight: bold; font-size: 0.7em; color: var(--navy); }
+  .outlook-desc { font-size: 0.5em; color: #666; margin-top: 4px; margin-left: 40px; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- Slide 1: Two Phases -->
+<section>
+  <div class="eyebrow">Evaluation Design</div>
+  <h2>Two phases — benchmark to clinical test</h2>
+  <div class="subtitle">Standard metrics don't match free-text Q&A — we designed a harder test</div>
+  <img class="slide-img" src="fig_phase_comparison.png" alt="Phase I vs Phase II">
+  <div class="conclusion-bar">Phase I checks if the system works at all — Phase II checks if answers are actually useful</div>
+</section>
+
+<!-- Slide 2: 8 Questions -->
+<section>
+  <div class="eyebrow">Question Design</div>
+  <h2>8 questions — testing different strengths</h2>
+  <img class="slide-img" src="fig_questions_overview.png" alt="8 Questions">
+  <div class="conclusion-bar">Colors show how well each question fits the training data — green = core topic, red = not covered</div>
+</section>
+
+<!-- Slide 3: Scoring -->
+<section>
+  <div class="eyebrow">Scoring Method</div>
+  <h2>How we rate answers — a 5-point scale</h2>
+  <div class="subtitle">Each answer scored independently by two LLM raters</div>
+  <img class="slide-img" src="fig_scoring_scale.png" alt="Scoring Scale">
+  <div class="conclusion-bar">Two independent raters reduce bias — if they disagree strongly, the answer is ambiguous</div>
+</section>
+
+<!-- Slide 4: Cluster Coverage -->
+<section>
+  <div class="eyebrow">Data Coverage</div>
+  <h2>Where do our 8 questions land in the training data?</h2>
+  <div class="subtitle">Bubble size = share of articles in that medical domain</div>
+  <img class="slide-img-small" src="fig7_cluster_map.png" alt="Cluster Map">
+  <div class="conclusion-bar">Only 2 of 8 questions sit inside a well-covered cluster — 6 test the system at its limits</div>
+</section>
+
+<!-- Slide 5: Pipeline Comparison -->
+<section>
+  <div class="eyebrow">Pipeline Evaluation</div>
+  <h2>Which pipeline answers best?</h2>
+  <div class="subtitle">3 pipeline variants · 8 questions · scored by 2 LLM raters</div>
+  <img class="slide-img" src="fig4_auto1_auto2_combined.png" alt="Pipeline Scores">
+  <div class="conclusion-bar">V2 (Hybrid + 8B) wins with 3.61 / 5 — hybrid search finds better articles than keyword-only</div>
+</section>
+
+<!-- Slide 6: Per Question -->
+<section>
+  <div class="eyebrow">Results per Question</div>
+  <h2>Not all questions are equal</h2>
+  <div class="subtitle">Combined score (average of both raters) per question and variant</div>
+  <img class="slide-img" src="fig2_bars_per_question.png" alt="Scores per Question">
+  <div class="conclusion-bar">Q4 (LRKK2 / Parkinson) scores low across all variants — a data gap, not a model problem</div>
+</section>
+
+<!-- Slide 7: Score vs Distance -->
+<section>
+  <div class="eyebrow">Data Coverage</div>
+  <h2>Closer to the training data = better answers</h2>
+  <div class="subtitle">Distance to nearest cluster centre vs. answer quality</div>
+  <img class="slide-img" src="fig8_score_vs_distance.png" alt="Score vs Distance">
+  <div class="conclusion-bar">The further from a known cluster, the lower the score — a data problem, not a model problem</div>
+</section>
+
+<!-- Slide 8: Failure Example -->
+<section>
+  <div class="eyebrow">Error Analysis</div>
+  <h2>When answers go wrong — a concrete example</h2>
+  <div class="subtitle">Wrong polarity: the answer contradicts what was asked</div>
+  <img class="slide-img" src="fig_failure_example.png" alt="Failure Example">
+  <div class="conclusion-bar">Right drug, wrong context — retrieval found a partial match, not the right one</div>
+</section>
+
+<!-- Slide 9: Demo -->
+<section class="demo-slide">
+  <div class="eyebrow">● LIVE</div>
+  <h2>Live Demo — PMC Research Assistant</h2>
+  <p style="font-size:0.55em; color:#aaa; margin-bottom:20px;">Click a question to copy it, then paste into the demo interface</p>
+  <div class="demo-questions">
+    <div class="demo-q" onclick="copyQ(this)">Biomarkers for EGFR-mutated NSCLC?</div>
+    <div class="demo-q" onclick="copyQ(this)">Cardiotoxicity with checkpoint inhibitors?</div>
+    <div class="demo-q" onclick="copyQ(this)">Immunotherapy melanoma phase II trials?</div>
+    <div class="demo-q" onclick="copyQ(this)">PD-L1 expression and treatment response?</div>
+    <div class="demo-q" onclick="copyQ(this)">LRKK2 mutation and Parkinson disease progression?</div>
+    <div class="demo-q" onclick="copyQ(this)">Nivolumab hepatotoxicity — risk factors?</div>
+    <div class="demo-q" onclick="copyQ(this)">CRISPR delivery systems for in-vivo gene therapy?</div>
+    <div class="demo-q" onclick="copyQ(this)">Neonatal sepsis biomarkers for early detection?</div>
+  </div>
+  <div class="conclusion-bar" style="background:rgba(255,255,255,0.1);">Demo runs live — requires local backend + API key</div>
+</section>
+
+<!-- Slide 10: Outlook -->
+<section>
+  <div class="eyebrow">Next Steps</div>
+  <h2>What could come next</h2>
+  <div style="margin-top: 25px;">
+    <div class="outlook-item fragment">
+      <span class="outlook-num">01</span>
+      <span class="outlook-title">Better Evaluation</span>
+      <div class="outlook-desc">Expert panel instead of LLM raters — medical professionals scoring answers gives ground truth</div>
+    </div>
+    <div class="outlook-item fragment">
+      <span class="outlook-num">02</span>
+      <span class="outlook-title">Larger Model</span>
+      <div class="outlook-desc">70B parameter model with more compute — our results show retrieval matters more, but a bigger model could still help</div>
+    </div>
+    <div class="outlook-item fragment">
+      <span class="outlook-num">03</span>
+      <span class="outlook-title">More Services</span>
+      <div class="outlook-desc">Drug interactions, multi-turn dialogue, patient-friendly summaries — beyond single-question Q&A</div>
+    </div>
+    <div class="outlook-item fragment">
+      <span class="outlook-num">04</span>
+      <span class="outlook-title">Bigger Corpus</span>
+      <div class="outlook-desc">Expand from 10k to 4M+ articles — fill the coverage gaps that cause most failures today</div>
+    </div>
+  </div>
+  <div class="conclusion-bar">The biggest gain comes from more data — expanding the corpus fixes most failures we observed</div>
+</section>
+
+</div>
+</div>
+
+<div class="copy-toast" id="toast">Copied to clipboard!</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  transition: 'slide',
+  transitionSpeed: 'default',
+  controls: true,
+  progress: true,
+  center: false,
+  width: 960,
+  height: 540
+});
+
+function copyQ(el) {
+  const text = el.textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    el.classList.add('copied');
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+    setTimeout(() => el.classList.remove('copied'), 2000);
+  });
+}
+</script>
+</body>
+</html>

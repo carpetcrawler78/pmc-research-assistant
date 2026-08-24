@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMC Text Prediction — Capstone I</title>
+<style>
+/* === RESET === */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; background: #111; overflow: hidden; }
+
+/* === DECK === */
+#deck { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; }
+
+/* === SLIDE BASE === */
+.slide {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: #F7F4EF;
+  opacity: 0; pointer-events: none;
+  transform: translateX(80px);
+  transition: transform .42s cubic-bezier(.4,0,.2,1), opacity .42s ease;
+  padding: 52px 80px 72px;
+}
+.slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+.slide.slide-exit { opacity: 0 !important; transform: translateX(-80px) !important; }
+.slide-demo { background: #1f5b4f; }
+
+/* === COMMON ELEMENTS === */
+.slide-tag {
+  font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700;
+  color: #1f5b4f; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
+}
+.slide-demo .slide-tag { color: #8fa89f; }
+
+.slide-title {
+  font-family: Georgia, serif; font-size: 28pt; font-weight: 700;
+  color: #111; line-height: 1.1; margin-bottom: 28px;
+}
+.slide-demo .slide-title { color: #F7F4EF; }
+
+/* === CONCLUSION BAR === */
+.conclusion {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  background: #1f5b4f; padding: 11px 80px;
+  font-family: 'Courier New', monospace; font-size: 11pt; color: #ffffff;
+}
+
+/* ========= SLIDE 1: TITLE ========= */
+.title-accent {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: #1f5b4f;
+}
+.title-super {
+  font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700;
+  color: #1f5b4f; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;
+}
+.title-main {
+  font-family: Georgia, serif; font-size: 36pt; font-weight: 700;
+  color: #111; line-height: 1.05; margin-bottom: 20px;
+}
+.title-sub {
+  font-family: Georgia, serif; font-size: 15pt; color: #444;
+  max-width: 640px; line-height: 1.55; margin-bottom: 48px;
+}
+.title-meta { font-family: 'Courier New', monospace; font-size: 11pt; color: #8fa89f; }
+.title-meta span { color: #1f5b4f; font-weight: 700; }
+
+/* ========= SLIDE 2: PROBLEM ========= */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.col-label {
+  font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700;
+  color: #1f5b4f; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+}
+.problem-list { list-style: none; }
+.problem-list li {
+  font-family: Georgia, serif; font-size: 13pt; color: #222;
+  padding: 11px 0 11px 24px; border-bottom: 1px solid #d7d1c7;
+  position: relative; line-height: 1.4;
+}
+.problem-list li::before { content: '→'; position: absolute; left: 0; color: #1f5b4f; }
+.problem-list li:last-child { border-bottom: none; }
+.quote-box { background: #1f5b4f; border-radius: 10px; padding: 28px 24px; }
+.quote-text {
+  font-family: Georgia, serif; font-size: 14pt; color: #F7F4EF;
+  line-height: 1.55; font-style: italic; margin-bottom: 18px;
+}
+.quote-attr { font-family: 'Courier New', monospace; font-size: 11pt; color: #8fa89f; }
+
+/* ========= SLIDE 3: PIPELINE ========= */
+.pipeline {
+  display: flex; align-items: center; justify-content: space-between;
+  height: calc(100% - 160px); padding: 16px 0;
+}
+.pipe-step { display: flex; flex-direction: column; align-items: center; width: 148px; }
+.pipe-icon {
+  width: 64px; height: 64px; background: #1f5b4f; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22pt; margin-bottom: 14px;
+}
+.pipe-name {
+  font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700;
+  color: #1f5b4f; text-align: center; text-transform: uppercase; margin-bottom: 7px;
+}
+.pipe-desc { font-family: Georgia, serif; font-size: 11pt; color: #555; text-align: center; line-height: 1.4; }
+.pipe-arrow { font-size: 24pt; color: #8fa89f; flex-shrink: 0; }
+
+/* ========= SLIDE 4: EVALUATION ========= */
+.eval-two { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; height: calc(100% - 120px); }
+.eval-card {
+  background: #fff; border: 2px solid #d7d1c7; border-radius: 12px;
+  padding: 28px; display: flex; flex-direction: column; gap: 12px;
+}
+.eval-phase { font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700; color: #1f5b4f; letter-spacing: 1px; }
+.eval-title { font-family: Georgia, serif; font-size: 16pt; font-weight: 700; color: #111; }
+.eval-stat { font-family: 'Courier New', monospace; font-size: 26pt; font-weight: 700; color: #1f5b4f; }
+.eval-desc { font-family: Georgia, serif; font-size: 12pt; color: #555; line-height: 1.5; }
+.eval-items { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.eval-item { display: flex; align-items: flex-start; gap: 10px; font-family: Georgia, serif; font-size: 12pt; color: #333; line-height: 1.4; }
+.eval-item-dot { width: 10px; height: 10px; border-radius: 50%; background: #1f5b4f; flex-shrink: 0; margin-top: 5px; }
+
+/* ========= SLIDE 5: COVERAGE MAP ========= */
+.coverage-wrap { display: flex; gap: 32px; height: calc(100% - 120px); align-items: flex-start; }
+.coverage-svg-area { flex: 1; }
+.coverage-legend { width: 220px; padding-top: 4px; }
+.legend-head { font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700; color: #1f5b4f; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+.legend-section { margin-bottom: 16px; }
+.legend-section-title { font-family: 'Courier New', monospace; font-size: 11pt; color: #8fa89f; margin-bottom: 7px; }
+.legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; font-family: Georgia, serif; font-size: 12pt; color: #333; line-height: 1.3; }
+.legend-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
+
+/* ========= SLIDE 6: RESULTS ========= */
+.results-layout { display: grid; grid-template-columns: 252px 1fr; gap: 40px; height: calc(100% - 120px); }
+.model-cards { display: flex; flex-direction: column; gap: 14px; }
+.model-card { border: 2px solid #d7d1c7; border-radius: 10px; padding: 16px 18px; background: #fff; position: relative; }
+.model-card.winner { border-color: #1f5b4f; background: #f0f5f3; }
+.winner-badge {
+  position: absolute; top: -12px; right: 14px; background: #1f5b4f; color: #fff;
+  font-family: 'Courier New', monospace; font-size: 10pt; font-weight: 700;
+  padding: 2px 10px; border-radius: 20px; letter-spacing: 1px;
+}
+.model-label { font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700; color: #1f5b4f; letter-spacing: 1px; margin-bottom: 2px; }
+.model-desc { font-family: Georgia, serif; font-size: 11pt; color: #666; margin-bottom: 8px; line-height: 1.4; }
+.model-score { font-family: 'Courier New', monospace; font-size: 22pt; font-weight: 700; color: #1f5b4f; }
+.model-score-denom { font-size: 14pt; color: #8fa89f; }
+.matrix-label { font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700; color: #1f5b4f; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+table.matrix { border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 11pt; }
+table.matrix th { font-weight: 700; color: #1f5b4f; padding: 6px 14px; text-align: center; }
+table.matrix td { padding: 4px 6px; text-align: center; }
+table.matrix td.q-label { font-weight: 700; color: #333; text-align: left; padding-right: 14px; white-space: nowrap; }
+.cell { display: inline-block; width: 80px; height: 26px; border-radius: 5px; }
+.cell-dark  { background: #1f5b4f; }
+.cell-mid   { background: #8fa89f; }
+.cell-light { background: #d9dfdc; }
+.q-dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
+/* ========= SLIDE 7: DEMO ========= */
+.demo-layout { display: grid; grid-template-columns: 295px 1fr; gap: 28px; height: calc(100% - 120px); }
+.q-buttons { display: flex; flex-direction: column; gap: 7px; overflow-y: auto; }
+.q-btn {
+  display: flex; align-items: flex-start; gap: 9px; padding: 11px 13px;
+  border: none; border-radius: 8px; cursor: pointer; text-align: left;
+  transition: opacity .2s, transform .15s;
+}
+.q-btn:hover { opacity: 0.82; transform: translateX(4px); }
+.q-btn.selected { box-shadow: 0 0 0 3px rgba(247,244,239,0.55); }
+.q-num { font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700; color: #F7F4EF; min-width: 24px; }
+.q-lbl { font-family: Georgia, serif; font-size: 11pt; color: #F7F4EF; line-height: 1.35; }
+.answer-panel {
+  background: rgba(247,244,239,0.08); border: 1px solid rgba(247,244,239,0.2);
+  border-radius: 10px; padding: 22px; display: flex; flex-direction: column; gap: 14px;
+  overflow-y: auto;
+}
+.answer-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; font-family: Georgia, serif; font-size: 14pt; color: rgba(247,244,239,0.3); font-style: italic; }
+.answer-loading { display: flex; align-items: center; justify-content: center; height: 100%; font-family: 'Courier New', monospace; font-size: 11pt; color: #8fa89f; letter-spacing: 3px; }
+.ans-question { font-family: Georgia, serif; font-size: 13pt; color: rgba(247,244,239,0.85); font-style: italic; border-bottom: 1px solid rgba(247,244,239,0.18); padding-bottom: 12px; }
+.papers-label { font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700; color: #8fa89f; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.paper-item { font-family: Georgia, serif; font-size: 11pt; color: rgba(247,244,239,0.65); line-height: 1.3; padding: 4px 0; }
+.paper-item::before { content: '· '; color: #8fa89f; }
+.zone-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.zone-badge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-family: 'Courier New', monospace; font-size: 11pt; font-weight: 700; color: #F7F4EF; }
+.ans-text { font-family: Georgia, serif; font-size: 12pt; color: #F7F4EF; line-height: 1.65; }
+
+/* ========= SLIDE 8: NEXT STEPS ========= */
+.next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; height: calc(100% - 120px); }
+.next-card { background: #fff; border: 2px solid #d7d1c7; border-radius: 12px; padding: 26px; display: flex; flex-direction: column; gap: 8px; }
+.next-num { font-family: 'Courier New', monospace; font-size: 22pt; font-weight: 700; color: #d7d1c7; }
+.next-title { font-family: Georgia, serif; font-size: 15pt; font-weight: 700; color: #111; }
+.next-desc { font-family: Georgia, serif; font-size: 12pt; color: #555; line-height: 1.5; }
+
+/* === NAVIGATION === */
+#nav { position: fixed; bottom: 18px; right: 80px; display: flex; align-items: center; gap: 12px; z-index: 100; }
+.nav-btn {
+  width: 38px; height: 38px; background: rgba(31,91,79,0.12);
+  border: 2px solid #1f5b4f; border-radius: 50%; color: #1f5b4f;
+  font-size: 15pt; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .2s, color .2s;
+}
+.nav-btn:hover { background: #1f5b4f; color: #F7F4EF; }
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+#nav .counter { font-family: 'Courier New', monospace; font-size: 11pt; color: #8fa89f; }
+#dots { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 100; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(31,91,79,0.25); cursor: pointer; transition: background .2s, transform .2s; }
+.dot.active { background: #1f5b4f; transform: scale(1.35); }
+</style>
+</head>
+<body>
+<div id="deck">
+
+<!-- ============================================================
+     SLIDE 1 — TITLE
+     ============================================================ -->
+<div class="slide" id="s0">
+  <div class="title-accent"></div>
+  <div style="padding-left:20px; padding-top:28px;">
+    <div class="title-super">Capstone I &nbsp;·&nbsp; March 2026</div>
+    <div class="title-main">Text Prediction<br>for Scientific Papers</div>
+    <div class="title-sub">A retrieval-augmented pipeline that searches 10,000 biomedical articles and synthesizes answers to clinical questions — automatically.</div>
+    <div class="title-meta"><span>Thomas Heger</span> &nbsp;·&nbsp; Medical Informatics &nbsp;·&nbsp; 2026</div>
+  </div>
+  <div class="conclusion">We built and evaluated a system that reads 10,000 papers and writes a synthesized answer to any medical question in seconds.</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 2 — THE PROBLEM
+     ============================================================ -->
+<div class="slide" id="s1">
+  <div class="slide-tag">The Problem</div>
+  <div class="slide-title">35 million papers. Zero synthesis.</div>
+  <div class="two-col">
+    <div>
+      <div class="col-label">Why search alone is not enough</div>
+      <ul class="problem-list">
+        <li>PubMed returns links — not answers. Clinicians must read and synthesize themselves.</li>
+        <li>Keyword search misses papers that use different terminology for the same concept.</li>
+        <li>New evidence accumulates faster than anyone can keep up with.</li>
+        <li>Time pressure in clinical settings makes deep literature review impractical.</li>
+        <li>No standard tool connects a specific question to a synthesized, evidence-backed answer.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="col-label">The gap in practice</div>
+      <div class="quote-box">
+        <div class="quote-text">"I searched PubMed for an hour and found 340 results. None of them gave me a clear answer on first-line treatment. I ended up calling a colleague."</div>
+        <div class="quote-attr">— Composite from physician interviews on clinical literature search</div>
+      </div>
+      <div style="margin-top:20px; font-family:Georgia,serif; font-size:12pt; color:#555; line-height:1.55;">
+        RAG (Retrieval-Augmented Generation) closes this gap: retrieve the most relevant text from a corpus, then have a language model synthesize a direct answer grounded in those sources.
+      </div>
+    </div>
+  </div>
+  <div class="conclusion">Clinicians need synthesized answers, not ranked lists of links. RAG makes that possible at scale.</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 3 — THE PIPELINE
+     ============================================================ -->
+<div class="slide" id="s2">
+  <div class="slide-tag">The System</div>
+  <div class="slide-title">Five steps from question to answer</div>
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="pipe-icon">📄</div>
+      <div class="pipe-name">Corpus</div>
+      <div class="pipe-desc">10,000 PMC articles<br>46,853 text chunks</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="pipe-icon">🔍</div>
+      <div class="pipe-name">BM25</div>
+      <div class="pipe-desc">Keyword search<br>exact term match</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:20pt;color:#8fa89f;">
+      <span>↑</span><span style="font-family:'Courier New',monospace;font-size:10pt;color:#8fa89f;">fused</span><span>↓</span>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-icon">🧬</div>
+      <div class="pipe-name">PubMedBERT</div>
+      <div class="pipe-desc">Semantic search<br>FAISS vector index</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="pipe-icon">⚖️</div>
+      <div class="pipe-name">RRF Fusion</div>
+      <div class="pipe-desc">Reciprocal rank<br>fusion of results</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="pipe-icon">💬</div>
+      <div class="pipe-name">LLM Answer</div>
+      <div class="pipe-desc">Llama 3.1 reads<br>and synthesizes</div>
+    </div>
+  </div>
+  <div style="margin-top:18px; display:flex; gap:16px;">
+    <div style="font-family:'Courier New',monospace; font-size:11pt; color:#1f5b4f; background:rgba(31,91,79,0.08); border-radius:6px; padding:8px 16px; border-left:3px solid #8fa89f;">V1 · BM25 only + 8B</div>
+    <div style="font-family:'Courier New',monospace; font-size:11pt; color:#1f5b4f; background:rgba(31,91,79,0.15); border-radius:6px; padding:8px 16px; border-left:3px solid #1f5b4f; font-weight:700;">V2 · Hybrid + 8B &nbsp;← winner</div>
+    <div style="font-family:'Courier New',monospace; font-size:11pt; color:#1f5b4f; background:rgba(31,91,79,0.08); border-radius:6px; padding:8px 16px; border-left:3px solid #8fa89f;">V3 · Hybrid + 70B</div>
+  </div>
+  <div class="conclusion">Combining keyword and semantic search gives the best of both worlds. We tested three configurations to find out what matters more: retrieval method or model size.</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 4 — EVALUATION DESIGN
+     ============================================================ -->
+<div class="slide" id="s3">
+  <div class="slide-tag">Evaluation</div>
+  <div class="slide-title">How we measured what "good" means</div>
+  <div class="eval-two">
+    <div class="eval-card">
+      <div class="eval-phase">PHASE I — AUTOMATED</div>
+      <div class="eval-title">Retrieval quality check</div>
+      <div class="eval-stat">68%</div>
+      <div class="eval-desc">of test questions had a relevant document in the top-5 retrieved results.</div>
+      <div class="eval-items">
+        <div class="eval-item"><div class="eval-item-dot"></div>BM25 vs. hybrid retrieval compared head-to-head</div>
+        <div class="eval-item"><div class="eval-item-dot"></div>Recall measured across all 10 topic clusters in the corpus</div>
+        <div class="eval-item"><div class="eval-item-dot"></div>Fast, automated — no human judgment required</div>
+      </div>
+    </div>
+    <div class="eval-card">
+      <div class="eval-phase">PHASE II — QUALITY RATING</div>
+      <div class="eval-title">Answer quality per question</div>
+      <div class="eval-stat">8 × 3 = 24</div>
+      <div class="eval-desc">answers rated 1–5 by two independent AI judges (ChatGPT + Claude).</div>
+      <div class="eval-items">
+        <div class="eval-item"><div class="eval-item-dot"></div>8 clinical questions spanning 4 coverage zones</div>
+        <div class="eval-item"><div class="eval-item-dot"></div>Rated on accuracy, completeness, and citation quality</div>
+        <div class="eval-item"><div class="eval-item-dot"></div>All three pipeline variants rated on every question</div>
+        <div class="eval-item"><div class="eval-item-dot"></div>Zero errors or timeouts across all 24 runs</div>
+      </div>
+    </div>
+  </div>
+  <div class="conclusion">Eight real clinical questions, rated independently by two AI judges on a 1–5 scale — 24 answers total across three pipeline variants.</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 5 — COVERAGE MAP
+     ============================================================ -->
+<div class="slide" id="s4">
+  <div class="slide-tag">Corpus Coverage</div>
+  <div class="slide-title">The corpus shapes what the system can answer</div>
+  <div class="coverage-wrap">
+    <div class="coverage-svg-area">
+      <svg viewBox="0 0 1050 520" width="100%" style="max-height:420px; display:block;">
+        <rect width="1050" height="520" fill="#F7F4EF"/>
+
+        <!-- Large clusters ~20-21% -->
+        <ellipse cx="640" cy="230" rx="100" ry="95" fill="#1f5b4f" fill-opacity="0.12"/>
+        <text x="640" y="215" font-family="Courier New" font-size="11" font-weight="700" fill="#1f5b4f" text-anchor="middle">Oncology</text>
+        <text x="640" y="229" font-family="Courier New" font-size="10" fill="#365b53" text-anchor="middle">21% of corpus</text>
+
+        <ellipse cx="475" cy="178" rx="93" ry="88" fill="#1f5b4f" fill-opacity="0.12"/>
+        <text x="475" y="163" font-family="Courier New" font-size="11" font-weight="700" fill="#1f5b4f" text-anchor="middle">COVID-19</text>
+        <text x="475" y="177" font-family="Courier New" font-size="10" fill="#365b53" text-anchor="middle">20% of corpus</text>
+
+        <ellipse cx="576" cy="360" rx="90" ry="86" fill="#1f5b4f" fill-opacity="0.12"/>
+        <text x="576" y="345" font-family="Courier New" font-size="11" font-weight="700" fill="#1f5b4f" text-anchor="middle">Epidemiology</text>
+        <text x="576" y="359" font-family="Courier New" font-size="10" fill="#365b53" text-anchor="middle">20% of corpus</text>
+
+        <!-- Medium cluster ~10% -->
+        <ellipse cx="362" cy="294" rx="66" ry="62" fill="#547d73" fill-opacity="0.14"/>
+        <text x="362" y="280" font-family="Courier New" font-size="11" font-weight="700" fill="#1f5b4f" text-anchor="middle">Dementia</text>
+        <text x="362" y="294" font-family="Courier New" font-size="10" fill="#365b53" text-anchor="middle">10%</text>
+
+        <!-- Small clusters ~5% and ~3% -->
+        <ellipse cx="770" cy="213" rx="46" ry="43" fill="#93a79f" fill-opacity="0.16"/>
+        <text x="770" y="206" font-family="Courier New" font-size="10" font-weight="700" fill="#547d73" text-anchor="middle">ICU</text>
+        <text x="770" y="218" font-family="Courier New" font-size="9" fill="#7f8f89" text-anchor="middle">5%</text>
+
+        <ellipse cx="718" cy="388" rx="35" ry="32" fill="#93a79f" fill-opacity="0.16"/>
+        <text x="718" y="381" font-family="Courier New" font-size="10" font-weight="700" fill="#547d73" text-anchor="middle">Surgery</text>
+        <text x="718" y="393" font-family="Courier New" font-size="9" fill="#7f8f89" text-anchor="middle">3%</text>
+
+        <!-- Dashed leader lines for Q7, Q8 -->
+        <line x1="186" y1="406" x2="304" y2="326" stroke="#c2bdb4" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <line x1="134" y1="304" x2="300" y2="296" stroke="#c2bdb4" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+        <!-- Q circles -->
+        <circle cx="616" cy="220" r="26" fill="#163f38"/>
+        <text x="616" y="225" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q1</text>
+
+        <circle cx="664" cy="256" r="26" fill="#163f38"/>
+        <text x="664" y="261" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q2</text>
+
+        <circle cx="353" cy="286" r="26" fill="#163f38"/>
+        <text x="353" y="291" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q3</text>
+
+        <circle cx="510" cy="280" r="26" fill="#365b53"/>
+        <text x="510" y="285" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q4</text>
+
+        <circle cx="761" cy="208" r="26" fill="#5f756f"/>
+        <text x="761" y="213" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q5</text>
+
+        <circle cx="710" cy="383" r="26" fill="#5f756f"/>
+        <text x="710" y="388" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q6</text>
+
+        <circle cx="162" cy="416" r="26" fill="#7f8f89"/>
+        <text x="162" y="421" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q7</text>
+
+        <circle cx="110" cy="304" r="26" fill="#7f8f89"/>
+        <text x="110" y="309" font-family="Courier New" font-size="12" font-weight="700" fill="#F7F4EF" text-anchor="middle" dominant-baseline="middle">Q8</text>
+
+        <text x="10" y="505" font-family="Courier New" font-size="10" fill="#8fa89f">bubble = research topic in corpus  ·  size = share of corpus  ·  darker circle = better match</text>
+      </svg>
+    </div>
+    <div class="coverage-legend">
+      <div class="legend-head">Coverage zones</div>
+      <div class="legend-section">
+        <div class="legend-section-title">WELL COVERED</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#163f38;"></div>Q1, Q2, Q3 — inside large topic clusters</div>
+      </div>
+      <div class="legend-section">
+        <div class="legend-section-title">PARTIAL MATCH</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#365b53;"></div>Q4 — between two clusters</div>
+      </div>
+      <div class="legend-section">
+        <div class="legend-section-title">SPARSE MATCH</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5f756f;"></div>Q5, Q6 — near small clusters only</div>
+      </div>
+      <div class="legend-section">
+        <div class="legend-section-title">OUTSIDE CORPUS</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7f8f89;"></div>Q7, Q8 — no matching cluster at all</div>
+      </div>
+      <div style="margin-top:18px; padding:12px 14px; background:rgba(31,91,79,0.08); border-radius:8px; border-left:3px solid #1f5b4f;">
+        <div style="font-family:'Courier New',monospace; font-size:11pt; color:#1f5b4f; line-height:1.5;">The same question asked to a poorly matched corpus gets a weaker answer — regardless of model size.</div>
+      </div>
+    </div>
+  </div>
+  <div class="conclusion">Q1–Q3 sit inside major corpus clusters. Q7 and Q8 have no matching cluster — the system is answering with no relevant training ground.</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 6 — RESULTS
+     ============================================================ -->
+<div class="slide" id="s5">
+  <div class="slide-tag">Results</div>
+  <div class="slide-title">Hybrid search wins — and coverage matters more than model size</div>
+  <div class="results-layout">
+    <div class="model-cards">
+      <div class="model-card">
+        <div class="model-label">V1 — BASELINE</div>
+        <div class="model-desc">BM25 keywords only<br>Llama 3.1 8B</div>
+        <div class="model-score">3.1<span class="model-score-denom"> / 5</span></div>
+      </div>
+      <div class="model-card winner">
+        <div class="winner-badge">★ WINNER</div>
+        <div class="model-label">V2 — HYBRID</div>
+        <div class="model-desc">BM25 + PubMedBERT<br>Llama 3.1 8B</div>
+        <div class="model-score">3.6<span class="model-score-denom"> / 5</span></div>
+      </div>
+      <div class="model-card">
+        <div class="model-label">V3 — LARGE MODEL</div>
+        <div class="model-desc">BM25 + PubMedBERT<br>Llama 3.3 70B</div>
+        <div class="model-score">3.2<span class="model-score-denom"> / 5</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="matrix-label">Answer quality per question &nbsp;·&nbsp; darker = stronger answer</div>
+      <table class="matrix">
+        <tr>
+          <th></th><th>BM25</th><th>HYBRID 8B</th><th>HYBRID 70B</th>
+        </tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#163f38"></span>Q1</td><td><div class="cell cell-mid"></div></td><td><div class="cell cell-mid"></div></td><td><div class="cell cell-dark"></div></td></tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#163f38"></span>Q2</td><td><div class="cell cell-dark"></div></td><td><div class="cell cell-dark"></div></td><td><div class="cell cell-dark"></div></td></tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#163f38"></span>Q3</td><td><div class="cell cell-light"></div></td><td><div class="cell cell-dark"></div></td><td><div class="cell cell-dark"></div></td></tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#365b53"></span>Q4</td><td><div class="cell cell-light"></div></td><td><div class="cell cell-light"></div></td><td><div class="cell cell-mid"></div></td></tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#5f756f"></span>Q5</td><td><div class="cell cell-mid"></div></td><td><div class="cell cell-light"></div></td><td><div class="cell cell-light"></div></td></tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#5f756f"></span>Q6</td><td><div class="cell cell-dark"></div></td><td><div class="cell cell-dark"></div></td><td><div class="cell cell-mid"></div></td></tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#7f8f89"></span>Q7</td><td><div class="cell cell-mid"></div></td><td><div class="cell cell-mid"></div></td><td><div class="cell cell-light"></div></td></tr>
+        <tr><td class="q-label"><span class="q-dot" style="background:#7f8f89"></span>Q8</td><td><div class="cell cell-light"></div></td><td><div class="cell cell-mid"></div></td><td><div class="cell cell-light"></div></td></tr>
+      </table>
+      <div style="margin-top:14px; font-family:'Courier New',monospace; font-size:11pt; color:#8fa89f; line-height:1.6;">
+        Top rows (Q1–Q3, dark circles) are strong across all models. &nbsp;·&nbsp; Q7 and Q8 — outside the corpus — score low for every model. &nbsp;·&nbsp; The bigger model (V3) does not consistently outperform V2.
+      </div>
+    </div>
+  </div>
+  <div class="conclusion">V2 wins at 3.6/5. The 70B model does not beat the 8B model. Corpus coverage explains the score pattern better than model size alone.</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 7 — DEMO
+     ============================================================ -->
+<div class="slide slide-demo" id="s6">
+  <div class="slide-tag">Live Demo</div>
+  <div class="slide-title" style="margin-bottom:18px;">Ask the system</div>
+  <div class="demo-layout">
+    <div class="q-buttons" id="qButtons">
+      <button class="q-btn" style="background:#163f38;" onclick="selectQ('Q1',this)">
+        <span class="q-num">Q1</span><span class="q-lbl">Lung cancer &amp; checkpoint therapy</span>
+      </button>
+      <button class="q-btn" style="background:#163f38;" onclick="selectQ('Q2',this)">
+        <span class="q-num">Q2</span><span class="q-lbl">Predicting immunotherapy response</span>
+      </button>
+      <button class="q-btn" style="background:#163f38;" onclick="selectQ('Q3',this)">
+        <span class="q-num">Q3</span><span class="q-lbl">Blood tests for Alzheimer's</span>
+      </button>
+      <button class="q-btn" style="background:#365b53;" onclick="selectQ('Q4',this)">
+        <span class="q-num">Q4</span><span class="q-lbl">Parkinson's gene mutation</span>
+      </button>
+      <button class="q-btn" style="background:#5f756f;" onclick="selectQ('Q5',this)">
+        <span class="q-num">Q5</span><span class="q-lbl">Brain inflammation treatment</span>
+      </button>
+      <button class="q-btn" style="background:#5f756f;" onclick="selectQ('Q6',this)">
+        <span class="q-num">Q6</span><span class="q-lbl">Gene therapy for SMA</span>
+      </button>
+      <button class="q-btn" style="background:#7f8f89;" onclick="selectQ('Q7',this)">
+        <span class="q-num">Q7</span><span class="q-lbl">Corneal transplant outcomes</span>
+      </button>
+      <button class="q-btn" style="background:#7f8f89;" onclick="selectQ('Q8',this)">
+        <span class="q-num">Q8</span><span class="q-lbl">Nutrition in preterm infants</span>
+      </button>
+    </div>
+    <div class="answer-panel" id="answerPanel">
+      <div class="answer-placeholder" id="answerPlaceholder">← Click a question to see the system's answer</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 8 — NEXT STEPS
+     ============================================================ -->
+<div class="slide" id="s7">
+  <div class="slide-tag">What's Next</div>
+  <div class="slide-title">Where this goes from here</div>
+  <div class="next-grid">
+    <div class="next-card">
+      <div class="next-num">01</div>
+      <div class="next-title">Re-embed with clean data</div>
+      <div class="next-desc">We found that reference list text was contaminating the FAISS embeddings. Re-running the index with abstract + introduction only takes ~30 minutes on a T4 GPU and is the single highest-leverage fix available right now.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-num">02</div>
+      <div class="next-title">Expand corpus coverage</div>
+      <div class="next-desc">Q7 and Q8 scored low because those topics are simply not in the corpus. Adding ophthalmology and neonatology articles would directly improve those answers — no model changes needed at all.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-num">03</div>
+      <div class="next-title">Human expert evaluation</div>
+      <div class="next-desc">AI-judge ratings are a useful proxy, but the next step is domain experts rating the same 24 answers — and eventually testing whether the system's answers influence real clinical decisions differently.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-num">04</div>
+      <div class="next-title">Deploy as a proper tool</div>
+      <div class="next-desc">The core architecture is production-ready. Capstone II will wrap it in a proper interface, add transparency (which papers support which claim), and evaluate on a broader, more diverse question set.</div>
+    </div>
+  </div>
+  <div class="conclusion">Cleaner embeddings and a broader corpus are the fastest path to better results — before any model upgrades.</div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<div id="nav">
+  <button class="nav-btn" id="btnPrev" onclick="prevSlide()">&#8249;</button>
+  <span class="counter" id="counter">1 / 8</span>
+  <button class="nav-btn" id="btnNext" onclick="nextSlide()">&#8250;</button>
+</div>
+<div id="dots">
+  <div class="dot active" onclick="goToSlide(0)" title="Title"></div>
+  <div class="dot" onclick="goToSlide(1)" title="Problem"></div>
+  <div class="dot" onclick="goToSlide(2)" title="Pipeline"></div>
+  <div class="dot" onclick="goToSlide(3)" title="Evaluation"></div>
+  <div class="dot" onclick="goToSlide(4)" title="Coverage Map"></div>
+  <div class="dot" onclick="goToSlide(5)" title="Results"></div>
+  <div class="dot" onclick="goToSlide(6)" title="Demo"></div>
+  <div class="dot" onclick="goToSlide(7)" title="Next Steps"></div>
+</div>
+
+<script>
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+let cur = 0;
+let demoTimer = null;
+
+function updateNav() {
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
+  document.getElementById('btnPrev').disabled = (cur === 0);
+  document.getElementById('btnNext').disabled = (cur === slides.length - 1);
+  dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+  const onDemo = slides[cur].classList.contains('slide-demo');
+  ['btnPrev','btnNext'].forEach(id => {
+    const b = document.getElementById(id);
+    b.style.borderColor = onDemo ? '#8fa89f' : '#1f5b4f';
+    b.style.color       = onDemo ? '#8fa89f' : '#1f5b4f';
+    b.style.background  = 'transparent';
+  });
+  document.querySelector('#nav .counter').style.color = onDemo ? 'rgba(247,244,239,0.5)' : '#8fa89f';
+  document.querySelectorAll('.dot').forEach(d => {
+    d.style.background = d.classList.contains('active')
+      ? (onDemo ? '#8fa89f' : '#1f5b4f')
+      : 'rgba(31,91,79,0.25)';
+  });
+}
+
+function goToSlide(n) {
+  if (n === cur || n < 0 || n >= slides.length) return;
+  const dir = n > cur ? 1 : -1;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('slide-exit');
+  const old = cur;
+  cur = n;
+  setTimeout(() => slides[old].classList.remove('slide-exit'), 460);
+  slides[cur].style.transform = `translateX(${dir * 80}px)`;
+  slides[cur].style.opacity = '0';
+  slides[cur].style.transition = 'none';
+  slides[cur].offsetHeight;
+  slides[cur].style.transition = '';
+  slides[cur].classList.add('active');
+  updateNav();
+}
+
+function nextSlide() { goToSlide(cur + 1); }
+function prevSlide()  { goToSlide(cur - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prevSlide();
+  if (e.key === 'Home') goToSlide(0);
+  if (e.key === 'End')  goToSlide(slides.length - 1);
+});
+
+slides[0].classList.add('active');
+updateNav();
+
+/* ============================================================
+   DEMO DATA — from actual V2 evaluation (custom_v2_hybrid_8b.json)
+   ============================================================ */
+const QA = {
+  Q1: {
+    zone: 'CORE', zoneColor: '#163f38',
+    question: 'Why do some patients with lung cancer stop responding to checkpoint inhibitors?',
+    papers: [
+      'Clinical predictors of treatment efficacy in lung adenocarcinoma',
+      'PD-L1 tumor proportion score in PD-1/PD-L1 inhibitors for NSCLC',
+      'Checkpoint inhibitors combined with multi-targeted kinase inhibitors',
+      'PD-L1, EGFR, ALK and ROS1 status — surgical vs. cytological samples'
+    ],
+    answer: 'Resistance develops because tumors carry different mutations — EGFR, ALK, and ROS1 — that interact with PD-L1 expression in complex ways. High PD-L1 expression predicts better response, but tumor heterogeneity and immune-related side effects also play a major role. No single biomarker reliably predicts resistance; a combination of genomic and clinical factors works best.'
+  },
+  Q2: {
+    zone: 'CORE', zoneColor: '#163f38',
+    question: 'Can PD-L1 levels help predict response to immunotherapy in solid tumors?',
+    papers: [
+      'Clinical predictors and prognostic nomogram for NSCLC treatment efficacy',
+      'PD-L1, EGFR, ALK and ROS1 status comparison across sample types',
+      'Genomic correlates of response to first-line PD-1 blockade + chemotherapy',
+      'CMTM6 expression in the tumor microenvironment of metastatic patients'
+    ],
+    answer: 'Yes — high PD-L1 expression consistently predicts better response to immune checkpoint inhibitors, particularly in lung cancer. But PD-L1 alone is not sufficient: tumor mutation burden, genomic features, and clinical factors together give a more accurate prediction. The corpus strongly supports PD-L1 as a useful but incomplete biomarker.'
+  },
+  Q3: {
+    zone: 'CORE', zoneColor: '#163f38',
+    question: 'Are there reliable blood tests for early Alzheimer\'s disease?',
+    papers: [
+      'Predicting conversion in cognitively normal and MCI individuals',
+      'Cerebrospinal fluid biomarkers in Alzheimer\'s disease: diagnostic accuracy',
+      'Plasma amyloid beta and tau progression across the Alzheimer\'s spectrum',
+      'Genetics-based biomarker risk algorithm for Alzheimer\'s prediction'
+    ],
+    answer: 'Blood-based plasma tests measuring amyloid beta and tau show real promise and are improving rapidly. Machine learning approaches combining multiple biomarkers boost prediction accuracy. Reliability is still laboratory-dependent — no universal reference standard exists yet. The corpus has strong coverage here, and the answer reflects solid, current evidence.'
+  },
+  Q4: {
+    zone: 'PARTIAL MATCH', zoneColor: '#365b53',
+    question: 'What is the clinical impact of LRRK2 mutations in Parkinson\'s disease?',
+    papers: [
+      'Network-based systems genetics for Parkinson\'s pathobiology and drug repurposing',
+      'Assessment of fatigue in Parkinson\'s disease: Indian clinical perspective',
+      'L-type calcium channel stimulation increases dopamine in iPSC-derived neurons',
+      'Quality of life and non-motor symptoms improved via nutritional intervention'
+    ],
+    answer: 'LRRK2 mutations account for 1–5% of Parkinson\'s cases and cause alpha-synuclein accumulation — a hallmark of the disease — through disrupted cellular pathways. The corpus doesn\'t have a tight cluster for LRRK2 specifically; retrieved papers cover general Parkinson\'s mechanisms. The answer is reasonable but may miss LRRK2-specific clinical nuances.'
+  },
+  Q5: {
+    zone: 'SPARSE', zoneColor: '#5f756f',
+    question: 'How is refractory autoimmune encephalitis typically treated?',
+    papers: [
+      'B-cell monitoring for Rituximab in neuromyelitis optica spectrum disorder',
+      'Etiologies of rapidly progressive dementias: systematic review',
+      'Filgotinib modulates inflammation-associated peripheral blood biomarkers',
+      'Tocilizumab for severe COVID-19: retrospective cohort study'
+    ],
+    answer: 'The corpus has no direct evidence on this condition — retrieved papers are about related but different diseases. Based on adjacent evidence: refractory cases typically require escalation from corticosteroids and IVIG to rituximab or tocilizumab. Importantly, the system acknowledges this gap honestly rather than fabricating an answer — which is what a well-calibrated RAG system should do.'
+  },
+  Q6: {
+    zone: 'SPARSE', zoneColor: '#5f756f',
+    question: 'How effective is gene therapy for spinal muscular atrophy in children?',
+    papers: [
+      'Inertial measurement units for SMA motor function assessment',
+      'AAV9 antibody screening in patients for SMA gene therapy (PMC7973120)',
+      'Genotype-phenotype relationship in dystrophinopathies among Iranian patients',
+      'mRNA delivery of gene editing tools to primary muscle stem cells'
+    ],
+    answer: 'Gene therapy with AAV9-delivered SMN1 replacement has transformed outcomes for children with SMA. Significant motor function improvements are documented in clinical studies. Results vary — pre-existing antibodies against the viral vector reduce effectiveness and the therapy works best when started very early in life.'
+  },
+  Q7: {
+    zone: 'OUTSIDE CORPUS', zoneColor: '#7f8f89',
+    question: 'What outcomes can be expected after corneal transplantation for keratoconus?',
+    papers: [
+      'Risk factors for graft failure after penetrating keratoplasty: global survey',
+      'Impact of orthokeratology on corneal morphology and myopia control',
+      'VSX1 and SOD1 mutation screening in keratoconus patients',
+      'Factors associated with corneal high-order aberrations after femtosecond LASIK'
+    ],
+    answer: 'Corneal transplantation typically improves visual acuity and reduces astigmatism in keratoconus patients. Graft failure risk is higher with advanced disease, older age, or prior surgeries. The corpus has no dedicated ophthalmology cluster — the system retrieved relevant papers through general surgical and epidemiology clusters. The answer is plausible but limited by sparse evidence.'
+  },
+  Q8: {
+    zone: 'OUTSIDE CORPUS', zoneColor: '#7f8f89',
+    question: 'Does early nutrition affect long-term cognitive outcomes in preterm infants?',
+    papers: [
+      'Neurocognitive functions in infants with malnutrition and long-chain fatty acids',
+      'Global insights in gut microbiota research for premature infants',
+      'Long-term impact of very preterm birth on adult bone mineral density',
+      'White matter microstructure and cognitive outcomes in neonatal inflammation'
+    ],
+    answer: 'Early nutrition is clearly linked to neurocognitive outcomes in preterm infants — calcium intake correlates with cognitive development, and gut microbiota composition shaped by early feeding has measurable long-term effects. The corpus lacks a dedicated neonatology cluster, so the answer draws on adjacent evidence. Plausible, but not high-density direct evidence.'
+  }
+};
+
+/* ============================================================
+   DEMO INTERACTION
+   ============================================================ */
+let selectedBtn = null;
+
+function selectQ(qid, btn) {
+  if (selectedBtn) selectedBtn.classList.remove('selected');
+  selectedBtn = btn;
+  btn.classList.add('selected');
+  if (demoTimer) clearTimeout(demoTimer);
+
+  const panel = document.getElementById('answerPanel');
+  const ph = document.getElementById('answerPlaceholder');
+  if (ph) ph.style.display = 'none';
+  panel.innerHTML = '<div class="answer-loading">RETRIEVING PAPERS ···</div>';
+
+  demoTimer = setTimeout(() => {
+    const d = QA[qid];
+    panel.innerHTML =
+      '<div class="ans-question">&ldquo;' + d.question + '&rdquo;</div>' +
+      '<div><div class="papers-label">Retrieved papers (V2 · Hybrid 8B)</div>' +
+      d.papers.map(p => '<div class="paper-item">' + p + '</div>').join('') +
+      '</div>' +
+      '<div class="zone-row"><div class="zone-badge" style="background:' + d.zoneColor + ';">' + d.zone + '</div></div>' +
+      '<div class="ans-text">' + d.answer + '</div>';
+  }, 1000);
+}
+</script>
+</body>
+</html>

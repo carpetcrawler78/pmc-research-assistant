@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>PMC Keyword Prediction — Pipeline</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.0/mermaid.min.js"></script>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background:#0f1117; color:#e2e8f0; padding:2rem; }
+    h1   { text-align:center; color:#a78bfa; font-size:1.5rem; margin-bottom:.3rem; }
+    .sub { text-align:center; color:#64748b; font-size:.85rem; margin-bottom:2rem; }
+    .chart { background:#1a1d2e; border:1px solid #2d3148; border-radius:12px; padding:1.5rem; overflow-x:auto; margin-bottom:2.5rem; }
+    .mermaid { display:flex; justify-content:center; }
+    .mermaid svg { background:transparent !important; max-width:100%; }
+
+    /* Detail table */
+    h2 { color:#7dd3fc; font-size:1rem; margin:2rem 0 .8rem; letter-spacing:.05em; text-transform:uppercase; }
+    table { width:100%; border-collapse:collapse; font-size:.82rem; }
+    th { background:#1e2130; color:#94a3b8; font-weight:600; text-align:left; padding:.6rem .9rem; border-bottom:2px solid #2d3148; }
+    td { padding:.55rem .9rem; border-bottom:1px solid #1e2130; vertical-align:top; }
+    tr:hover td { background:#1a1f30; }
+    .tag { display:inline-block; background:#1e3a5f; color:#7dd3fc; border-radius:4px; padding:.1rem .4rem; font-size:.75rem; margin:1px; }
+    .tag.grn { background:#14432a; color:#6ee7b7; }
+    .tag.pur { background:#3b1f5e; color:#c4b5fd; }
+    .tag.org { background:#451a03; color:#fcd34d; }
+    .step { font-weight:700; color:#a78bfa; }
+    .file { font-family:monospace; color:#93c5fd; font-size:.8rem; }
+    .out  { font-family:monospace; color:#6ee7b7; font-size:.78rem; }
+  </style>
+</head>
+<body>
+
+<h1>PMC Scientific Papers — Keyword Prediction Pipeline</h1>
+<p class="sub">End-to-end ML pipeline · PubMed Central → RAG-based keyword prediction</p>
+
+<div class="chart">
+<div class="mermaid">
+flowchart TD
+  RAW[("raw_articles.pkl")]
+  CLEAN[("clean_articles.pkl")]
+  MODEL[("baseline_v1_clf.pkl")]
+  ENRICHED[("clean_articles_enriched.pkl")]
+  FI[("specter.index")]
+  FM[("specter_meta.pkl")]
+  OUT[/"Keyword Predictions"/]
+
+  S1["① Extraction<br/>python/01_data_extraction.py"]
+  S2["② Cleaning &amp; EDA<br/>notebooks/02_cleaning_eda.ipynb"]
+  S3["③ Baseline Model<br/>notebooks/03_baseline_keyword_prediction.ipynb<br/>⚠ train once"]
+  S4["④ Clustering<br/>python/02_enrich_cluster_labels.py"]
+  S5["⑤ Embedding &amp; Index<br/>python/03_enrich_tfidf_candidates.py"]
+  S6["⑥ RAG Pipeline<br/>python/04_rag_pipeline.py"]
+
+  S1 --> RAW --> S2 --> CLEAN
+  CLEAN --> S3 --> MODEL
+  CLEAN --> S4
+  MODEL --> S4
+  S4 --> ENRICHED --> S5
+  MODEL --> S5
+  S5 --> FI & FM --> S6
+  S6 --> OUT
+
+  classDef nb   fill:#3b0764,stroke:#7c3aed,color:#e9d5ff
+  classDef sc   fill:#0c4a6e,stroke:#0284c7,color:#bae6fd
+  classDef art  fill:#064e3b,stroke:#059669,color:#a7f3d0
+  classDef res  fill:#78350f,stroke:#d97706,color:#fde68a
+
+  class S2,S3 nb
+  class S1,S4,S5,S6 sc
+  class RAW,CLEAN,MODEL,ENRICHED,FI,FM art
+  class OUT res
+</div>
+</div>
+
+<h2>Step Details</h2>
+<table>
+  <tr>
+    <th>#</th><th>File</th><th>Purpose</th><th>Key Logic</th><th>Packages</th><th>Output</th>
+  </tr>
+  <tr>
+    <td><span class="step">①</span></td>
+    <td><span class="file">python/<br/>01_data_extraction.py</span></td>
+    <td>Parse PMC XML archives or load pre-extracted 10K sample pickle into a flat DataFrame</td>
+    <td><code>USE_10K_SAMPLE</code> flag bypasses tar.gz extraction for fast iteration</td>
+    <td>
+      <span class="tag">pandas</span>
+      <span class="tag">pathlib</span>
+      <span class="tag">xml.etree</span>
+    </td>
+    <td><span class="out">raw_articles.pkl<br/>cols: pmcid · title · abstract · keywords · sections</span></td>
+  </tr>
+  <tr>
+    <td><span class="step">②</span></td>
+    <td><span class="file">notebooks/<br/>02_cleaning_eda.ipynb</span></td>
+    <td>Build keyword cleaning pipeline; explore data distributions and keyword statistics</td>
+    <td>
+      Semicolon/comma split · <code>expand_paren_abbrev()</code> ·
+      <code>is_iupac_or_junk()</code> · <code>is_standalone_alnum_junk()</code> ·
+      bigram enrichment from corpus
+    </td>
+    <td>
+      <span class="tag pur">pandas</span>
+      <span class="tag pur">re</span>
+      <span class="tag pur">unicodedata</span>
+      <span class="tag pur">matplotlib</span>
+    </td>
+    <td><span class="out">clean_articles.pkl<br/>cols: kwd_lst · kwd_lst_cl · n_keywords</span></td>
+  </tr>
+  <tr>
+    <td><span class="step">③</span></td>
+    <td><span class="file">notebooks/<br/>03_baseline_keyword_prediction.ipynb</span><br/><span class="tag org">train once</span></td>
+    <td>Train multi-label keyword classifier on title + abstract + introduction</td>
+    <td>
+      TfidfVectorizer → TruncatedSVD (LSA) → CalibratedClassifierCV(LinearSVC) →
+      MultiLabelBinarizer · F1 @ threshold sweep
+    </td>
+    <td>
+      <span class="tag pur">sklearn</span>
+      <span class="tag pur">TfidfVectorizer</span>
+      <span class="tag pur">TruncatedSVD</span>
+      <span class="tag pur">LinearSVC</span>
+      <span class="tag pur">MultiLabelBinarizer</span>
+    </td>
+    <td><span class="out">baseline_v1_clf.pkl<br/>bundle: tfidf · svd · clf · mlb</span></td>
+  </tr>
+  <tr>
+    <td><span class="step">④</span></td>
+    <td><span class="file">python/<br/>02_enrich_cluster_labels.py</span></td>
+    <td>Assign each article a semantic domain cluster based on keyword co-occurrence</td>
+    <td>
+      1. Impute keywords for sparse articles (&lt; MIN_KWDS) via baseline model<br/>
+      2. Sparse co-occurrence matrix with log1p damping<br/>
+      3. Spectral Clustering on adjacency matrix<br/>
+      4. Auto-name clusters from top-N keywords (prefix dedup for 3+ word terms)
+    </td>
+    <td>
+      <span class="tag">scipy.sparse</span>
+      <span class="tag">SpectralClustering</span>
+    </td>
+    <td><span class="out">clean_articles_enriched.pkl<br/>cols: cluster_label · cluster_name · cluster_confidence · kwd_imputed</span></td>
+  </tr>
+  <tr>
+    <td><span class="step">⑤</span></td>
+    <td><span class="file">python/<br/>03_enrich_tfidf_candidates.py</span></td>
+    <td>Add model-predicted keyword candidates per article; build FAISS semantic index</td>
+    <td>
+      Part A: baseline model → top-k predicted keywords per article (tfidf_candidates)<br/>
+      Part B: allenai-specter embeds "title [SEP] abstract" →
+      L2-normalised → IndexFlatIP (cosine similarity)
+    </td>
+    <td>
+      <span class="tag">sentence-transformers</span>
+      <span class="tag">allenai-specter</span>
+      <span class="tag">faiss-cpu</span>
+      <span class="tag">tqdm</span>
+    </td>
+    <td><span class="out">clean_articles_enriched.pkl + tfidf_candidates<br/>specter.index · specter_meta.pkl</span></td>
+  </tr>
+  <tr>
+    <td><span class="step">⑥</span></td>
+    <td><span class="file">python/<br/>04_rag_pipeline.py</span></td>
+    <td>Given a new paper, predict relevant keywords via retrieval-augmented generation</td>
+    <td>
+      1. Embed query (allenai-specter)<br/>
+      2. FAISS retrieval top-k filtered by MIN_SCORE<br/>
+      3. Score-weighted aggregation: kwd_lst_cl ×2×score · tfidf_candidates ×1×score · direct TF-IDF ×1.5<br/>
+      4. Keyword normalisation: apostrophe artefacts · trailing-s merge<br/>
+      5. Optional LLM refinement (OpenAI API)
+    </td>
+    <td>
+      <span class="tag">faiss-cpu</span>
+      <span class="tag">sentence-transformers</span>
+      <span class="tag">openai</span>
+      <span class="tag">python-dotenv</span>
+    </td>
+    <td><span class="out">retrieval_keywords · direct_tfidf<br/>llm_keywords · retrieved (console / JSON)</span></td>
+  </tr>
+</table>
+
+</body>
+</html>

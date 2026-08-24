@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  STANDALONE PREVIEW of the improvements slide.
+  To insert into pmc_presentation.html:
+  Copy the <section id="improvements"> block below and paste it
+  before the closing </div> of <div class="slides"> in your Reveal.js deck.
+-->
+<head>
+<meta charset="UTF-8">
+<title>Pipeline Improvements — Preview</title>
+<style>
+/* ── Reveal.js base reset (mimics the existing deck) ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0f1117;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 16px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   THE SECTION BLOCK — copy from here into Reveal.js
+   ═══════════════════════════════════════════════════════ */
+.slide-wrap {
+  width: 960px;
+  background: #0f1117;
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ── Section styles (scoped so they don't clash in Reveal) ── */
+#improvements {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  padding: 36px 52px 28px;
+  text-align: left;
+}
+
+#improvements .slide-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #a78bfa;
+  margin-bottom: 6px;
+}
+
+#improvements h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #f1f5f9;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+#improvements .subtitle {
+  font-size: 13px;
+  color: #475569;
+  margin-bottom: 28px;
+}
+
+/* ── Pipeline rows ── */
+.pipe-grid {
+  display: grid;
+  grid-template-columns: 120px 1fr 28px 1fr 80px;
+  align-items: center;
+  gap: 0 10px;
+  margin-bottom: 10px;
+}
+
+.pipe-step-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: right;
+  padding-right: 4px;
+}
+
+/* baseline cell */
+.pipe-cell {
+  background: #1a1d2e;
+  border: 1px solid #2d3148;
+  border-radius: 8px;
+  padding: 10px 14px;
+  position: relative;
+}
+
+.pipe-cell.baseline { border-color: #4b3030; background: #1c1515; }
+.pipe-cell.ours     { border-color: #1e3a5f; background: #111827; }
+
+.pipe-cell .who {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.who.red  { color: #f87171; }
+.who.blue { color: #60a5fa; }
+
+.pipe-cell .impl {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.pipe-cell .metric {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+.pipe-cell .metric span {
+  font-weight: 700;
+}
+.metric .m-bad  { color: #f87171; }
+.metric .m-good { color: #34d399; }
+.metric .m-mid  { color: #fbbf24; }
+
+/* arrow */
+.arrow {
+  text-align: center;
+  font-size: 18px;
+  color: #a78bfa;
+}
+
+/* delta badge */
+.delta {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 20px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.delta.pos  { background: rgba(52,211,153,.15); color: #34d399; }
+.delta.mid  { background: rgba(251,191,36,.12); color: #fbbf24; }
+.delta.qual { background: rgba(167,139,250,.12); color: #a78bfa; }
+
+/* ── Cumulative result bar ── */
+.cumulative {
+  margin-top: 18px;
+  background: #111827;
+  border: 1px solid #2d3148;
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0 10px;
+  align-items: center;
+}
+
+.cum-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: right;
+  padding-right: 4px;
+}
+
+.cum-bars { display: flex; flex-direction: column; gap: 7px; }
+
+.cum-row { display: flex; align-items: center; gap: 10px; }
+
+.cum-name {
+  width: 170px;
+  font-size: 11px;
+  color: #64748b;
+  text-align: right;
+  flex-shrink: 0;
+}
+.cum-name strong { color: #94a3b8; }
+
+.cum-track {
+  flex: 1;
+  height: 18px;
+  background: #1a1d2e;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cum-fill {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  color: white;
+  transition: width .3s;
+}
+
+.cum-fill.v  { background: #7f1d1d; width: 5%; }   /* Viktor ~0% effective */
+.cum-fill.r  { background: #92400e; width: 33%; }   /* RAG 33% */
+.cum-fill.g  { background: #1d4ed8; width: 68%; }   /* gold 68% */
+.cum-fill.p  { background: #6d28d9; width: 78%; }   /* projected 78% */
+.cum-fill.m  { background: #166534; width: 83%; }   /* Markus 83% */
+
+.cum-val {
+  width: 44px;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: left;
+  flex-shrink: 0;
+}
+.cum-val.v { color: #f87171; }
+.cum-val.r { color: #fbbf24; }
+.cum-val.g { color: #60a5fa; }
+.cum-val.p { color: #a78bfa; }
+.cum-val.m { color: #34d399; }
+
+.source-note {
+  font-size: 9px;
+  color: #374151;
+  margin-top: 14px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="slide-wrap">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COPY THIS <section> INTO YOUR pmc_presentation.html
+     Place it before the closing </div> of <div class="slides">
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="improvements">
+
+  <div class="slide-label">Evidence-Based Optimization</div>
+  <h2>Better Every Step of the Way</h2>
+  <p class="subtitle">Each pipeline component measured independently — cumulative impact shown below</p>
+
+  <!-- ── CHUNKING ── -->
+  <div class="pipe-grid">
+    <div class="pipe-step-label">① Chunking</div>
+    <div class="pipe-cell baseline">
+      <div class="who red">Viktor · Baseline</div>
+      <div class="impl">1 sentence per chunk<br>PunktTokenizer</div>
+      <div class="metric">Context never reached LLM <span class="m-bad">(bug)</span></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="pipe-cell ours">
+      <div class="who blue">Plan A · Ours</div>
+      <div class="impl">Abstract + Intro sections<br>300-token chunks, overlap</div>
+      <div class="metric">Full context <span class="m-good">passed to LLM ✓</span></div>
+    </div>
+    <div class="delta qual">Context<br>quality ↑</div>
+  </div>
+
+  <!-- ── EMBEDDING ── -->
+  <div class="pipe-grid">
+    <div class="pipe-step-label">② Embedding</div>
+    <div class="pipe-cell baseline">
+      <div class="who red">Viktor · Baseline</div>
+      <div class="impl">all-MiniLM-L6-v2<br>384-dim · general</div>
+      <div class="metric">Not biomedical — misses domain terms</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="pipe-cell ours">
+      <div class="who blue">Plan A · Ours</div>
+      <div class="impl">S-PubMedBERT-MS-MARCO<br>768-dim · biomedical</div>
+      <div class="metric">Trained on PubMed, <span class="m-good">domain-aware</span></div>
+    </div>
+    <div class="delta qual">Domain<br>precision ↑</div>
+  </div>
+
+  <!-- ── RETRIEVAL ── -->
+  <div class="pipe-grid">
+    <div class="pipe-step-label">③ Retrieval</div>
+    <div class="pipe-cell baseline">
+      <div class="who red">FAISS-only · Baseline</div>
+      <div class="impl">Dense vectors only<br>IndexFlatIP</div>
+      <div class="metric">MRR@15 <span class="m-mid">~74%</span> of hybrid (Suite B)</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="pipe-cell ours">
+      <div class="who blue">Plan A · Ours</div>
+      <div class="impl">BM25 + FAISS Hybrid<br>RRF fusion · 46,853 chunks</div>
+      <div class="metric">MRR@15 <span class="m-good">best of 3 strategies ↑</span></div>
+    </div>
+    <div class="delta pos">+~20%<br>MRR@15</div>
+  </div>
+
+  <!-- ── LLM ── -->
+  <div class="pipe-grid">
+    <div class="pipe-step-label">④ LLM</div>
+    <div class="pipe-cell baseline">
+      <div class="who red">Markus · Supervised</div>
+      <div class="impl">flan-t5-large<br>Fine-tuned on PubMedQA</div>
+      <div class="metric">Accuracy <span class="m-good">82.6%</span> — task-specific training</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="pipe-cell ours">
+      <div class="who blue">Plan A · Ours</div>
+      <div class="impl">llama-3.1-8B · zero-shot<br>(70B projected)</div>
+      <div class="metric">68.1% gold ctx · <span class="m-mid">−14.5pp</span> vs supervised</div>
+    </div>
+    <div class="delta mid">Zero-shot<br>no training</div>
+  </div>
+
+  <!-- ── CUMULATIVE RESULT ── -->
+  <div class="cumulative">
+    <div class="cum-label">End-to-end<br>PubMedQA<br>Accuracy</div>
+    <div class="cum-bars">
+
+      <div class="cum-row">
+        <div class="cum-name">Viktor (context bug)</div>
+        <div class="cum-track"><div class="cum-fill v">~0%</div></div>
+        <div class="cum-val v">~0%</div>
+      </div>
+
+      <div class="cum-row">
+        <div class="cum-name"><strong>Plan A · RAG retrieval</strong></div>
+        <div class="cum-track"><div class="cum-fill r">33%</div></div>
+        <div class="cum-val r">33%</div>
+      </div>
+
+      <div class="cum-row">
+        <div class="cum-name"><strong>Plan A · Gold context</strong></div>
+        <div class="cum-track"><div class="cum-fill g">68%</div></div>
+        <div class="cum-val g">68%</div>
+      </div>
+
+      <div class="cum-row">
+        <div class="cum-name">Plan A · 70B + better retrieval</div>
+        <div class="cum-track"><div class="cum-fill p">~78% projected</div></div>
+        <div class="cum-val p">~78%</div>
+      </div>
+
+      <div class="cum-row">
+        <div class="cum-name">Markus · flan-t5 supervised</div>
+        <div class="cum-track"><div class="cum-fill m">83%</div></div>
+        <div class="cum-val m">83%</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="source-note">
+    Retrieval ablation: 05_evaluation.py Suite B (MRR@15, P@5, NDCG@15) &nbsp;·&nbsp;
+    PubMedQA accuracy: eval.py (RAG) + eval_gold.py (gold context) on golden-69 &nbsp;·&nbsp;
+    Markus: evaluation.ipynb · flan-t5-large supervised
+  </div>
+
+</section>
+<!-- ═══════════════════════════════════════════════════════════════════
+     END OF SECTION BLOCK
+     ═══════════════════════════════════════════════════════════════════ -->
+
+</div>
+</body>
+</html>

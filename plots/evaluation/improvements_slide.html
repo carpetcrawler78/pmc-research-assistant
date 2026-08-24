@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Evaluation — PMC Research Assistant</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .slide {
+    width: 980px;
+    background: #161b22;
+    border-radius: 16px;
+    padding: 44px 52px;
+    border: 1px solid #30363d;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #58a6ff;
+    border: 1px solid #1f6feb;
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 14px;
+  }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #f0f6fc;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 28px;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #484f58;
+    margin-bottom: 10px;
+  }
+
+  /* ── Phase comparison ── */
+  .phases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .phase-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .phase-card.harder {
+    border-color: #388bfd;
+    background: rgba(31, 111, 235, 0.06);
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .phase-badge {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .phase-badge.p1 { background: rgba(139,148,158,.15); color: #8b949e; }
+  .phase-badge.p2 { background: rgba(56,139,253,.15);  color: #58a6ff; }
+
+  .phase-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f0f6fc;
+  }
+
+  .phase-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #8b949e;
+    margin-bottom: 5px;
+  }
+
+  .phase-row span:last-child {
+    color: #c9d1d9;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .phase-note {
+    font-size: 11px;
+    color: #484f58;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #21262d;
+    line-height: 1.5;
+  }
+
+  .harder-tag {
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(56,139,253,.15);
+    color: #79c0ff;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 6px;
+  }
+
+  /* ── Waterfall ── */
+  .waterfall {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    height: 170px;
+    margin-bottom: 28px;
+  }
+
+  .wf-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+  }
+
+  .wf-bar-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 140px;
+  }
+
+  .wf-bar {
+    width: 64px;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .wf-bar.rag    { background: linear-gradient(180deg,#c44e52,#8b1a1d); height: 56px; }
+  .wf-bar.gold   { background: linear-gradient(180deg,#e89a3c,#9e6010); height: 114px; }
+  .wf-bar.ref    { background: linear-gradient(180deg,#3fb950,#2ea043); height: 138px; }
+  .wf-bar.custom { background: linear-gradient(180deg,#58a6ff,#1f6feb); height: 100px; }
+
+  .wf-delta {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+  .delta-up   { background: rgba(63,185,80,.15);   color: #3fb950; }
+  .delta-blue { background: rgba(88,166,255,.15);  color: #79c0ff; }
+
+  .wf-label {
+    font-size: 11px;
+    color: #8b949e;
+    text-align: center;
+    margin-top: 7px;
+    line-height: 1.4;
+  }
+  .wf-label strong { color: #c9d1d9; font-size: 12px; display: block; margin-bottom: 2px; }
+
+  .wf-connector {
+    flex: 0 0 2px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+  }
+  .wf-connector div { width: 100%; height: 1px; border-top: 2px dashed #30363d; }
+
+  /* ── Bottom row ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 0;
+  }
+
+  .card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f0f6fc;
+    margin-bottom: 10px;
+  }
+
+  /* Retrieval bars */
+  .abl-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    gap: 10px;
+  }
+  .abl-label {
+    width: 100px;
+    font-size: 11px;
+    color: #8b949e;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .abl-label strong { color: #c9d1d9; }
+  .abl-bar-wrap { flex: 1; background: #161b22; border-radius: 4px; height: 13px; overflow: hidden; }
+  .abl-bar { height: 100%; border-radius: 4px; font-size: 10px; font-weight: 700; color: white;
+             display: flex; align-items: center; padding-left: 6px; }
+  .abl-bar.hybrid { background: #58a6ff; width: 88%; }
+  .abl-bar.faiss  { background: #8957e5; width: 74%; }
+  .abl-bar.bm25   { background: #bc8cff; width: 62%; }
+
+  /* Next steps */
+  .next-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 9px;
+  }
+  .next-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .next-text strong {
+    font-size: 12px;
+    color: #c9d1d9;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .next-text span {
+    font-size: 11px;
+    color: #8b949e;
+    line-height: 1.4;
+  }
+
+  /* ── Source note ── */
+  .source-note {
+    font-size: 10px;
+    color: #484f58;
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #21262d;
+    padding-top: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="tag">Evaluation</div>
+  <h2>How Good Is the System — and What Could Come Next?</h2>
+  <p class="subtitle">Two evaluation phases — the second one is deliberately harder</p>
+
+  <!-- Phase I vs Phase II -->
+  <div class="section-label">Evaluation approach</div>
+  <div class="phases">
+
+    <div class="phase-card">
+      <div class="phase-header">
+        <span class="phase-badge p1">Phase I</span>
+        <span class="phase-title">Standard Benchmark</span>
+      </div>
+      <div class="phase-row"><span>Dataset</span><span>PubMedQA (69 questions)</span></div>
+      <div class="phase-row"><span>Question type</span><span>Yes / No / Maybe</span></div>
+      <div class="phase-row"><span>Paper given?</span><span>Yes — gold context</span></div>
+      <div class="phase-row"><span>Scoring</span><span>Automatic (exact match)</span></div>
+      <div class="phase-note">Standard ML setup — controlled, reproducible, but not realistic clinical use.</div>
+    </div>
+
+    <div class="phase-card harder">
+      <div class="phase-header">
+        <span class="phase-badge p2">Phase II</span>
+        <span class="phase-title">Custom Clinical Eval <span class="harder-tag">harder</span></span>
+      </div>
+      <div class="phase-row"><span>Questions</span><span>8 open-ended clinical queries</span></div>
+      <div class="phase-row"><span>Question type</span><span>Free text — no single answer</span></div>
+      <div class="phase-row"><span>Paper given?</span><span>No — system retrieves itself</span></div>
+      <div class="phase-row"><span>Raters</span><span>Auto1 (ChatGPT) + Auto2 (Claude)</span></div>
+      <div class="phase-note">Two independent generative AI raters score each answer 1–5. Averaged for final score. No gold labels exist.</div>
+    </div>
+
+  </div>
+
+  <!-- Waterfall -->
+  <div class="section-label">Phase I accuracy — where the gap is</div>
+  <div class="waterfall">
+
+    <div class="wf-block">
+      <div class="wf-bar-wrap">
+        <div class="wf-bar rag">33%</div>
+      </div>
+      <div class="wf-label"><strong>Our RAG</strong>Hybrid + 8B<br>end-to-end</div>
+    </div>
+
+    <div class="wf-connector"><div></div></div>
+
+    <div class="wf-block">
+      <div class="wf-bar-wrap">
+        <div class="wf-bar gold" style="position:relative">
+          <span class="wf-delta delta-up">+35% retrieval fix</span>
+          68%
+        </div>
+      </div>
+      <div class="wf-label"><strong>Gold Context</strong>Same model,<br>correct paper given</div>
+    </div>
+
+    <div class="wf-connector"><div></div></div>
+
+    <div class="wf-block">
+      <div class="wf-bar-wrap">
+        <div class="wf-bar ref">83%</div>
+      </div>
+      <div class="wf-label"><strong>Reference Model</strong>Fine-tuned on task<br>(literature baseline)</div>
+    </div>
+
+    <div class="wf-connector"><div></div></div>
+
+    <div class="wf-block">
+      <div class="wf-bar-wrap">
+        <div class="wf-bar custom" style="position:relative">
+          <span class="wf-delta delta-blue">Phase II</span>
+          3.6/5
+        </div>
+      </div>
+      <div class="wf-label"><strong>Phase II Best</strong>V2 Hybrid + 8B<br>AI-rated score</div>
+    </div>
+
+  </div>
+
+  <!-- Bottom row: retrieval + next steps -->
+  <div class="bottom-row">
+
+    <div class="card">
+      <h4>Retrieval — three strategies tested</h4>
+      <div class="abl-row">
+        <div class="abl-label"><strong>Hybrid</strong></div>
+        <div class="abl-bar-wrap"><div class="abl-bar hybrid">Best</div></div>
+      </div>
+      <div class="abl-row">
+        <div class="abl-label">Semantic only</div>
+        <div class="abl-bar-wrap"><div class="abl-bar faiss"></div></div>
+      </div>
+      <div class="abl-row">
+        <div class="abl-label">Keyword only</div>
+        <div class="abl-bar-wrap"><div class="abl-bar bm25"></div></div>
+      </div>
+      <p style="font-size:11px;color:#484f58;margin-top:8px">
+        Combining semantic search + keyword search outperforms either alone.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>What could come next</h4>
+      <div class="next-item">
+        <div class="next-icon">📋</div>
+        <div class="next-text">
+          <strong>Better evaluation</strong>
+          <span>Expert panel, 50+ questions, human doctors as raters instead of AI</span>
+        </div>
+      </div>
+      <div class="next-item">
+        <div class="next-icon">🧠</div>
+        <div class="next-text">
+          <strong>Larger model</strong>
+          <span>70B instead of 8B — already tested, gains measurable in Phase II</span>
+        </div>
+      </div>
+      <div class="next-item">
+        <div class="next-icon">🏥</div>
+        <div class="next-text">
+          <strong>More services</strong>
+          <span>Drug interactions, clinical trial lookup, multi-turn conversation</span>
+        </div>
+      </div>
+      <div class="next-item">
+        <div class="next-icon">📚</div>
+        <div class="next-text">
+          <strong>Bigger corpus</strong>
+          <span>Full PMC Open Access (~4M articles) instead of current 44k</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="source-note">
+    Phase I: PubMedQA golden-69 (YES=38, NO=24, MAYBE=7) &nbsp;·&nbsp;
+    Gold Context: same LLM, correct abstract provided &nbsp;·&nbsp;
+    Reference Model: fine-tuned on PubMedQA train split (literature benchmark) &nbsp;·&nbsp;
+    Phase II: 8 clinical questions · Auto1 = ChatGPT · Auto2 = Claude · scale 1–5
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG The Research — PMC Research Assistant</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css" id="theme">
+<style>
+  /* ── Global Reset ── */
+  .reveal { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { padding: 0; box-sizing: border-box; }
+
+  /* ── Two master themes ── */
+  .slide-dark {
+    background: #0B1D33 !important;
+    color: #fff;
+  }
+  .slide-light {
+    background: #F5F0EA !important;
+    color: #1a1a1a;
+  }
+  .slide-demo {
+    background: #0F2027 !important;
+    color: #e0e0e0;
+  }
+
+  /* ── Typography ── */
+  .section-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.7em;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #1a9988;
+    margin-bottom: 0.2em;
+    font-weight: 600;
+  }
+  .slide-dark .section-label { color: #6ec6b8; }
+
+  .slide-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.0em;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 0.4em 0;
+  }
+  .slide-dark .slide-title { color: #fff; }
+  .slide-light .slide-title { color: #0B1D33; }
+
+  .slide-subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 1.1em;
+    color: #1a9988;
+    margin: 0;
+  }
+
+  /* ── Content card (white box on cream background) ── */
+  .content-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.2em 1.6em;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .content-card ul { margin: 0; padding-left: 1.2em; }
+  .content-card li {
+    font-size: 0.78em;
+    line-height: 1.65;
+    margin-bottom: 0.3em;
+  }
+  .content-card li li { font-size: 0.95em; }
+
+  /* ── Image slide (full slide as background image) ── */
+  .img-slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .img-slide img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* ── Padded content area ── */
+  .padded {
+    padding: 2.5em 3.5em;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Two-column layout ── */
+  .two-col {
+    display: flex;
+    gap: 2em;
+    flex: 1;
+    align-items: flex-start;
+  }
+  .two-col > .col { flex: 1; }
+  .two-col > .col-img { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .two-col > .col-img img { max-width: 100%; max-height: 80%; border-radius: 6px; }
+
+  /* ── Three-column layout ── */
+  .three-col {
+    display: flex;
+    gap: 1.5em;
+    flex: 1;
+    align-items: stretch;
+  }
+  .three-col > .col-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.4em 1.4em;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+  .three-col .card-num {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #b0a890;
+    margin-bottom: 0.1em;
+  }
+  .three-col .card-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.0em;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5em;
+  }
+  .three-col .card-body {
+    font-size: 0.72em;
+    line-height: 1.55;
+    color: #555;
+  }
+
+  /* ── Name pill ── */
+  .name-pill {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 0.25em 1em;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7em;
+    color: rgba(255,255,255,0.8);
+    margin: 0 0.3em;
+  }
+  .name-pills {
+    position: absolute;
+    bottom: 2.5em;
+    right: 3.5em;
+  }
+
+  /* ── Speaker notes styling ── */
+  .reveal aside.notes { font-size: 0.8em; }
+
+  /* ── Comparison table ── */
+  .eval-table {
+    display: flex;
+    gap: 1.5em;
+    flex: 1;
+    align-items: stretch;
+  }
+  .eval-box {
+    flex: 1;
+    border-radius: 8px;
+    padding: 1.2em 1.4em;
+    font-size: 0.7em;
+  }
+  .eval-box.standard {
+    background: #e8dcc8;
+    border-top: 4px solid #b0a080;
+  }
+  .eval-box.realistic {
+    background: #fdf5ee;
+    border-top: 4px solid #c87533;
+  }
+  .eval-box h3 {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75em;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a9988;
+    margin: 0 0 0.3em 0;
+  }
+  .eval-box h4 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.4em;
+    margin: 0 0 0.8em 0;
+    color: #1a1a1a;
+  }
+  .eval-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4em 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .eval-row .label { color: #777; }
+  .eval-row .value { font-weight: 700; color: #1a1a1a; }
+  .eval-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    font-size: 0.75em;
+    color: #888;
+    min-width: 3em;
+  }
+
+  /* ── Demo slides ── */
+  .demo-badge {
+    display: inline-block;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 20px;
+    padding: 0.3em 1.2em;
+    font-family: 'Courier New', monospace;
+    font-size: 0.65em;
+    letter-spacing: 0.15em;
+    position: absolute;
+    top: 2em;
+    right: 3em;
+  }
+  .demo-badge::before { content: '● '; color: #fff; }
+  .demo-input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 0.8em 1.2em;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    font-size: 0.8em;
+    flex: 1;
+  }
+  .demo-btn {
+    background: #1a9988;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.8em 2em;
+    font-size: 0.8em;
+    font-weight: 600;
+    cursor: default;
+    white-space: nowrap;
+  }
+  .demo-answer-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 1.5em;
+    flex: 1;
+    font-size: 0.75em;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ── Funnel ── */
+  .funnel-container { display: flex; align-items: center; gap: 1em; }
+  .funnel-labels { font-size: 0.72em; line-height: 2.4; }
+
+  /* ── Results scoreboard ── */
+  .score-card {
+    border: 2px solid #d0d0d0;
+    border-radius: 10px;
+    padding: 0.8em 1.2em;
+    margin-bottom: 0.6em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78em;
+  }
+  .score-card.winner {
+    border-color: #1a9988;
+    background: rgba(26,153,136,0.05);
+  }
+  .score-card .score {
+    font-family: Georgia, serif;
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+  .winner-badge {
+    display: inline-block;
+    background: #1a9988;
+    color: #fff;
+    font-size: 0.6em;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    margin-top: 0.3em;
+  }
+
+  /* ── Bottom bar ── */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26,153,136,0.12);
+    padding: 0.7em 3.5em;
+    font-size: 0.65em;
+    font-style: italic;
+    color: #333;
+  }
+  .slide-dark .bottom-bar {
+    background: rgba(26,153,136,0.15);
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── Override Reveal defaults ── */
+  .reveal .slides section .fragment { opacity: 0; }
+  .reveal .slides section .fragment.visible { opacity: 1; }
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5 {
+    text-transform: none;
+    text-shadow: none;
+  }
+  .reveal .slide-number { display: none; }
+  .reveal .progress { height: 4px; color: #1a9988; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════ SLIDE 1: Title ═══════════ -->
+<section class="slide-dark">
+  <div class="padded">
+    <p class="section-label">NEUE FISCHE &middot; CAPSTONE I &middot; 2025/26</p>
+    <h1 class="slide-title" style="font-size:3.2em; margin-top:0.6em;">RAG The Research</h1>
+    <p class="slide-subtitle" style="font-size:1.4em; margin-left:2em;">With a knowledge-based AI Assistant</p>
+    <div class="name-pills">
+      <span class="name-pill">Thomas</span>
+      <span class="name-pill">Viktor</span>
+      <span class="name-pill">Markus</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 2: Brave New AI ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">BRAVE NEW AI</p>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <img src="images/image3.jpeg" alt="AI landscape" style="max-width:85%; max-height:78%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.12);">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 3: When you ask an LLM (step 1) ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">WHEN YOU ASK AN LLM</p>
+    <h2 class="slide-title" style="font-size:1.8em;">You get:</h2>
+    <div class="content-card" style="max-width:52%; margin-top:0.5em;">
+      <ul>
+        <li>Access to an immense amount of data</li>
+        <li>Reasoning capabilities</li>
+        <li>Context based answers</li>
+        <li>Summaries</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 4: When you ask an LLM (step 2 - with meme) ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">WHEN YOU ASK AN LLM</p>
+    <h2 class="slide-title" style="font-size:1.4em;">You get:</h2>
+    <div class="two-col" style="margin-top:0.5em;">
+      <div class="col">
+        <div class="content-card">
+          <ul>
+            <li>Access to an immense amount of data</li>
+            <li>Reasoning capabilities</li>
+            <li>Context based answers</li>
+            <li>Summaries</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <img src="images/image5.png" alt="Victory cat meme" style="max-width:75%; border-radius:6px;">
+        <p style="font-family:Georgia,serif; font-size:1.3em; font-weight:700; margin-top:0.4em; color:#0B1D33;">End of Story?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 5: Problem 1 - Reliability ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">PROBLEM 1</p>
+    <h2 class="slide-title">Reliability</h2>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <img src="images/image6.jpeg" alt="AI tug of war - Hallucination vs Explainability" style="max-width:65%; border-radius:6px; box-shadow:0 2px 16px rgba(0,0,0,0.08);">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 6: Why is reliability a problem? ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">WHY IS RELIABILITY A PROBLEM FOR AI?</p>
+    <h2 class="slide-title">No Traceability, No Reliability</h2>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <img src="images/image7.jpeg" alt="AI black box" style="max-width:40%; border-radius:6px; box-shadow:0 2px 16px rgba(0,0,0,0.08);">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 7: Problem 2 - Data Availability ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">PROBLEM 2</p>
+    <h2 class="slide-title">Data Availability / Security</h2>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <img src="images/image8.png" alt="Public vs Private" style="max-width:55%; border-radius:6px;">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 8: RAG intro ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">THE BEST OF ALL WORLDS</p>
+    <h2 class="slide-title">Retrieval Augmented Generation RAG</h2>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <img src="images/image9.png" alt="Document Retrieval → Text Generation" style="max-width:65%;">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 9: RAG with CLASSIFIED / OFFLINE ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">THE BEST OF ALL WORLDS</p>
+    <h2 class="slide-title">Retrieval Augmented Generation RAG</h2>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center; gap:1em;">
+      <img src="slides/slide-09.jpg" alt="RAG with classified data and offline LLM" style="max-width:90%; max-height:70%; object-fit:contain; border-radius:4px;">
+    </div>
+  </div>
+  <aside class="notes">This slide shows the RAG concept with classified/sensitive data and an offline LLM.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 10: Our Goal ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">OUR GOAL</p>
+    <h2 class="slide-title" style="font-size:1.6em;"><em>Building a Locally Running RAG from Scratch</em></h2>
+    <div style="display:flex; justify-content:center; margin-top:1em;">
+      <div class="content-card" style="max-width:60%;">
+        <p style="font-weight:700; font-size:0.85em; margin:0 0 0.5em 0;">Proof of concept for many business applications</p>
+        <ul>
+          <li>Make sensitive data reliably accessible</li>
+          <li>Harness the capabilities of LLMs
+            <ul>
+              <li>Semantic searching</li>
+              <li>Conclusion Drawing</li>
+              <li>Inconsistency detection</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 11: PubMed (without Q&A) ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">OUR USE CASE</p>
+    <h2 class="slide-title" style="font-size:1.4em;"><em>The PubMed Scientific Database</em></h2>
+    <div class="two-col" style="margin-top:0.8em;">
+      <div class="col">
+        <div class="content-card">
+          <ul>
+            <li>National Library of Medicine (NIH), USA</li>
+            <li>Over 40 million citations and abstracts (since 1966)</li>
+            <li>10.9 million open access papers</li>
+            <li>Clinical studies, medicine, life sciences</li>
+            <li>Well curated</li>
+            <li>Available in XML</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-img">
+        <img src="images/image10.png" alt="PubMed Logo" style="max-width:80%;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 12: PubMed + Q&A Dataset ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">OUR USE CASE</p>
+    <h2 class="slide-title" style="font-size:1.4em;"><em>The PubMed Scientific Database</em></h2>
+    <div class="two-col" style="margin-top:0.5em;">
+      <div class="col">
+        <div class="content-card">
+          <ul>
+            <li>National Library of Medicine (NIH), USA</li>
+            <li>Over 40 million citations and abstracts (since 1966)</li>
+            <li>10.9 million open access papers</li>
+            <li>Clinical studies, medicine, life sciences</li>
+            <li>Well curated</li>
+            <li>Available in XML</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col" style="display:flex; flex-direction:column; gap:1em;">
+        <img src="images/image10.png" alt="PubMed Logo" style="max-width:70%;">
+        <div class="content-card">
+          <p style="font-family:Georgia,serif; font-weight:700; font-size:0.85em; margin:0 0 0.4em 0;">The PubMed Q&amp;A Dataset</p>
+          <ul>
+            <li>1000 Questions and Answers</li>
+            <li>Yes/No + Fulltext</li>
+            <li>Only 69 in Open Access</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 13: Our Data - Funnel ═══════════ -->
+<section class="slide-light">
+  <div class="img-slide">
+    <img src="slides/slide-13.jpg" alt="Data funnel: 40M → 10M → 2.3M → 10K papers">
+  </div>
+  <aside class="notes">Data reduction funnel: from 40 million PubMed papers down to our 10K dataset including 69 golden papers.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 14: Scientific Paper - Structure of Knowledge ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">SCIENTIFIC PAPER</p>
+    <h2 class="slide-title">The Structure of Knowledge</h2>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <img src="images/image12.png" alt="Scientific paper example" style="max-width:60%; border-radius:4px; box-shadow:0 2px 12px rgba(0,0,0,0.1);">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 15: Structure of Data (tables) ═══════════ -->
+<section class="slide-light">
+  <div class="img-slide">
+    <img src="slides/slide-15.jpg" alt="Data structure tables showing paper metadata">
+  </div>
+  <aside class="notes">Shows the structure of the data: metadata fields (filename, pmcid, doi, journal, year, authors, title, keywords) and content fields (abstract, introduction, methods, results, discussion, conclusion, tables, metadata, junk).</aside>
+</section>
+
+<!-- ═══════════ SLIDE 16: Section Divider - Pipeline (Viktor) ═══════════ -->
+<section class="slide-dark">
+  <div class="padded" style="justify-content:center; align-items:center; text-align:center;">
+    <h1 class="slide-title" style="font-size:2.2em;">From  A</h1>
+    <h1 class="slide-title" style="font-size:2.2em; margin-top:-0.2em;">Clinical Question</h1>
+    <h1 class="slide-title" style="font-size:2.2em; margin-top:-0.2em;">To an Reliable Answer</h1>
+    <p class="slide-subtitle" style="font-size:1.3em; margin-top:0.3em;">- The Pipeline -</p>
+    <div style="margin-top:2em;">
+      <span class="name-pill">Viktor</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 17: Pipeline Diagram ═══════════ -->
+<section class="slide-light">
+  <div class="img-slide">
+    <img src="slides/slide-17.jpg" alt="Pipeline: Query → Keyword Search + Semantic Search → Fusion → Top-K Articles → LLM Answer">
+  </div>
+  <aside class="notes">The pipeline: Index built once offline (10,000 articles, 46,853 chunks). Query goes through keyword search (BM25) and semantic search in parallel, fused via RRF, top-K articles selected as context, then LLM generates cited answer.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 18: Iterative Evaluation ═══════════ -->
+<section class="slide-light">
+  <div class="img-slide">
+    <img src="slides/slide-18.jpg" alt="Three iterations: First Prototype → Semantic Search → Full Pipeline">
+  </div>
+  <aside class="notes">
+    Iteration 1 (First Prototype): BM25 only + flan-t5-small. No paper retrieved, LLM answered from general training only.
+    Iteration 2 (Semantic Search): BM25 + FAISS (MiniLM) → RRF → Llama 8B. A paper retrieved but not very specific.
+    Iteration 3 (Full Pipeline): BM25 + PubMedBERT + FAISS → RRF → Llama 70B. Relevant papers retrieved, specific, grounded, citable.
+  </aside>
+</section>
+
+<!-- ═══════════ SLIDE 19: Section Divider - Evaluation (Thomas) ═══════════ -->
+<section class="slide-dark">
+  <div class="padded" style="justify-content:center; align-items:center; text-align:center;">
+    <h1 class="slide-title" style="font-size:2.4em;">Evaluation, Demo, and Outlook</h1>
+    <div style="margin-top:2em;">
+      <span class="name-pill">Thomas</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 20: Evaluation - Two approaches ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">EVALUATION</p>
+    <h2 class="slide-title" style="font-size:1.4em;">How we measured what "a good model" means</h2>
+    <div class="eval-table" style="margin-top:0.8em;">
+      <div class="eval-box standard">
+        <h3>STANDARD EVALUATION METRICS</h3>
+        <h4>PubMedQA Benchmark</h4>
+        <div class="eval-row"><span class="label">Format</span><span class="value">Yes / No / Maybe</span></div>
+        <div class="eval-row"><span class="label">Answers</span><span class="value">one word</span></div>
+        <div class="eval-row"><span class="label">Scoring</span><span class="value">automatic</span></div>
+        <div class="eval-row"><span class="label">Questions</span><span class="value">1,000 (standard)</span></div>
+        <div class="eval-row"><span class="label">Difficulty</span><span class="value">low</span></div>
+      </div>
+      <div class="eval-arrow">then →</div>
+      <div class="eval-box realistic">
+        <h3>REALISTIC APPROACH FOR Q&amp;A</h3>
+        <h4>8 Clinical Questions</h4>
+        <div class="eval-row"><span class="label">Format</span><span class="value">free-text answer</span></div>
+        <div class="eval-row"><span class="label">Answers</span><span class="value">full paragraph</span></div>
+        <div class="eval-row"><span class="label">Scoring</span><span class="value">Combined scoring of 2 LLM raters (1–5)</span></div>
+        <div class="eval-row"><span class="label">Questions</span><span class="value">8 (custom)</span></div>
+        <div class="eval-row"><span class="label">Difficulty</span><span class="value">high</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">We used two evaluation approaches. First: PubMedQA benchmark with 1000 yes/no/maybe questions, automatic scoring. Second: 8 custom clinical questions with free-text answers, scored by two independent AI judges (ChatGPT and Claude) on a 1-5 scale.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 21: Corpus Coverage (complex visual) ═══════════ -->
+<section class="slide-light">
+  <div class="img-slide">
+    <img src="slides/slide-21.jpg" alt="Corpus coverage zones: Well Covered, Partial Match, Sparse Match, Outside Corpus">
+  </div>
+  <aside class="notes">Shows how well our dataset covers the test questions. Blue-grey bubbles are research topic clusters (COVID-19 20%, Oncology 21%, Epidemiology 20%, Dementia 10%, ICU 5%, Surgery 3%). Green dots show coverage zones: Well Covered (3 questions), Partial Match (1 question), Sparse Match (2 questions), Outside Corpus (2 questions). Questions outside the corpus are harder to answer well for every model.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 22: Results - Better retrieval beats bigger model ═══════════ -->
+<section class="slide-light">
+  <div class="img-slide">
+    <img src="slides/slide-22.jpg" alt="Results: I2 Hybrid wins with 3.6/5, I1 Baseline 3.1/5, I3 Big Model 3.2/5">
+  </div>
+  <aside class="notes">Results: I2 (Hybrid search + 8B model) wins with 3.6/5. I1 (Baseline) scores 3.1/5. I3 (Big 70B model) only 3.2/5, barely better than baseline. I3 is superior only in well-covered zones; in sparse or outside-corpus zones it drops below baseline. What matters most: whether your corpus contains the answer, not which model you use.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 23: Demo - Empty ═══════════ -->
+<section class="slide-demo">
+  <div class="padded" style="position:relative;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <p class="section-label" style="color:#1a9988;">DEMO &middot; PMC RESEARCH ASSISTANT</p>
+      <div class="demo-badge">DEMO</div>
+    </div>
+    <p style="font-style:italic; color:rgba(255,255,255,0.5); font-size:0.8em; margin:0.5em 0 1.5em 0;">Demo mimics a live run</p>
+    <div style="display:flex; gap:1em; margin-bottom:1em;">
+      <div class="demo-input">Your query</div>
+      <div class="demo-btn">→ Ask</div>
+    </div>
+    <div class="demo-answer-box">
+      <p style="font-style:italic; color:rgba(255,255,255,0.35);">The answer...</p>
+    </div>
+  </div>
+  <aside class="notes">This is a small demo how we think a potential app could look like.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 24: Demo - With query ═══════════ -->
+<section class="slide-demo">
+  <div class="padded" style="position:relative;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <p class="section-label" style="color:#1a9988;">DEMO &middot; PMC RESEARCH ASSISTANT</p>
+      <div class="demo-badge">DEMO</div>
+    </div>
+    <p style="font-style:italic; color:rgba(255,255,255,0.5); font-size:0.8em; margin:0.5em 0 1.5em 0;">Demo mimics a live run</p>
+    <div style="display:flex; gap:1em; margin-bottom:1em;">
+      <div class="demo-input" style="color:rgba(255,255,255,0.9); font-style:normal;">Why do some patients with non-small cell lung cancer stop responding to checkpoint inhibitors?</div>
+      <div class="demo-btn">→ Ask</div>
+    </div>
+    <div class="demo-answer-box">
+    </div>
+  </div>
+  <aside class="notes">The user enters a medical query and clicks Ask.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 25: Demo - With answer ═══════════ -->
+<section class="slide-demo">
+  <div class="padded" style="position:relative;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <p class="section-label" style="color:#1a9988;">DEMO &middot; PMC RESEARCH ASSISTANT</p>
+      <div class="demo-badge">DEMO</div>
+    </div>
+    <p style="font-style:italic; color:rgba(255,255,255,0.5); font-size:0.8em; margin:0.5em 0 1.5em 0;">Demo mimics a live run</p>
+    <div style="display:flex; gap:1em; margin-bottom:1em;">
+      <div class="demo-input" style="color:rgba(255,255,255,0.9); font-style:normal; font-size:0.7em;">Why do some patients with non-small cell lung cancer stop responding to checkpoint inhibitors?</div>
+      <div class="demo-btn">→ Ask</div>
+    </div>
+    <div class="demo-answer-box" style="color:rgba(255,255,255,0.85);">
+      <p style="margin:0 0 0.8em 0;">Some patients with non-small cell lung cancer stop responding to checkpoint inhibitors due to the heterogeneity of tumor biology. Tumors with high PD-L1 expression are more likely to respond, but the presence of other mutations — such as EGFR, ALK, or ROS1 — can affect treatment efficacy. A second factor is the development of immune-related adverse events: a PD-L1 tumor proportion score of 1% or higher is associated with a higher risk of side effects, which can force treatment discontinuation. The exact mechanisms behind resistance are not yet fully understood, and further research into the tumor microenvironment is ongoing.</p>
+      <p style="margin:0; color:#1a9988; font-size:0.9em;">Sources: PMC9641362 · PMC12273668 · PMC12170212 · PMC8880835</p>
+    </div>
+  </div>
+  <aside class="notes">The answer shows up with intelligent content fitting to the scope of the query, plus PubMed IDs for reference articles. In future, there might be links to the actual PDFs.</aside>
+</section>
+
+<!-- ═══════════ SLIDE 26: Outlook ═══════════ -->
+<section class="slide-light">
+  <div class="padded">
+    <p class="section-label">WHAT'S NEXT</p>
+    <h2 class="slide-title" style="font-size:1.6em;">Outlook</h2>
+    <div class="three-col" style="margin-top:1em;">
+      <div class="col-card">
+        <div class="card-num">01</div>
+        <div class="card-title">Expand corpus coverage</div>
+        <div class="card-body">Adding articles might directly improve answer quality</div>
+      </div>
+      <div class="col-card">
+        <div class="card-num">02</div>
+        <div class="card-title">Human expert evaluation</div>
+        <div class="card-body">The real test is whether domain experts agree — and whether the system's answers would actually influence clinical decisions.</div>
+      </div>
+      <div class="col-card">
+        <div class="card-num">03</div>
+        <div class="card-title">Possible services</div>
+        <div class="card-body">Potential applications include clinical decision support, literature review assistance, and research Q&amp;A tooling.</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">First: expanding corpus coverage for underrepresented topics. Second: human expert evaluation — the real question is whether answers would influence clinical decisions. Third: future services including clinical decision support, literature reviews, and research Q&A tooling.</aside>
+</section>
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  width: 1440,
+  height: 810,
+  margin: 0,
+  hash: true,
+  history: true,
+  controls: true,
+  controlsLayout: 'bottom-right',
+  progress: true,
+  center: false,
+  transition: 'slide',
+  transitionSpeed: 'default',
+  backgroundTransition: 'fade',
+  showNotes: false,    // Press 'S' for speaker view
+  keyboard: true,
+  overview: true,
+  help: true
+});
+</script>
+</body>
+</html>
