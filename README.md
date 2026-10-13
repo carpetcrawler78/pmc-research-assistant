@@ -28,11 +28,21 @@ The articles come from the PMC Open Access subset. According to PMC, licence ter
 per article, and users are responsible for following the licence stated in each article.
 The `oa_noncomm` group contains articles whose licences do not allow commercial use.
 
-[`data/pmc_training_data_cleaned.csv`](data/pmc_training_data_cleaned.csv) contains
-extracted text (title, abstract and body sections) of 1,000 articles from this group.
-The file contains the PMCID and DOI of each article, but not its individual licence
-statement. The original licence of each article applies; it can be looked up on
-https://pmc.ncbi.nlm.nih.gov/ via the PMCID.
+Because of these per-article licences, the extracted article texts are **not included**
+in this repository. To create the data set yourself:
+
+1. Download the archives listed in [`data/urls.txt`](data/urls.txt) into `big_data/`.
+2. In [`python/01_data_extraction.py`](python/01_data_extraction.py) set `RUN_TYPE`
+   (`"baseline"` or `"incr"`), `TESTRUN = False` and `SAVE_PICKLE = True`
+   (optionally `SAVE_CSV = True`), then run `python python/01_data_extraction.py`.
+   Output: `big_data/baseline/pickle/raw_articles.pkl`.
+3. Run [`notebooks/02_cleaning_eda.ipynb`](notebooks/02_cleaning_eda.ipynb).
+   Output: `big_data/baseline/pickle/clean_articles.pkl`.
+
+All later steps (`python/02_*` to `python/05_*`, the notebooks `03`–`05`,
+[`colab_pipeline.ipynb`](colab_pipeline.ipynb)) read these pickles or files built from
+them under `big_data/`. No script or notebook in this repository reads a CSV copy of the
+article texts.
 
 ## What was built
 
@@ -112,7 +122,7 @@ FAISS vectors were not recomputed at that point.
 | `python/` | Pipeline scripts (`01`–`05`), evaluation variants, `config.py`, `lib/` (chunker, embedder, indexer, retriever, plotter) |
 | `notebooks/` | Extraction, cleaning/EDA, keyword baseline, clustering, FAISS index; `RAG_Models/` and `Evaluation/` for the PubMedQA experiments |
 | `evaluation/` | Evaluation results (JSON), answers for review, evaluation scripts |
-| `data/` | Article sample, XML structure statistics, extraction log, download URLs |
+| `data/` | XML structure statistics, extraction log, download URLs |
 | `plots/` | EDA and evaluation plots |
 | `docs/`, `presentations/` | Pipeline diagrams and presentation material |
 | `tools/` | XML structure analysis, sample extraction |
