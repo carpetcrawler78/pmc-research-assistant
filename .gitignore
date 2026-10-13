@@ -233,7 +233,6 @@ models/
 
 # Archive and local-only folders
 alt/
-archive/
 .claude/
 
 # JS dependencies (capstone-pres)
