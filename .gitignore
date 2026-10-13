@@ -246,3 +246,17 @@ png.zip
 dir.dat
 dir.txt
 *.dat
+
+# Local AI assistant / agent files (not published)
+CLAUDE.md
+AGENTS.md
+.claude/
+.cursor/
+**/CC_PROMPT_*.md
+*settings.local.json
+.agents/
+.lovable/
+
+# Removed from the repository, kept locally
+/files.txt
+data/pmc_training_data_cleaned.csv
